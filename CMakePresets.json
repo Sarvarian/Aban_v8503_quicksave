@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "vendor": "tobadi.com/aban",
+  "configurePresets": [
+  {
+    "name": "linux",
+    "displayName": "GNU/Linux",
+    "description": "Build for GNU/Linux"
+  },
+  {
+    "name": "win",
+    "displayName": "Win32",
+    "description": "Build for Windows"
+  }
+  ]
+}
