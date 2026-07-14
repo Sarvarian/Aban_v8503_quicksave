@@ -5,3 +5,4 @@
 - libconfig
 - gc
 - sdl2
+- sdl3
