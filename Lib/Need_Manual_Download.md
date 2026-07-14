@@ -3,4 +3,4 @@
 
 - luajit
 - libconfig
-
+- gc

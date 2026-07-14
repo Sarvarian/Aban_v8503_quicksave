@@ -7,3 +7,7 @@
 !/libconfig/VERSION
 !/libconfig/LibConfig_Files_Should_Exist_Here
 
+/gc/*
+!/gc/VERSION
+!/gc/Boehm-Demers-Weiser_GC_Files_Should_Exist_Here
+
