@@ -1,3 +1,9 @@
+
 /luajit/*
 !/luajit/VERSION
 !/luajit/LuaJIT_Files_Should_Exist_Here
+
+/libconfig/*
+!/libconfig/VERSION
+!/libconfig/LibConfig_Files_Should_Exist_Here
+
