@@ -4,3 +4,4 @@
 - luajit
 - libconfig
 - gc
+- sdl2

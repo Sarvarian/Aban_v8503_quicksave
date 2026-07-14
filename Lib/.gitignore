@@ -11,3 +11,7 @@
 !/gc/VERSION
 !/gc/Boehm-Demers-Weiser_GC_Files_Should_Exist_Here
 
+/sdl2/*
+!/sdl2/VERSION
+!/sdl2/SDL2_Files_Should_Exist_Here
+
