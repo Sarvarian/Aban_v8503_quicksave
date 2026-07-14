@@ -1,6 +1,5 @@
 {
   "version": 3,
-  "vendor": "tobadi.com/aban",
   "configurePresets": [
   {
     "name": "linux",
