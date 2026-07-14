@@ -12,6 +12,7 @@ Retro Edition:
 - OpenGL 2.0
 - IA-32
 - WASM32
+- Single Threaded
 
 
 Advanced Edition:
@@ -23,5 +24,6 @@ Advanced Edition:
 - Vulkan 1.0
 - x86-64-v3
 - ARMv8-A
+- Heterogeneous Computing
 
 
