@@ -1,15 +1,98 @@
 {
-  "version": 3,
+  "version": 10,
   "configurePresets": [
   {
-    "name": "linux",
-    "displayName": "GNU/Linux",
-    "description": "Build for GNU/Linux"
+    "name": "dev-retro",
+    "displayName": "Dev Retro",
+    "description": "Development Retro on GNU/Linux",
+    "cacheVariables": {
+      "AB_OS": "linux",
+      "AB_PROFILE": "retro",
+      "AB_OPTIMIZE": "OFF",
+      "AB_SANITIZE": "OFF",
+      "AB_DEBUG": "ON",
+      "CMAKE_BUILD_TYPE": "DEBUG"
+    }
+  },
+    {
+      "name": "dev-retro-san",
+      "displayName": "Dev Retro Sanitize",
+      "description": "Development Retro on GNU/Linux",
+      "cacheVariables": {
+        "AB_OS": "linux",
+        "AB_PROFILE": "retro",
+        "AB_OPTIMIZE": "OFF",
+        "AB_SANITIZE": "ON",
+        "AB_DEBUG": "ON",
+        "CMAKE_BUILD_TYPE": "DEBUG"
+      }
+    },
+  {
+    "name": "dev",
+    "displayName": "Dev Advanced",
+    "description": "Development Advanced on GNU/Linux",
+    "cacheVariables": {
+      "AB_OS": "linux",
+      "AB_PROFILE": "advanced",
+      "AB_OPTIMIZE": "OFF",
+      "AB_SANITIZE": "OFF",
+      "AB_DEBUG": "ON",
+      "CMAKE_BUILD_TYPE": "DEBUG"
+    }
   },
   {
-    "name": "win",
-    "displayName": "Win32",
-    "description": "Build for Windows"
+    "name": "dev-san",
+    "displayName": "Dev Advanced Sanitize",
+    "description": "Development Advanced on GNU/Linux",
+    "cacheVariables": {
+      "AB_OS": "linux",
+      "AB_PROFILE": "advanced",
+      "AB_OPTIMIZE": "OFF",
+      "AB_SANITIZE": "ON",
+      "AB_DEBUG": "ON",
+      "CMAKE_BUILD_TYPE": "DEBUG"
+    }
+  },
+  {
+    "name": "linux-retro",
+    "displayName": "GNU/Linux Retro",
+    "description": "Build Retro for GNU/Linux",
+    "toolchainFile": "${sourceDir}/retro-linux.cmake",
+    "cacheVariables": {
+      "AB_OS": "linux",
+      "AB_PROFILE": "retro",
+      "AB_OPTIMIZE": "ON",
+      "AB_SANITIZE": "OFF",
+      "AB_DEBUG": "OFF",
+      "CMAKE_BUILD_TYPE": "Release"
+    }
+  },
+  {
+    "name": "linux",
+    "displayName": "GNU/Linux Advanced",
+    "description": "Build Advanced for GNU/Linux",
+    "cacheVariables": {
+      "AB_OS": "linux",
+      "AB_PROFILE": "advanced",
+      "AB_OPTIMIZE": "ON",
+      "AB_SANITIZE": "OFF",
+      "AB_DEBUG": "OFF",
+      "CMAKE_BUILD_TYPE": "Release"
+    }
+  },
+  {
+    "name": "win32-retro",
+    "displayName": "Win32 Retro",
+    "description": "Build Retro for Windows",
+    "toolchainFile": "${sourceDir}/retro-win32.cmake",
+    "cacheVariables": {
+      "AB_OS": "win32",
+      "AB_PROFILE": "retro",
+      "AB_OPTIMIZE": "ON",
+      "AB_SANITIZE": "OFF",
+      "AB_DEBUG": "OFF",
+      "CMAKE_BUILD_TYPE": "Release"
+    }
   }
   ]
 }
