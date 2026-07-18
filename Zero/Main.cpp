@@ -4,11 +4,17 @@
 #include "Main.hpp"
 
 int main(int argc, char** argv) {
-  const int res = SDL_Init(0);
+  int res = 0;
+  SDL_Window* window = null;
+  int video_count;
+  res = SDL_Init(SDL_INIT_VIDEO);
   if (res == 0) {
     printf("SDL Init Successful!\n");
+  } else {
+    printf("SDL Init Failed!\n");
+    goto exit;
   }
-  SDL_Window* window = SDL_CreateWindow(
+  window = SDL_CreateWindow(
     "Zero",
     800, 600,
     0
@@ -20,7 +26,16 @@ int main(int argc, char** argv) {
   }
   printf("AB_PROFILE: %s\n", stringify(AB_PROFILE));
   printf("Hello my dear friends!\n");
-  printf("Video driver: %s\n", SDL_GetCurrentVideoDriver());
+  video_count = SDL_GetNumVideoDrivers();
+  if (video_count < 1) {
+    goto exit;
+  }
+  printf("Found %d video drivers.\n", video_count);
+  for (int i = 0; i < video_count; i++) {
+    const char* name = SDL_GetVideoDriver(i);
+    printf("Video driver %d: %s\n", i, name);
+  }
+  printf("Current video driver: %s\n", SDL_GetCurrentVideoDriver());
   SDL_Event event;
   while (true) {
     while (SDL_PollEvent(&event)) {
