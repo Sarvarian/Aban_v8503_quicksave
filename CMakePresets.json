@@ -67,6 +67,20 @@
       "CMAKE_BUILD_TYPE": "Release"
     }
   },
+    {
+      "name": "linux-retro-64",
+      "displayName": "GNU/Linux Retro 64-Bit",
+      "description": "Build Retro for GNU/Linux 64-Bit",
+      "toolchainFile": "${sourceDir}/retro-linux-64.cmake",
+      "cacheVariables": {
+        "AB_OS": "linux",
+        "AB_PROFILE": "retro",
+        "AB_OPTIMIZE": "ON",
+        "AB_SANITIZE": "OFF",
+        "AB_DEBUG": "OFF",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
   {
     "name": "linux",
     "displayName": "GNU/Linux Advanced",

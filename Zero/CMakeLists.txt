@@ -13,7 +13,11 @@ target_sources(Zero PRIVATE
 
 target_include_directories(Zero PUBLIC ${PROJECT_SOURCE_DIR}/Zero)
 
-target_link_libraries(Zero PUBLIC SDL2)
+if(AB_OS STREQUAL "win32")
+  target_link_libraries(Zero PUBLIC SDL2main SDL2-static)
+else()
+  target_link_libraries(Zero PUBLIC SDL2-static)
+endif()
 
 target_compile_definitions(Zero PUBLIC AB_OS=${AB_OS})
 target_compile_definitions(Zero PUBLIC AB_PROFILE=${AB_PROFILE})
