@@ -1,0 +1,5 @@
+
+/CentOS/*
+!/CentOS/VERSION
+!/CentOS/CentOS_SysRoot_Should_Exist_Here
+
