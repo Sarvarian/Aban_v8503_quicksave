@@ -3,3 +3,7 @@
 !/CentOS/VERSION
 !/CentOS/CentOS_SysRoot_Should_Exist_Here
 
+/Ubuntu/*
+!/Ubuntu/VERSION
+!/Ubuntu/Ubuntu_SysRoot_Should_Exist_Here
+
