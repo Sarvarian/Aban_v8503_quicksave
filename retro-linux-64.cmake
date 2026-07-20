@@ -4,8 +4,12 @@ set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR AMD64)
 
 # Compiler
-set(CMAKE_C_COMPILER gcc)
-set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_C_COMPILER x86_64-linux-gnu-gcc-16)
+set(CMAKE_CXX_COMPILER x86_64-linux-gnu-g++-16)
+set(CMAKE_AR x86_64-linux-gnu-gcc-ar-16)
+set(CMAKE_RANLIB x86_64-linux-gnu-gcc-ranlib-16)
+set(CMAKE_STRIP x86_64-linux-gnu-strip)
+set(CMAKE_LINKER x86_64-linux-gnu-ld)
 
 # SysRoot
 get_filename_component(AB_TOOLCHAIN_DIR "${CMAKE_CURRENT_LIST_DIR}" ABSOLUTE)
