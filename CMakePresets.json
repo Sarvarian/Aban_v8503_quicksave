@@ -27,7 +27,7 @@
   },
   {
     "name": "release",
-    "displayName": "GNU/Linux Release",
+    "displayName": "GNU/Linux",
     "description": "Release for GNU/Linux",
     "cacheVariables": {
       "AB_OS": "linux",

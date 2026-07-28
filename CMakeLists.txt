@@ -24,7 +24,7 @@ set(AB_SDL_LIB_DIRECTORY
   VALUE ""
 )
 
-
+# Find SDL Package
 if (NOT AB_SDL_LIB_DIRECTORY)
   add_subdirectory(${AB_SDL_LIB_DIRECTORY})
 elseif (AB_SDL STREQUAL "2")

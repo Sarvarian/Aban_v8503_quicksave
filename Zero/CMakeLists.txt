@@ -14,9 +14,9 @@ target_sources(Zero PRIVATE
 target_include_directories(Zero PUBLIC ${PROJECT_SOURCE_DIR}/Zero)
 
 if(AB_OS STREQUAL "win32")
-  target_link_libraries(Zero PUBLIC SDL2main SDL2-static)
+  target_link_libraries(Zero PUBLIC SDL2main SDL2)
 else()
-  target_link_libraries(Zero PUBLIC SDL2-static)
+  target_link_libraries(Zero PUBLIC SDL2)
 endif()
 
 target_compile_definitions(Zero PUBLIC AB_OS=${AB_OS})
@@ -25,9 +25,9 @@ target_compile_definitions(Zero PUBLIC AB_OPTIMIZE=${AB_OPTIMIZE})
 target_compile_definitions(Zero PUBLIC AB_SANITIZ=${AB_SANITIZE})
 target_compile_definitions(Zero PUBLIC AB_DEBUG=${AB_DEBUG})
 
-if (AB_PROFILE STREQUAL "retro")
+if (AB_SDL STREQUAL "2")
   target_compile_definitions(Zero PUBLIC USE_SDL=2)
-elseif (AB_PROFILE STREQUAL "advanced")
+elseif (AB_SDL STREQUAL "3")
   target_compile_definitions(Zero PUBLIC USE_SDL=3)
 endif()
 
