@@ -4,7 +4,7 @@ Hi there hello! I'm Mohammad Jamal Sarvarian and this is my very personal yet pu
 
 After my works here, I will publish my cleaned up and worthy works on [Aban_v8503](https://github.com/Sarvarian/Aban_v8503) repository.
 
-## Under Protection of AGPL License Because:
+## Under AGPL Because:
 
 - I decree that the market shall be kept free.
 - Thou shalt trade freely.
