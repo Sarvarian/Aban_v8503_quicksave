@@ -591,7 +591,7 @@
   #define bool SDL_bool
   #define false SDL_FALSE
   #define true SDL_TRUE
-#elif   IS_C99   ||       ( !(IS_C_PLUS_PLUS  &&  IS_C  &&  IS_COMPILER_MSVC_2013) )
+#elif   IS_C_99   ||       ( !(IS_C_PLUS_PLUS  &&  IS_C  &&  IS_COMPILER_MSVC_2013) )
   #define bool _Bool
   #define false 0
   #define true 1
