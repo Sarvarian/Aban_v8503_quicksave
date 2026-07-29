@@ -28,36 +28,7 @@ set(AB_SDL_LIB_DIRECTORY ""
    Also, remember to set AB_SDL to the version number."
 )
 
-# Find SDL Package
-if (AB_SDL_LIB_DIRECTORY)
-  add_subdirectory(${AB_SDL_LIB_DIRECTORY})
-elseif (AB_SDL STREQUAL "auto")
-  # Try SDL3 first
-  find_package(SDL3 QUIET)
-  if(SDL3_FOUND)
-    set(AB_SDL 3)
-  else()
-    # Fall back to SDL2
-    find_package(SDL2 QUIET)
-    if(SDL2_FOUND)
-      set(AB_SDL 2)
-    else()
-      # Finally try SDL1
-      find_package(SDL QUIET)
-      if(SDL_FOUND)
-        set(AB_SDL 1)
-      else()
-        message(FATAL_ERROR "Could not find SDL3, SDL2, or SDL.")
-      endif()
-    endif()
-  endif()
-elseif (AB_SDL STREQUAL "1")
-  find_package(SDL REQUIRED)
-elseif (AB_SDL STREQUAL "2")
-  find_package(SDL2 REQUIRED)
-elseif (AB_SDL STREQUAL "3")
-  find_package(SDL3 REQUIRED)
-endif ()
+include(CMake/SDL.cmake)
 
 # Set Fixed C Standard
 set(CMAKE_C_STANDARD 90)
