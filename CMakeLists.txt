@@ -28,6 +28,8 @@ set(AB_SDL_LIB_DIRECTORY ""
    Also, remember to set AB_SDL to the version number."
 )
 
+option(AB_SDL_STATIC  "Link to SDL-static:" OFF)
+
 include(CMake/SDL_Found.cmake)
 message(STATUS "Detected SDL version: ${AB_SDL}")
 
