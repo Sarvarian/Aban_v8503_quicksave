@@ -14,7 +14,7 @@ After my works here, I will publish my cleaned up and worthy works on [Aban_v850
 - Thou shalt own freely.
 - Thou shalt exercise one's own freedom.
 - Thou shalt encourage others to exercise their own.
-- Thou shalt pass freedom forward to end user.
+- Thou shalt pass freedom forward to the end user.
 
 Note: Free as in freedom and liberty; not price.
 (Freedom of expression; not free beer.)
