@@ -45,15 +45,15 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Build The Aban Binary
 add_executable(Aban
-  Zero/Concur.hpp
-  Zero/Main.hpp
-  Zero/Concur.cpp
-  Zero/Main.cpp
+  Src/Concur.hpp
+  Src/Concur.cpp
+  Src/Engine.cpp
+  Src/Engine.hpp
+  Src/Main.hpp
+  Src/Main.cpp
 )
 
 include(CMake/SDL_Link.cmake)
-
-target_include_directories(Aban PUBLIC ${PROJECT_SOURCE_DIR})
 
 target_compile_definitions(Aban PUBLIC AB_OS=${AB_OS})
 target_compile_definitions(Aban PUBLIC AB_PROFILE=${AB_PROFILE})
