@@ -6,14 +6,14 @@ After my works here, I will publish my cleaned up and worthy works on [Aban_v850
 
 ## Under Protection of AGPL License Because:
 
-- I decree market shall kept free.
-- Thou shall trade freely.
-- Thou shall modify freely.
-- Thou shall play freely
-- Thou shall run servers freely.
-- Thou shall own freely.
-- Thou shall exercise one's own freedom.
-- Thou shall encourage others to exercise their own.
+- I decree that the market shall be kept free.
+- Thou shalt trade freely.
+- Thou shalt modify freely.
+- Thou shalt play freely.
+- Thou shalt run servers freely.
+- Thou shalt own freely.
+- Thou shalt exercise one's own freedom.
+- Thou shalt encourage others to exercise their own.
 
 Note: Free as in freedom and liberty; not price.
 (Freedom of expression; not free beer.)
