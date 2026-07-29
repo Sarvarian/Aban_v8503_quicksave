@@ -28,7 +28,8 @@ set(AB_SDL_LIB_DIRECTORY ""
    Also, remember to set AB_SDL to the version number."
 )
 
-include(CMake/SDL.cmake)
+include(CMake/SDL_Found.cmake)
+message(STATUS "Detected SDL version: ${AB_SDL}")
 
 # Set Fixed C Standard
 set(CMAKE_C_STANDARD 90)
@@ -48,25 +49,15 @@ add_executable(Aban
   Zero/Main.cpp
 )
 
-target_include_directories(Aban PUBLIC ${PROJECT_SOURCE_DIR})
+include(CMake/SDL_Link.cmake)
 
-if(AB_OS STREQUAL "win32")
-  target_link_libraries(Aban PUBLIC SDL2main SDL2)
-else()
-  target_link_libraries(Aban PUBLIC SDL2)
-endif()
+target_include_directories(Aban PUBLIC ${PROJECT_SOURCE_DIR})
 
 target_compile_definitions(Aban PUBLIC AB_OS=${AB_OS})
 target_compile_definitions(Aban PUBLIC AB_PROFILE=${AB_PROFILE})
 target_compile_definitions(Aban PUBLIC AB_OPTIMIZE=${AB_OPTIMIZE})
 target_compile_definitions(Aban PUBLIC AB_SANITIZ=${AB_SANITIZE})
 target_compile_definitions(Aban PUBLIC AB_DEBUG=${AB_DEBUG})
-
-if (AB_SDL STREQUAL "2")
-  target_compile_definitions(Aban PUBLIC USE_SDL=2)
-elseif (AB_SDL STREQUAL "3")
-  target_compile_definitions(Aban PUBLIC USE_SDL=3)
-endif()
 
 target_compile_options(Aban PUBLIC
   -Wall -Wextra -Wformat -Wshadow -Wundef -Wdeprecated
