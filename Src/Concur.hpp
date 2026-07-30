@@ -24,12 +24,12 @@
   #include <SDL3/SDL_atomic.h>
   #include <SDL3/SDL_mutex.h>
 
-  typedef SDL_Thread       Thread;
-  typedef SDL_ThreadID     ThreadID;
-  typedef SDL_AtomicInt    Atomic;
-  typedef SDL_Mutex        Mutex;
-  typedef SDL_Condition    Condvar;
-  typedef SDL_Semaphore    Semaphore;
+  typedef SDL_Thread             Thread;
+  typedef SDL_ThreadID           ThreadID;
+  typedef SDL_AtomicInt          Atomic;
+  typedef SDL_Mutex              Mutex;
+  typedef SDL_Condition          Condvar;
+  typedef SDL_Semaphore          Semaphore;
 
   #define atomicGet SDL_GetAtomicInt
   #define atomicSet SDL_SetAtomicInt
@@ -44,12 +44,12 @@
   #include <SDL2/SDL_atomic.h>
   #include <SDL2/SDL_mutex.h>
 
-  typedef SDL_Thread    Thread;
-  typedef SDL_threadID  ThreadID;
-  typedef SDL_atomic_t  Atomic;
-  typedef SDL_mutex     Mutex;
-  typedef SDL_cond      Condvar;
-  typedef SDL_sem       Semaphore;
+  typedef SDL_Thread             Thread;
+  typedef SDL_threadID           ThreadID;
+  typedef SDL_atomic_t           Atomic;
+  typedef SDL_mutex              Mutex;
+  typedef SDL_cond               Condvar;
+  typedef SDL_sem                Semaphore;
 
   #define atomicGet SDL_AtomicGet
   #define atomicSet SDL_AtomicSet
@@ -83,12 +83,12 @@
 
   #include <SDL/SDL_thread.h>
 
-  typedef SDL_Thread    Thread;
-  typedef SDL_threadID  ThreadID;
-  typedef SDL_atomic_t  Atomic;
-  typedef SDL_mutex     Mutex;
-  typedef SDL_cond      Condvar;
-  typedef SDL_sem       Semaphore;
+  typedef SDL_Thread             Thread;
+  typedef u32                    ThreadID;
+  typedef struct { int value; }  Atomic;
+  typedef SDL_mutex              Mutex;
+  typedef SDL_cond               Condvar;
+  typedef SDL_sem                Semaphore;
 
   #define atomicGet __atomic_load_n(&(a)->value, __ATOMIC_SEQ_CST)
   #define atomicSet __atomic_exchange_n(&(a)->value, v, __ATOMIC_SEQ_CST)
