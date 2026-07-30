@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
   SDL_Window* window = null;
   int video_count;
   res = Sdl().video().init();
-  if (res) {
+  if (res == Sdl::INIT_SUCCEED) {
     printf("SDL Init Successful!\n");
   } else {
     printf("SDL Init Failed!\nSDL: %s\n", SDL_GetError());

@@ -9,8 +9,8 @@ class Sdl {
 public:
 
   enum Status {
-    SDL_INIT_FAILED = false,
-    SDL_INIT_SUCCEED = true
+    INIT_FAILED = false,
+    INIT_SUCCEED = true
   };
 
   Sdl();

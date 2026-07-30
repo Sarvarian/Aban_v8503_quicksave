@@ -9,7 +9,7 @@ Sdl::Sdl() {
 
 Sdl::Status Sdl::init() {
   const bool res = SDL_Init(subsystem_flags_);
-  return res == true ? SDL_INIT_SUCCEED : SDL_INIT_FAILED;
+  return res == true ? INIT_SUCCEED : INIT_FAILED;
 }
 
 void Sdl::quit() {
