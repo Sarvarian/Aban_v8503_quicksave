@@ -40,7 +40,7 @@ public:
   /** Can the window subsystem handle and
    *    provide multiple windows simultaneously.
    *  Or the system only works with one main
-   *    Window alone?
+   *    window alone?
    */
   static bool isMultiWindowSupported();
 
