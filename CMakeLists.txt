@@ -51,6 +51,8 @@ add_executable(Aban
   Src/Engine.hpp
   Src/Main.hpp
   Src/Main.cpp
+  Src/Sdl.cpp
+  Src/Sdl.hpp
 )
 
 include(CMake/SDL_Link.cmake)

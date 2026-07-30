@@ -13,7 +13,7 @@
   #error "Failed to detect SDL version."
 #endif
 
-#include "SdlInit.hpp"
+#include "Sdl.hpp"
 
 int main(int argc, char** argv) {
   int res = 0;

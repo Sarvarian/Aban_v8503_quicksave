@@ -1,4 +1,4 @@
-#include "SdlInit.hpp"
+#include "Sdl.hpp"
 
 #include "Main.hpp"
 #include "SDL3/SDL_init.h"
