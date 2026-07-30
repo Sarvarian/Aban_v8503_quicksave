@@ -55,6 +55,8 @@ add_executable(Aban
 
 include(CMake/SDL_Link.cmake)
 
+target_precompile_headers(Aban PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
+
 target_compile_definitions(Aban PUBLIC AB_OS=${AB_OS})
 target_compile_definitions(Aban PUBLIC AB_PROFILE=${AB_PROFILE})
 target_compile_definitions(Aban PUBLIC AB_OPTIMIZE=${AB_OPTIMIZE})

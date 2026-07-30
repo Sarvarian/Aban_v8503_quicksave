@@ -1,17 +1,29 @@
 
 #include <cstdio>
-#include <SDL2/SDL.h>
 #include "Main.hpp"
+
+#if IS_USING_SDL_3
+  #include <SDL3/SDL.h>
+  #include <SDL3/SDL_main.h>
+#elif IS_USING_SDL_2
+  #include <SDL2/SDL.h>
+#elif IS_USING_SDL_1
+  #include <SDL/SDL.h>
+#else
+  #error "Failed to detect SDL version."
+#endif
+
+#include "SdlInit.hpp"
 
 int main(int argc, char** argv) {
   int res = 0;
   SDL_Window* window = null;
   int video_count;
-  res = SDL_Init(SDL_INIT_VIDEO);
-  if (res == 0) {
+  res = Sdl().video().init();
+  if (res) {
     printf("SDL Init Successful!\n");
   } else {
-    printf("SDL Init Failed!\n");
+    printf("SDL Init Failed!\nSDL: %s\n", SDL_GetError());
     goto exit;
   }
   window = SDL_CreateWindow(
@@ -39,14 +51,14 @@ int main(int argc, char** argv) {
   SDL_Event event;
   while (true) {
     while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_QUIT) {
+      if (event.type == SDL_EVENT_QUIT) {
         goto exit;
       }
     }
   }
   exit:
   SDL_DestroyWindow(window);
-  SDL_Quit();
+  Sdl::quit();
   printf("Goodbye\n");
   return 0;
 }

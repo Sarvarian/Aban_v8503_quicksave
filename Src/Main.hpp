@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef ABAN_SCALAR_HPP
-#define ABAN_SCALAR_HPP
+#ifndef AB_MAIN_HPP
+#define AB_MAIN_HPP
 
 
 
@@ -1129,4 +1129,4 @@ public:
 
 
 
-#endif /* ABAN_SCALAR_HPP */
+#endif /* AB_MAIN_HPP */
