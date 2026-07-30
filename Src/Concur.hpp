@@ -24,9 +24,9 @@
   #include <SDL3/SDL_atomic.h>
   #include <SDL3/SDL_mutex.h>
 
-  typedef SDL_Thread sysThread;
-  typedef SDL_ThreadID  sysThreadID;
-  typedef SDL_AtomicInt    atomic;
+  typedef SDL_Thread       Thread;
+  typedef SDL_ThreadID     ThreadID;
+  typedef SDL_AtomicInt    Atomic;
   typedef SDL_Mutex        Mutex;
   typedef SDL_Condition    Condvar;
   typedef SDL_Semaphore    Semaphore;
