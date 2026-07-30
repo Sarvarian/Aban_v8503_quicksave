@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
   printf("Hello my dear friends!\n");
 #if !IS_USING_SDL_1
   {
-    int video_count = SdlWindow::getVideoDriverCount();
+    const int video_count = SdlWindow::getVideoDriverCount();
     if (video_count < 1) {
       goto exit;
     }

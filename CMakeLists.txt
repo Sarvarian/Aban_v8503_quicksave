@@ -29,6 +29,7 @@ set(AB_SDL_LIB_DIRECTORY ""
 )
 
 option(AB_SDL_STATIC  "Link to SDL-static:" OFF)
+option(AB_CONCUR  "Enable concurrency and threading modules." ON)
 
 include(CMake/SDL_Found.cmake)
 message(STATUS "Detected SDL version: ${AB_SDL}")
@@ -57,13 +58,9 @@ add_executable(Aban
 
 include(CMake/SDL_Link.cmake)
 
-target_precompile_headers(Aban PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
-
-target_compile_definitions(Aban PUBLIC AB_OS=${AB_OS})
-target_compile_definitions(Aban PUBLIC AB_PROFILE=${AB_PROFILE})
-target_compile_definitions(Aban PUBLIC AB_OPTIMIZE=${AB_OPTIMIZE})
-target_compile_definitions(Aban PUBLIC AB_SANITIZ=${AB_SANITIZE})
-target_compile_definitions(Aban PUBLIC AB_DEBUG=${AB_DEBUG})
+if (NOT CMAKE_VERSION VERSION_LESS 3.16)
+  target_precompile_headers(Aban PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
+endif ()
 
 target_compile_options(Aban PUBLIC
   -Wall -Wextra -Wformat -Wshadow -Wundef -Wdeprecated
@@ -85,8 +82,11 @@ endif()
 
 if(AB_OPTIMIZE)
   #set_target_properties(Aban PUBLIC UNITY_BUILD ON)
-  #include(CheckIPOSupported)
-  #check_ipo_supported(RESULT supported OUTPUT error)
+  if (NOT CMAKE_VERSION VERSION_LESS 3.9)
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT supported OUTPUT error)
+    set_property(TARGET Aban PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+  endif ()
   target_compile_options(Aban PUBLIC
     -ffast-math -flto -Ofast
   )
@@ -99,3 +99,21 @@ else()
     -O0 -ffast-math
   )
 endif()
+
+
+
+
+# target_compile_definitions(Aban PUBLIC AB_OS=${AB_OS})
+# target_compile_definitions(Aban PUBLIC AB_OPTIMIZE=${AB_OPTIMIZE})
+# target_compile_definitions(Aban PUBLIC AB_SANITIZ=${AB_SANITIZE})
+# target_compile_definitions(Aban PUBLIC AB_DEBUG=${AB_DEBUG})
+# target_compile_definitions(Aban PUBLIC AB_CONCUR=${AB_CONCUR})
+
+if (AB_CONCUR)
+  target_compile_definitions(Aban PUBLIC AB_CONCUR=1)
+else ()
+  target_compile_definitions(Aban PUBLIC AB_CONCUR=0)
+endif ()
+
+
+
