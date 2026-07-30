@@ -7,6 +7,12 @@
 
 #include "Main.hpp"
 
+/** CMake option, and compiler define.
+ *  1 = Enable concurrency and threading.
+ *  0 = Disable concurrency and threading.
+ */
+#if AB_CONCUR
+
 #if IS_USING_SDL_1 || IS_USING_SDL_2 || IS_USING_SDL_3
   /* Empty */
 #else
@@ -151,5 +157,7 @@ EMutexResult semaphoreTryWait(Semaphore*);
  *          `E_MUTEX_FAILED` on failure.
  */
 EMutexResult semaphoreSignal(Semaphore*);
+
+#endif /* AB_CONCUR */
 
 #endif /* AB_CONCUR_HPP */

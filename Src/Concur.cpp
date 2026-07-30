@@ -1,5 +1,7 @@
 #include "Concur.hpp"
 
+#if AB_CONCUR
+
 #if IS_USING_SDL_1
   #error "TODO: Implement SDL1 routines."
 
@@ -111,3 +113,5 @@ EMutexResult semaphoreSignal(Semaphore* semaphore) {
   #error "TODO: Implement SDL3 routines."
 
 #endif
+
+#endif /* !AB_NO_CONCUR */
