@@ -90,13 +90,13 @@
   typedef SDL_cond               Condvar;
   typedef SDL_sem                Semaphore;
 
-  #define atomicGet __atomic_load_n(&(a)->value, __ATOMIC_SEQ_CST)
-  #define atomicSet __atomic_exchange_n(&(a)->value, v, __ATOMIC_SEQ_CST)
-  #define atomicAdd __atomic_fetch_add(&(a)->value, v, __ATOMIC_SEQ_CST)
-  #define atomicCAS ( int e = old; __atomic_compare_exchange_n(&(a)->value, &e, new, false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST) )
-  #define atomicGetPtr __atomic_load_n(..., __ATOMIC_SEQ_CST)
-  #define atomicSetPtr __atomic_exchange_n(..., ptr, __ATOMIC_SEQ_CST)
-  #define atomicCASPtr __atomic_compare_exchange_n(..., false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)
+  int atomicGet(const Atomic* atom);
+  int atomicSet(Atomic* atom, const int new_value);
+  int atomicAdd(Atomic* atom, const int amount);
+  bool atomicCAS(Atomic* atom, const int old_value, const int new_value);
+  void* atomicGetPtr(void** ptr);
+  void* atomicSetPtr(void** ptr, void* new_ptr);
+  bool atomicCASPtr(void** ptr, void* old_ptr, void* new_ptr);
 
 #else
   #error "Failed to detect SDL version."

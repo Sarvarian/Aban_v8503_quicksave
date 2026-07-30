@@ -3,7 +3,36 @@
 #if AB_CONCUR
 
 #if IS_USING_SDL_1
-  #error "TODO: Implement SDL1 routines."
+
+int atomicGet(Atomic* atom) {
+  return __atomic_load_n(&(atom->value), __ATOMIC_SEQ_CST);
+}
+
+int atomicSet(Atomic* atom, const int new_value) {
+  return __atomic_exchange_n(&(atom->value), new_value, __ATOMIC_SEQ_CST);
+}
+
+int atomicAdd(Atomic* atom, const int amount) {
+  return __atomic_fetch_add(&(atom->value), amount, __ATOMIC_SEQ_CST);
+}
+
+bool atomicCAS(Atomic* atom, const int old_value, const int new_value) {
+  int expected = old_value;
+  return __atomic_compare_exchange_n(&(atom->value), &expected, new_value, false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
+}
+
+void* atomicGetPtr(void** ptr) {
+  return __atomic_load_n(ptr, __ATOMIC_SEQ_CST);
+}
+
+void* atomicSetPtr(void** ptr, void* new_ptr) {
+  return __atomic_exchange_n(ptr, new_ptr, __ATOMIC_SEQ_CST);
+}
+
+bool atomicCASPtr(void** ptr, void* old_ptr, void* new_ptr) {
+  void* expected = old_ptr;
+  return __atomic_compare_exchange_n(ptr, &expected, new_ptr, false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
+}
 
 #elif IS_USING_SDL_2
 
