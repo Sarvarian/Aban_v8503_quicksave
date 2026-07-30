@@ -457,18 +457,6 @@
   #error "Failed to detect SDL version."
 #endif
 
-#if IS_USING_SDL_3
-#elif IS_USING_SDL_2
-  #include <SDL2/SDL_video.h>
-#define SDL_CreateWindow(TITLE, WINDOW_WIDTH, WINDOW_HEIGHT, FLAGS) \
-        SDL_CreateWindow(                                           \
-          TITLE,                                                    \
-          SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,         \
-          WINDOW_WIDTH, WINDOW_HEIGHT,                              \
-          FLAGS                                                     \
-        )
-#endif
-
 
 
 

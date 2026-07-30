@@ -62,6 +62,65 @@ const char* SdlWindow::getCurrentVideoDriverName() {
 
 #elif IS_USING_SDL_2
 
+#include "SDL2/SDL.h"
+
+Sdl::Sdl() {
+  subsystem_flags_ = 0;
+}
+
+Sdl::Status Sdl::init() {
+  const int res = SDL_Init(subsystem_flags_);
+  return res == 0 ? INIT_SUCCEED : INIT_FAILED;
+}
+
+void Sdl::quit() {
+  SDL_Quit();
+}
+
+Sdl& Sdl::video() {
+  subsystem_flags_ |= SDL_INIT_VIDEO;
+  return *this;
+}
+
+SdlWindow::SdlWindow() {
+  handle_ = null;
+}
+
+SdlWindow::Status SdlWindow::create() {
+  handle_ = SDL_CreateWindow(
+    "Aban",
+    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    800, 600,
+    0
+  );
+  return handle_ == null ? CREATION_FAILED : CREATION_SUCCEED;
+}
+
+void SdlWindow::destroy() {
+  if (handle_ != null) {
+    SDL_DestroyWindow(static_cast<SDL_Window*>(handle_));
+  }
+  handle_ = null;
+}
+
+bool SdlWindow::isMultiWindowSupported() {
+#if IS_OS_LINUX
+  return true;
+#endif
+}
+
+int SdlWindow::getVideoDriverCount() {
+  return SDL_GetNumVideoDrivers();
+}
+
+const char * SdlWindow::getVideoDriverName(const int index) {
+  return SDL_GetVideoDriver(index);
+}
+
+const char * SdlWindow::getCurrentVideoDriverName() {
+  return SDL_GetCurrentVideoDriver();
+}
+
 
 #elif IS_USING_SDL_3
 
