@@ -4,7 +4,7 @@
 
 #if IS_USING_SDL_1
 
-int atomicGet(Atomic* atom) {
+int atomicGet(const Atomic* atom) {
   return __atomic_load_n(&(atom->value), __ATOMIC_SEQ_CST);
 }
 
