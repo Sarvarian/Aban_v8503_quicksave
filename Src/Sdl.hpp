@@ -38,7 +38,7 @@ public:
   void destroy();
 
   /** Can the window subsystem handle and
-   *    provide multiple windows silmultaniously.
+   *    provide multiple windows simultaneously.
    *  Or the system only works with one main
    *    Window alone?
    */
