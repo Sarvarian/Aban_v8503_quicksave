@@ -1,6 +1,70 @@
 #include "Sdl.hpp"
 
 #include "Main.hpp"
+
+
+
+#if IS_USING_SDL_1
+
+#include "SDL/SDL.h"
+
+static char current_video_driver_name_[255];
+
+Sdl::Sdl() {
+  subsystem_flags_ = 0;
+}
+
+Sdl::Status Sdl::init() {
+  const int res = SDL_Init(subsystem_flags_);
+  return res == 0 ? INIT_SUCCEED : INIT_FAILED;
+}
+
+void Sdl::quit() {
+  SDL_Quit();
+}
+
+Sdl& Sdl::video() {
+  subsystem_flags_ |= SDL_INIT_VIDEO;
+  return *this;
+}
+
+SdlWindow::SdlWindow() {
+  handle_ = null;
+}
+
+SdlWindow::Status SdlWindow::create() {
+  handle_ = SDL_SetVideoMode(640, 480, 0, 0);
+  SDL_WM_SetCaption("Aban", null);
+  return handle_ == null ? CREATION_FAILED : CREATION_SUCCEED;
+}
+
+void SdlWindow::destroy() {
+  handle_ = null;
+}
+
+bool SdlWindow::isMultiWindowSupported() {
+  return false;
+}
+
+int SdlWindow::getVideoDriverCount() {
+  return -1;
+}
+
+const char* SdlWindow::getVideoDriverName(const int index) {
+  return null;
+}
+
+const char* SdlWindow::getCurrentVideoDriverName() {
+  memset(current_video_driver_name_, 0, sizeof(current_video_driver_name_));
+  SDL_VideoDriverName(current_video_driver_name_, sizeof(current_video_driver_name_));
+  return current_video_driver_name_;
+}
+
+#elif IS_USING_SDL_2
+
+
+#elif IS_USING_SDL_3
+
 #include "SDL3/SDL_init.h"
 
 Sdl::Sdl() {
@@ -20,3 +84,41 @@ Sdl& Sdl::video() {
   subsystem_flags_ |= SDL_INIT_VIDEO;
   return *this;
 }
+
+SdlWindow::SdlWindow() {
+  handle_ = null;
+}
+
+SdlWindow::Status SdlWindow::create() {
+  handle_ = SDL_CreateWindow("Aban", 800, 600, 0);
+  return handle_ == null ? CREATION_FAILED : CREATION_SUCCEED;
+}
+
+void SdlWindow::destroy() {
+  if (handle_ != null) {
+    SDL_DestroyWindow(static_cast<SDL_Window*>(handle_));
+  }
+  handle_ = null;
+}
+
+bool SdlWindow::isMultiWindowSupported() {
+#if IS_OS_LINUX
+  return true;
+#endif
+}
+
+int SdlWindow::getVideoDriverCount() {
+  return SDL_GetNumVideoDrivers();
+}
+
+const char * SdlWindow::getVideoDriverName(const int index) {
+  return SDL_GetVideoDriver(index);
+}
+
+const char * SdlWindow::getCurrentVideoDriverName() {
+  return SDL_GetCurrentVideoDriver();
+}
+
+#else
+  #error "Failed to detect SDL version."
+#endif

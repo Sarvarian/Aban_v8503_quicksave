@@ -17,8 +17,7 @@
 
 int main(int argc, char** argv) {
   int res = 0;
-  SDL_Window* window = null;
-  int video_count;
+  SdlWindow window = SdlWindow();
   res = Sdl().video().init();
   if (res == Sdl::INIT_SUCCEED) {
     printf("SDL Init Successful!\n");
@@ -26,28 +25,26 @@ int main(int argc, char** argv) {
     printf("SDL Init Failed!\nSDL: %s\n", SDL_GetError());
     goto exit;
   }
-  window = SDL_CreateWindow(
-    "Zero",
-    800, 600,
-    0
-  );
-  if (window == null) {
+  if (window.create() == SdlWindow::CREATION_FAILED) {
     printf("SDL Window Creation Failed!\n");
     printf("%s\n", SDL_GetError());
     goto exit;
   }
-  printf("AB_PROFILE: %s\n", stringify(AB_PROFILE));
   printf("Hello my dear friends!\n");
-  video_count = SDL_GetNumVideoDrivers();
-  if (video_count < 1) {
-    goto exit;
+#if !IS_USING_SDL_1
+  {
+    int video_count = SdlWindow::getVideoDriverCount();
+    if (video_count < 1) {
+      goto exit;
+    }
+    printf("Found %d video drivers.\n", video_count);
+    for (int i = 0; i < video_count; i++) {
+      const char* name = SdlWindow::getVideoDriverName(i);
+      printf("Video driver %d: %s\n", i, name);
+    }
   }
-  printf("Found %d video drivers.\n", video_count);
-  for (int i = 0; i < video_count; i++) {
-    const char* name = SDL_GetVideoDriver(i);
-    printf("Video driver %d: %s\n", i, name);
-  }
-  printf("Current video driver: %s\n", SDL_GetCurrentVideoDriver());
+#endif
+  printf("Current video driver: %s\n", SdlWindow::getCurrentVideoDriverName());
   SDL_Event event;
   while (true) {
     while (SDL_PollEvent(&event)) {
@@ -57,7 +54,7 @@ int main(int argc, char** argv) {
     }
   }
   exit:
-  SDL_DestroyWindow(window);
+  window.destroy();
   Sdl::quit();
   printf("Goodbye\n");
   return 0;

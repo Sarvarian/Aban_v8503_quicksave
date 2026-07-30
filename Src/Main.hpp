@@ -379,6 +379,8 @@
   #include <SDL3/SDL_stdinc.h>
 #elif IS_USING_SDL_2
   #include <SDL2/SDL_stdinc.h>
+#elif IS_USING_SDL_1
+  #include <SDL/SDL_stdinc.h>
 #else
   #error "Failed to detect SDL version."
 #endif
@@ -407,6 +409,7 @@
   #define SDL_SetLogOutputFunction  SDL_LogSetOutputFunction
   #define SDL_SetLogPriority        SDL_LogSetPriority
   #define SDL_LOG_PRIORITY_COUNT    SDL_NUM_LOG_PRIORITIES
+#elif IS_USING_SDL_1
 #else
   #error "Failed to detect SDL version."
 #endif
@@ -432,6 +435,8 @@
 #elif IS_USING_SDL_2
   #include <SDL2/SDL.h>
   #define SDL_INIT_GAMEPAD SDL_INIT_GAMECONTROLLER
+#elif IS_USING_SDL_1
+  #include <SDL/SDL.h>
 #else
   #error "Failed to detect SDL version."
 #endif
@@ -440,6 +445,11 @@
   #include <SDL3/SDL_events.h>
 #elif IS_USING_SDL_2
   #include <SDL2/SDL_events.h>
+  enum {
+    SDL_EVENT_QUIT = SDL_QUIT
+  };
+#elif IS_USING_SDL_1
+  #include <SDL/SDL_events.h>
   enum {
     SDL_EVENT_QUIT = SDL_QUIT
   };
@@ -476,6 +486,8 @@
 #elif IS_USING_SDL_2
   #include <SDL2/SDL_timer.h>
   #define SDL_GetTicks SDL_GetTicks64
+#elif IS_USING_SDL_1
+  #include <SDL/SDL_timer.h>
 #else
   #error "Failed to detect SDL version."
 #endif
