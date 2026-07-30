@@ -61,25 +61,25 @@
 
 #elif IS_USING_SDL_1
 
-#define IS_ATOMIC_AVAILABLE 0
-#if defined(__clang__)
-#  if __has_extension(c_atomic)
-#    undef IS_ATOMIC_AVAILABLE
-#    define IS_ATOMIC_AVAILABLE 1
-#  endif
-#endif
-#if defined(__GNUC__)
-#  if (__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)
-#    undef IS_ATOMIC_AVAILABLE
-#    define IS_ATOMIC_AVAILABLE 1
-#  endif
-#endif
-#if !IS_ATOMIC_AVAILABLE
-#  error "SDL1 support, minimum GCC 4.7 or Clang support for `__atomic` is require." \
-         "If you don't need concurency, you can disable this by"                     \
-         "setting AB_CONCUR to OFF as a CMake option"                                \
-         "or by passing AB_CONCUR=0 as a compiler define."
-#endif
+  #define IS_ATOMIC_AVAILABLE 0
+  #if defined(__clang__)
+  #  if __has_extension(c_atomic)
+  #    undef IS_ATOMIC_AVAILABLE
+  #    define IS_ATOMIC_AVAILABLE 1
+  #  endif
+  #endif
+  #if defined(__GNUC__)
+  #  if (__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)
+  #    undef IS_ATOMIC_AVAILABLE
+  #    define IS_ATOMIC_AVAILABLE 1
+  #  endif
+  #endif
+  #if !IS_ATOMIC_AVAILABLE
+  #  error "SDL1 support, minimum GCC 4.7 or Clang support for `__atomic` is require." \
+           "If you don't need concurency, you can disable this by"                     \
+           "setting AB_CONCUR to OFF as a CMake option"                                \
+           "or by passing AB_CONCUR=0 as a compiler define."
+  #endif
 
   #include <SDL/SDL_thread.h>
 
