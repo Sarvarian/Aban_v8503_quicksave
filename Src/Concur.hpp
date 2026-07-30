@@ -61,6 +61,43 @@
 
 #elif IS_USING_SDL_1
 
+#define IS_ATOMIC_AVAILABLE 0
+#if defined(__clang__)
+#  if __has_extension(c_atomic)
+#    undef IS_ATOMIC_AVAILABLE
+#    define IS_ATOMIC_AVAILABLE 1
+#  endif
+#endif
+#if defined(__GNUC__)
+#  if (__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)
+#    undef IS_ATOMIC_AVAILABLE
+#    define IS_ATOMIC_AVAILABLE 1
+#  endif
+#endif
+#if !IS_ATOMIC_AVAILABLE
+#  error "SDL1 support, minimum GCC 4.7 or Clang support for `__atomic` is require." \
+         "If you don't need concurency, you can disable this by"                     \
+         "setting AB_CONCUR to OFF as a CMake option"                                \
+         "or by passing AB_CONCUR=0 as a compiler define."
+#endif
+
+  #include <SDL/SDL_thread.h>
+
+  typedef SDL_Thread    Thread;
+  typedef SDL_threadID  ThreadID;
+  typedef SDL_atomic_t  Atomic;
+  typedef SDL_mutex     Mutex;
+  typedef SDL_cond      Condvar;
+  typedef SDL_sem       Semaphore;
+
+  #define atomicGet __atomic_load_n(&(a)->value, __ATOMIC_SEQ_CST)
+  #define atomicSet __atomic_exchange_n(&(a)->value, v, __ATOMIC_SEQ_CST)
+  #define atomicAdd __atomic_fetch_add(&(a)->value, v, __ATOMIC_SEQ_CST)
+  #define atomicCAS ( int e = old; __atomic_compare_exchange_n(&(a)->value, &e, new, false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST) )
+  #define atomicGetPtr __atomic_load_n(..., __ATOMIC_SEQ_CST)
+  #define atomicSetPtr __atomic_exchange_n(..., ptr, __ATOMIC_SEQ_CST)
+  #define atomicCASPtr __atomic_compare_exchange_n(..., false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)
+
 #else
   #error "Failed to detect SDL version."
 
