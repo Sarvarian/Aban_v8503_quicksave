@@ -11,8 +11,9 @@ Mutex* mutexCreate(void) {
   return SDL_CreateMutex();
 }
 
-void mutexDestroy(Mutex* mutex) {
+Mutex* mutexDestroy(Mutex* mutex) {
   SDL_DestroyMutex(mutex);
+  return null;
 }
 
 EMutexResult mutexLock(Mutex* mutex) {
@@ -39,8 +40,9 @@ Condvar* condvarCreate(void) {
   return SDL_CreateCond();
 }
 
-void condvarDestroy(Condvar* condvar) {
+Condvar* condvarDestroy(Condvar* condvar) {
   SDL_DestroyCond(condvar);
+  return null;
 }
 
 EMutexResult condvarWait(Condvar* condvar, Mutex* mutex) {
@@ -73,8 +75,9 @@ Semaphore* semaphoreCreate(const u32 initial_value) {
   return SDL_CreateSemaphore(initial_value);
 }
 
-void semaphoreDestroy(Semaphore* semaphore) {
+Semaphore* semaphoreDestroy(Semaphore* semaphore) {
   SDL_DestroySemaphore(semaphore);
+  return null;
 }
 
 u32 semaphoreValue(Semaphore* semaphore) {
@@ -110,7 +113,92 @@ EMutexResult semaphoreSignal(Semaphore* semaphore) {
 }
 
 #elif IS_USING_SDL_3
-  #error "TODO: Implement SDL3 routines."
+
+Mutex* mutexCreate(void) {
+  return SDL_CreateMutex();
+}
+
+Mutex* mutexDestroy(Mutex* mutex) {
+  SDL_DestroyMutex(mutex);
+  return null;
+}
+
+EMutexResult mutexLock(Mutex* mutex) {
+  SDL_LockMutex(mutex);
+  return E_MUTEX_SUCCEEDED;
+}
+
+EMutexResult mutexTryLock(Mutex* mutex) {
+  return SDL_TryLockMutex(mutex) == true ?
+  E_MUTEX_SUCCEEDED : E_MUTEX_TIMED_OUT;
+}
+
+EMutexResult mutexUnlock(Mutex* mutex) {
+  SDL_UnlockMutex(mutex);
+  return E_MUTEX_SUCCEEDED;
+}
+
+Condvar* condvarCreate(void) {
+  return SDL_CreateCondition();
+}
+
+Condvar* condvarDestroy(Condvar* condvar) {
+  SDL_DestroyCondition(condvar);
+  return null;
+}
+
+EMutexResult condvarWait(Condvar* condvar, Mutex* mutex) {
+  SDL_WaitCondition(condvar, mutex);
+  return E_MUTEX_SUCCEEDED;
+}
+
+EMutexResult condvarWaitTimeout(Condvar* condvar, Mutex* mutex, const i32 timeoutMS) {
+  return SDL_WaitConditionTimeout(condvar, mutex, timeoutMS) == true ?
+  E_MUTEX_SUCCEEDED : E_MUTEX_TIMED_OUT;
+}
+
+EMutexResult condvarSignal(Condvar* condvar) {
+  SDL_SignalCondition(condvar);
+  return E_MUTEX_SUCCEEDED;
+}
+
+EMutexResult condvarBroadcast(Condvar* condvar) {
+  SDL_BroadcastCondition(condvar);
+  return E_MUTEX_SUCCEEDED;
+}
+
+Semaphore* semaphoreCreate(const u32 initial_value) {
+  return SDL_CreateSemaphore(initial_value);
+}
+
+Semaphore* semaphoreDestroy(Semaphore* semaphore) {
+  SDL_DestroySemaphore(semaphore);
+  return null;
+}
+
+u32 semaphoreValue(Semaphore* semaphore) {
+  return SDL_GetSemaphoreValue(semaphore);
+}
+
+EMutexResult semaphoreWait(Semaphore* semaphore) {
+  SDL_WaitSemaphore(semaphore);
+  return E_MUTEX_SUCCEEDED;
+}
+
+EMutexResult semaphoreWaitTimeout(Semaphore* semaphore, const i32 timeoutMS) {
+  return SDL_WaitSemaphoreTimeout(semaphore, timeoutMS) == true ?
+  E_MUTEX_SUCCEEDED : E_MUTEX_TIMED_OUT;
+}
+
+EMutexResult semaphoreTryWait(Semaphore* semaphore) {
+  return SDL_TryWaitSemaphore(semaphore) == true ?
+  E_MUTEX_SUCCEEDED : E_MUTEX_TIMED_OUT;
+}
+
+EMutexResult semaphoreSignal(Semaphore* semaphore) {
+  SDL_SignalSemaphore(semaphore);
+  return E_MUTEX_SUCCEEDED;
+}
 
 #endif
 

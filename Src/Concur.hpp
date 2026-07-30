@@ -16,7 +16,7 @@
 #if IS_USING_SDL_1 || IS_USING_SDL_2 || IS_USING_SDL_3
   /* Empty */
 #else
-  #error "Need to add support for your platform."
+  #error "Need to add `Concur.hpp` support for your platform."
 #endif
 
 #if IS_USING_SDL_3
@@ -118,7 +118,9 @@ typedef enum EMutexResult {
  */
 Mutex* mutexCreate(void);
 
-void mutexDestroy(Mutex*);
+/** @return Always return null.
+ */
+Mutex* mutexDestroy(Mutex*);
 
 /** @return `E_MUTEX_SUCCEEDED` on success,
  *          `E_MUTEX_FAILED` on failure.
@@ -141,7 +143,9 @@ EMutexResult mutexUnlock(Mutex*);
  */
 Condvar* condvarCreate(void);
 
-void condvarDestroy(Condvar*);
+/** @return Always return null.
+ */
+Condvar* condvarDestroy(Condvar*);
 
 /** @return `E_MUTEX_SUCCEEDED` on success,
  *          `E_MUTEX_FAILED` on failure.
@@ -169,7 +173,9 @@ EMutexResult condvarBroadcast(Condvar*);
  */
 Semaphore* semaphoreCreate(const u32 initial_value);
 
-void semaphoreDestroy(Semaphore*);
+/** @return Always return null.
+ */
+Semaphore* semaphoreDestroy(Semaphore*);
 
 u32 semaphoreValue(Semaphore*);
 
