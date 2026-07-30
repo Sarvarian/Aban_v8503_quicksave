@@ -57,7 +57,9 @@ add_executable(Aban
 
 include(CMake/SDL_Link.cmake)
 
-target_precompile_headers(Aban PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
+if (NOT CMAKE_VERSION VERSION_LESS 3.16)
+  target_precompile_headers(Aban PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
+endif ()
 
 target_compile_definitions(Aban PUBLIC AB_OS=${AB_OS})
 target_compile_definitions(Aban PUBLIC AB_PROFILE=${AB_PROFILE})
@@ -85,8 +87,11 @@ endif()
 
 if(AB_OPTIMIZE)
   #set_target_properties(Aban PUBLIC UNITY_BUILD ON)
-  #include(CheckIPOSupported)
-  #check_ipo_supported(RESULT supported OUTPUT error)
+  if (NOT CMAKE_VERSION VERSION_LESS 3.9)
+    include(CheckIPOSupported)
+    check_ipo_supported(RESULT supported OUTPUT error)
+    set_property(TARGET Aban PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+  endif ()
   target_compile_options(Aban PUBLIC
     -ffast-math -flto -Ofast
   )
