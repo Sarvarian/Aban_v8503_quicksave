@@ -4,6 +4,7 @@
 #define AB_ENGINE_HPP
 
 #include "Main.hpp"
+#include "Sdl.hpp"
 #include "Step.hpp"
 
 class Engine : public virtual IEngine {
@@ -17,7 +18,7 @@ public:
   void       shutSdl();
 
 protected:
-  SDL_Window* window_;
+  SdlWindow window_;
   struct DebugData* db_;
   struct Bootstrapper* boot_;
   Step* current_;

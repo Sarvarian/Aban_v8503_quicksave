@@ -50,6 +50,8 @@ add_executable(Aban
   Src/Concur.cpp
   Src/Engine.cpp
   Src/Engine.hpp
+  Src/Journal.cpp
+  Src/Journal.hpp
   Src/Main.hpp
   Src/Main.cpp
   Src/Memory.cpp

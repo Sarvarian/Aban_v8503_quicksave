@@ -2,6 +2,7 @@
 
 #include "Journal.hpp"
 #include "Memory.hpp"
+#include "Sdl.hpp"
 
 ESysStatus Engine::preSdlInit(int, char**) {
   return E_SYS_CONTINUE;
@@ -67,11 +68,9 @@ ESysStatus Engine::initEngine(int, char**) {
   next_ = &(boot_->step_b);
   next_->calculate_delta_time = true;
 
-  window_ = SDL_CreateWindow(
-    "Aban",
-    480, 270,
-    0
-  );
+  if (window_.create() != SdlWindow::CREATION_SUCCEED) {
+    return E_SYS_FATALITY;
+  }
   return E_SYS_CONTINUE;
 }
 
@@ -174,8 +173,7 @@ ESysStatus Engine::stepEngine() {
 }
 
 void Engine::shutEngine() {
-  SDL_DestroyWindow(window_);
-  window_ = null;
+  window_.destroy();
   db_ = db_->undef();
   next_ = null;
   current_ = null;
@@ -188,12 +186,13 @@ void Engine::shutSdl() {
 #endif
 }
 
-Engine::Engine() {
+Engine::Engine()
+  : window_(SdlWindow::def())
+{
   /* FFF: F&^k Fixed Frequency */
   /* target_delta_ms = 0;      */
-  target_delta_ms = (MSPS / 10);
+  target_delta_ms = (MSPS / 60);
   exit_code = EXIT_SUCCESS;
-  window_ = null;
   db_ = DebugData::def();
   boot_ = null;
   current_ = null;

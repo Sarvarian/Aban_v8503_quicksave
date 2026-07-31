@@ -68,6 +68,10 @@ Sdl::Sdl() {
   subsystem_flags_ = 0;
 }
 
+Sdl Sdl::def() {
+  return Sdl();
+}
+
 Sdl::Status Sdl::init() {
   const int res = SDL_Init(subsystem_flags_);
   return res == 0 ? INIT_SUCCEED : INIT_FAILED;
@@ -84,6 +88,10 @@ Sdl& Sdl::video() {
 
 SdlWindow::SdlWindow() {
   handle_ = null;
+}
+
+SdlWindow SdlWindow::def() {
+  return SdlWindow();
 }
 
 SdlWindow::Status SdlWindow::create() {

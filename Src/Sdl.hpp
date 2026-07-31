@@ -13,7 +13,7 @@ public:
     INIT_SUCCEED = true
   };
 
-  Sdl();
+  static Sdl def();
   Status init();
   static void quit();
 
@@ -21,6 +21,7 @@ public:
   Sdl& video();
 
 private:
+  Sdl();
   unsigned int subsystem_flags_;
 };
 
@@ -33,7 +34,7 @@ public:
     CREATION_SUCCEED = 1
   };
 
-  SdlWindow();
+  static SdlWindow def();
   Status create();
   void destroy();
 
@@ -65,6 +66,8 @@ public:
 
 
 private:
+  SdlWindow();
+
   /** On SDL1 this will be `SDL_Surface`
    *  while in SDl2 and SDL3 this will be
    *  `SDL_Window`
