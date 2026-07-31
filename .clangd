@@ -1,0 +1,12 @@
+CompileFlags:                     # Tweak the parse settings
+  Add: [
+    -W -pedantic -Wpedantic -Wall -Wextra -Wformat
+    -Walloc-zero -Walloca -Wshadow -Wundef -Wdeprecated
+    -Wstrict-prototypes -Wunused -Wpadded -Wno-comment -ansi
+    ]
+  Compiler: gcc
+
+Diagnostics:
+  UnusedIncludes: Strict
+  Includes:
+    IgnoreHeader: pch.h
