@@ -115,7 +115,7 @@ scale number.
 A unit is always the unscaled object of that level (Buffer0 or Block0).
 Scale S occupies 1 << S units.
 
-# TTT and Binlog
+## TTT and Binlog
 
 TTTs are macros defined in `Main.hpp` and
 the triple T stand for "2 To The" x.
