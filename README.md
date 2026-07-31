@@ -46,7 +46,7 @@ We only support SDL1 for accessibility on some older
 GNU/Linux distributions. I personally test on CentOS 7
 that does not offer SDL2 in their official repository.
 
-So to keep things simple and not require building
+So to keep things simple and not requiring building
 SDL2 from source or getting it from a third party
 repository, we included support for SDL1 builds on
 GNU/Linux platforms with modern enough GCC and Clang
