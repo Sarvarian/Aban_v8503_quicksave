@@ -36,12 +36,12 @@ staticAssert(MM_POOL_CAPACITY_MIN > 0, mmPoolShouldBeBiggerThanBuffers)
 #define mmBufferSize(EXPONENT) tttUSize(mmBufferExponent(EXPONENT))
 #define mmBlockSize(EXPONENT) tttUSize(mmBlockExponent(EXPONENT))
 #define mmPoolSize(CAPACITY) mul1BL(MM_BLOCK_UNIT_EXPONENT, CAPACITY)
-/**  Memory Objects Metadata End */
+/*  Memory Objects Metadata End */
 
-/** Note about Scales: When scales get
- *    apply to sizes, sizes get bitwise
- *    shifted by the scale; in other word
- *    multiplied by 2 exponentially.
+/* Note about Scales: When scales get
+ *   apply to sizes, sizes get bitwise
+ *   shifted by the scale; in other word
+ *   multiplied by 2 exponentially.
  */
 
 /** Cache and minimize calling this routine.
