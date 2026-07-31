@@ -157,7 +157,8 @@ Condvar* condvarDestroy(Condvar*);
  */
 EMutexResult condvarWait(Condvar*, Mutex*);
 
-/** @return `E_MUTEX_SUCCEEDED` on success,
+/** @param timeoutMS Avoid passing negative timeout.
+ *  @return `E_MUTEX_SUCCEEDED` on success,
  *          `E_MUTEX_TIMED_OUT` on timeout,
  *          `E_MUTEX_FAILED` on failure.
  */
@@ -189,7 +190,8 @@ u32 semaphoreValue(Semaphore*);
  */
 EMutexResult semaphoreWait(Semaphore*);
 
-/** @return `E_MUTEX_SUCCEEDED` on success,
+/** @param timeoutMS Avoid passing negative timeout.
+ *  @return `E_MUTEX_SUCCEEDED` on success,
  *          `E_MUTEX_TIMED_OUT` on timeout,
  *          `E_MUTEX_FAILED` on failure.
  */
