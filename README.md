@@ -34,7 +34,7 @@ Note: Free as in freedom and liberty; not price.
 
 ## Platform Compatibility
 
-### SDL1 Support is Limited to GNU/Linux
+### SDL1 Backend is Limited to GNU/Linux
 
 Note that SDL1 is at the very edge of our
 compatibility support. 
