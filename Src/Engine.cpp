@@ -1,19 +1,20 @@
 #include "Engine.hpp"
 
 #include "Journal.hpp"
-#include "Memory.hpp"
-#include "Sdl.hpp"
 
 ESysStatus Engine::preSdlInit(int, char**) {
   return E_SYS_CONTINUE;
 }
 
 ESysStatus Engine::initSdl(int, char**) {
+  /*
   SDL_Init(0
     | SDL_INIT_TIMER
     | SDL_INIT_EVENTS | SDL_INIT_JOYSTICK | SDL_INIT_GAMEPAD
     | SDL_INIT_VIDEO
   );
+  */
+  Sdl::def().video().init();
   return E_SYS_CONTINUE;
 }
 
@@ -36,9 +37,10 @@ struct Bootstrapper {
     : pools_(), null_field(), step_a(), step_b()
   {}
   Bootstrapper* undef() {
-    for (int i = 0; pools_[i] != null; i++) {
+    for (int i = 1; pools_[i] != null; i++) {
       pools_[i] = pools_[i]->undef();
     }
+    pools_[0]->undef();
     return null;
   }
 };
@@ -182,7 +184,7 @@ void Engine::shutEngine() {
 
 void Engine::shutSdl() {
 #ifndef SANITIZE
-  SDL_Quit();
+  Sdl::quit();
 #endif
 }
 
