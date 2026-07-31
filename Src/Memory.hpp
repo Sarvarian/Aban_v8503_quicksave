@@ -8,6 +8,14 @@
 
 namespace Memory {
 
+/*
+███╗   ███╗ █████╗  ██████╗██████╗  ██████╗ ███████╗
+████╗ ████║██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔════╝
+██╔████╔██║███████║██║     ██████╔╝██║   ██║███████╗
+██║╚██╔╝██║██╔══██║██║     ██╔══██╗██║   ██║╚════██║
+██║ ╚═╝ ██║██║  ██║╚██████╗██║  ██║╚██████╔╝███████║
+╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+*/
 /** Memory Objects Metadata Begin */
 typedef u8 Scale; /**< Generic type for buffer, block, and pool exponents. */
 typedef u8 LittleIndex; /**< Buffer index inside blocks. */
@@ -44,6 +52,14 @@ staticAssert(MM_POOL_CAPACITY_MIN > 0, mmPoolShouldBeBiggerThanBuffers)
  *   multiplied by 2 exponentially.
  */
 
+/*
+███████╗ ██████╗ ██╗   ██╗███╗   ██╗██████╗  █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
+██╔════╝██╔═══██╗██║   ██║████╗  ██║██╔══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
+█████╗  ██║   ██║██║   ██║██╔██╗ ██║██║  ██║███████║   ██║   ██║██║   ██║██╔██╗ ██║
+██╔══╝  ██║   ██║██║   ██║██║╚██╗██║██║  ██║██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
+██║     ╚██████╔╝╚██████╔╝██║ ╚████║██████╔╝██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
+╚═╝      ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+*/
 /** Cache and minimize calling this routine.
  *  @return Returns 0 in case of failure to get system memory. */
 usize totalRawMemory();
@@ -71,6 +87,14 @@ class Pool;
 class Block {};
 class Buffer {};
 
+/*
+██████╗ ██╗   ██╗███████╗███████╗███████╗██████╗
+██╔══██╗██║   ██║██╔════╝██╔════╝██╔════╝██╔══██╗
+██████╔╝██║   ██║█████╗  █████╗  █████╗  ██████╔╝
+██╔══██╗██║   ██║██╔══╝  ██╔══╝  ██╔══╝  ██╔══██╗
+██████╔╝╚██████╔╝██║     ██║     ███████╗██║  ██║
+╚═════╝  ╚═════╝ ╚═╝     ╚═╝     ╚══════╝╚═╝  ╚═╝
+*/
 template<Scale SCALE>
 class BufferTemplated : public Buffer {
 protected:
@@ -87,6 +111,14 @@ staticAssert(sizeof(Buffer1) == mmBufferSize(1), IS_SIZE_OF_CLASS_BUFFER1_CORREC
 staticAssert(sizeof(Buffer2) == mmBufferSize(2), IS_SIZE_OF_CLASS_BUFFER2_CORRECT)
 staticAssert(sizeof(Buffer3) == mmBufferSize(3), IS_SIZE_OF_CLASS_BUFFER3_CORRECT)
 
+/*
+██████╗ ██╗      ██████╗  ██████╗██╗  ██╗
+██╔══██╗██║     ██╔═══██╗██╔════╝██║ ██╔╝
+██████╔╝██║     ██║   ██║██║     █████╔╝
+██╔══██╗██║     ██║   ██║██║     ██╔═██╗
+██████╔╝███████╗╚██████╔╝╚██████╗██║  ██╗
+╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝
+*/
 template<class BUFFER_TYPE>
 class BlockTemplated : public Block {
 protected:
@@ -110,6 +142,14 @@ staticAssert(sizeof(Block1) == mmBlockSize(1), IS_SIZE_OF_CLASS_BLOCK1_CORRECT)
 staticAssert(sizeof(Block2) == mmBlockSize(2), IS_SIZE_OF_CLASS_BLOCK2_CORRECT)
 staticAssert(sizeof(Block3) == mmBlockSize(3), IS_SIZE_OF_CLASS_BLOCK3_CORRECT)
 
+/*
+██╗███╗   ██╗██████╗ ███████╗██╗  ██╗
+██║████╗  ██║██╔══██╗██╔════╝╚██╗██╔╝
+██║██╔██╗ ██║██║  ██║█████╗   ╚███╔╝
+██║██║╚██╗██║██║  ██║██╔══╝   ██╔██╗
+██║██║ ╚████║██████╔╝███████╗██╔╝ ██╗
+╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+*/
 class BlockIndex {
 private:
   Index index_;
@@ -133,6 +173,14 @@ public:
   }
 };
 
+/*
+██████╗  ██████╗  ██████╗ ██╗
+██╔══██╗██╔═══██╗██╔═══██╗██║
+██████╔╝██║   ██║██║   ██║██║
+██╔═══╝ ██║   ██║██║   ██║██║
+██║     ╚██████╔╝╚██████╔╝███████╗
+╚═╝      ╚═════╝  ╚═════╝ ╚══════╝
+*/
 class Pool {
 protected:
   Pool() {}
