@@ -48,7 +48,7 @@ EMutexResult mutexLock(Mutex* mutex) {
   E_MUTEX_SUCCEEDED : E_MUTEX_FAILED;
 }
 
-/* Unfortunately SDL1 does have MutexTryLock. */
+/* Unfortunately SDL1 does not have MutexTryLock. */
 /* If someone wants to write a compatibility function, go ahead. */
 /*
 EMutexResult mutexTryLock(Mutex* mutex) {
