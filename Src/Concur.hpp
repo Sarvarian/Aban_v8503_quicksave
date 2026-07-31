@@ -76,7 +76,7 @@
   #endif
   #if !IS_ATOMIC_AVAILABLE
   #  error "SDL1 support, minimum GCC 4.7 or Clang support for `__atomic` is require." \
-           "If you don't need concurency, you can disable this by"                     \
+           "If you don't need concurrency, you can disable this by"                     \
            "setting AB_CONCUR to OFF as a CMake option"                                \
            "or by passing AB_CONCUR=0 as a compiler define."
   #endif
