@@ -16,9 +16,9 @@
 
 struct Timing {
 private:
-  const u64 frequency_;
-  u64 post_;
-  u32 delay_;
+  const u64 frequency_; /* Clock frequency in millisecond. */
+  u64 post_; /* Post delay clock. */
+  u32 delay_; /* Calculated milliseconds of last delay. */
   Timing()
   : frequency_(clockFrequencyU64() / MSPS)
   , post_(clockU64())
@@ -27,10 +27,9 @@ private:
 public:
   void frameEnd(const u32 target_delta_ms) {
     const u64 now = clockU64();
-    const u64 past = post_ + delay_;
+    const u64 past = post_;
     const u64 delta = (now - past) / frequency_;
-    delay_ = target_delta_ms > delta ?
-    target_delta_ms - delta : 0 ;
+    delay_ = target_delta_ms > delta ? target_delta_ms - delta : 0 ;
     SDL_Delay(delay_);
     post_ = clockU64();
   }
