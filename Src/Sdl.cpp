@@ -109,8 +109,48 @@ void Sdl::quit() {
   SDL_Quit();
 }
 
+Sdl& Sdl::timer() {
+  subsystem_flags_ |= SDL_INIT_TIMER;
+  return *this;
+}
+
+Sdl& Sdl::audio() {
+  subsystem_flags_ |= SDL_INIT_AUDIO;
+  return *this;
+}
+
 Sdl& Sdl::video() {
   subsystem_flags_ |= SDL_INIT_VIDEO;
+  return *this;
+}
+
+Sdl& Sdl::joystick() {
+  subsystem_flags_ |= SDL_INIT_JOYSTICK;
+  return *this;
+}
+
+Sdl& Sdl::haptic() {
+  subsystem_flags_ |= SDL_INIT_HAPTIC;
+  return *this;
+}
+
+Sdl& Sdl::gameController() {
+  subsystem_flags_ |= SDL_INIT_GAMECONTROLLER;
+  return *this;
+}
+
+Sdl& Sdl::events() {
+  subsystem_flags_ |= SDL_INIT_EVENTS;
+  return *this;
+}
+
+Sdl & Sdl::sensor() {
+  subsystem_flags_ |= SDL_INIT_SENSOR;
+  return *this;
+}
+
+Sdl& Sdl::eventThread() {
+  /* SDL1 Feature Only. */
   return *this;
 }
 

@@ -25,6 +25,14 @@ public:
   Sdl& video();
   /** Add joystick subsystem to init flags. */
   Sdl& joystick();
+  /** Add haptic subsystem to init flags. */
+  Sdl& haptic();
+  /** Add game controller subsystem to init flags. */
+  Sdl& gameController();
+  /** Add events subsystem to init flags. */
+  Sdl& events();
+  /** Add sensor subsystem to init flags. */
+  Sdl& sensor();
   /** Add event thread subsystem to init flags. */
   Sdl& eventThread();
 

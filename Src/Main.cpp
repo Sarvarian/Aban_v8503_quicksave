@@ -29,11 +29,8 @@ public:
     const u64 now = clockU64();
     const u64 past = post_ + delay_;
     const u64 delta = (now - past) / frequency_;
-    delay_
-    = target_delta_ms > delta
-    ? target_delta_ms - delta
-    : 0
-    ;
+    delay_ = target_delta_ms > delta ?
+    target_delta_ms - delta : 0 ;
     SDL_Delay(delay_);
     post_ = clockU64();
   }

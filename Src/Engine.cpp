@@ -14,7 +14,7 @@ ESysStatus Engine::initSdl(int, char**) {
     | SDL_INIT_VIDEO
   );
   */
-  Sdl::def().timer().video().eventThread().init();
+  Sdl::def().timer().video().events().eventThread().init();
   return E_SYS_CONTINUE;
 }
 
