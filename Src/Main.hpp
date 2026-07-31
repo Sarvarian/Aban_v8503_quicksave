@@ -389,6 +389,117 @@
 
 
 /*
+██╗███╗   ██╗████████╗███████╗ ██████╗ ███████╗██████╗ ███████╗
+██║████╗  ██║╚══██╔══╝██╔════╝██╔════╝ ██╔════╝██╔══██╗██╔════╝
+██║██╔██╗ ██║   ██║   █████╗  ██║  ███╗█████╗  ██████╔╝███████╗
+██║██║╚██╗██║   ██║   ██╔══╝  ██║   ██║██╔══╝  ██╔══██╗╚════██║
+██║██║ ╚████║   ██║   ███████╗╚██████╔╝███████╗██║  ██║███████║
+╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝
+*/
+
+typedef Sint8 i8;
+typedef Sint16 i16;
+typedef Sint32 i32;
+typedef Sint64 i64;
+typedef Uint8 u8;
+typedef Uint16 u16;
+typedef Uint32 u32;
+typedef Uint64 u64;
+typedef size_t usize;
+#if IS_OS_WINDOWS
+  typedef SSIZE_T isize;
+#else
+  typedef ssize_t isize;
+#endif
+
+#if IS_C_PLUS_PLUS_98
+  #define castI8(value) (static_cast<i8>(value))
+  #define castI16(value) (static_cast<i16>(value))
+  #define castI32(value) (static_cast<i32>(value))
+  #define castI64(value) (static_cast<i64>(value))
+  #define castU8(value) (static_cast<u8>(value))
+  #define castU16(value) (static_cast<u16>(value))
+  #define castU32(value) (static_cast<u32>(value))
+  #define castU64(value) (static_cast<u64>(value))
+  #define castUSize(value) (static_cast<usize>(value))
+  #define castISize(value) (static_cast<isize>(value))
+  #define castPtr(value) (static_cast<void*>(value))
+  #define castFloat(value) (static_cast<float>(value))
+  #define castDouble(value) (static_cast<double>(value))
+#else
+  #define castI8(value) ((i8)(value))
+  #define castI16(value) ((i16)(value))
+  #define castI32(value) ((i32)(value))
+  #define castI64(value) ((i64)(value))
+  #define castU8(value) ((u8)(value))
+  #define castU16(value) ((u16)(value))
+  #define castU32(value) ((u32)(value))
+  #define castU64(value) ((u64)(value))
+  #define castUSize(value) ((usize)(value))
+  #define castISize(value) ((isize)(value))
+  #define castPtr(value) ((void*)(value))
+  #define castFloat(value) ((float)(value))
+  #define castDouble(value) ((double)(value))
+#endif
+
+#define I8_WIDTH 8
+#define I16_WIDTH 16
+#define I32_WIDTH 32
+#define I64_WIDTH 64
+#define U8_WIDTH 8
+#define U16_WIDTH 16
+#define U32_WIDTH 32
+#define U64_WIDTH 64
+#if IS_PTR_32_BIT
+  #define ISIZE_WIDTH I32_WIDTH
+  #define USIZE_WIDTH U32_WIDTH
+#elif IS_PTR_64_BIT
+  #define ISIZE_WIDTH I64_WIDTH
+  #define USIZE_WIDTH U64_WIDTH
+#endif
+
+#define I8_MIN SDL_MIN_SINT8
+#define I8_MAX SDL_MAX_SINT8
+#define I16_MIN SDL_MIN_SINT16
+#define I16_MAX SDL_MAX_SINT16
+#define I32_MIN SDL_MIN_SINT32
+#define I32_MAX SDL_MAX_SINT32
+#define I64_MIN SDL_MIN_SINT64
+#define I64_MAX SDL_MAX_SINT64
+#define U8_MIN SDL_MIN_UINT8
+#define U8_MAX SDL_MAX_UINT8
+#define U16_MIN SDL_MIN_UINT16
+#define U16_MAX SDL_MAX_UINT16
+#define U32_MIN SDL_MIN_UINT32
+#define U32_MAX SDL_MAX_UINT32
+#define U64_MIN SDL_MIN_UINT64
+#define U64_MAX SDL_MAX_UINT64
+#if IS_PTR_32_BIT
+  #define ISIZE_MIN I32_MIN
+  #define ISIZE_MAX I32_MAX
+  #define USIZE_MIN U32_MIN
+  #define USIZE_MAX U32_MAX
+#elif IS_PTR_64_BIT
+  #define ISIZE_MIN I64_MIN
+  #define ISIZE_MAX I64_MAX
+  #define USIZE_MIN U64_MIN
+  #define USIZE_MAX U64_MAX
+#endif
+
+/** Maximum number that can be held by this type.
+ *  Assumes unsigned integer type.
+ */
+#define maxOfUnsignedIntegerType(TYPE) (tttUSize(mul1BL(BINLOG_8, sizeof(TYPE))) - 1)
+
+/** Capacity. Unique states that can be held by this type.
+ *  Assumes unsigned integer type.
+ */
+#define capOfUnsignedIntegerType(TYPE) tttUSize(mul1BL(BINLOG_8, sizeof(TYPE)))
+
+
+
+
+/*
 ███████╗██████╗ ██╗         ██╗      ██████╗  ██████╗
 ██╔════╝██╔══██╗██║         ██║     ██╔═══██╗██╔════╝
 ███████╗██║  ██║██║         ██║     ██║   ██║██║  ███╗
@@ -484,23 +595,28 @@
 #define USPS 1000000     /* Microseconds Per Second */
 #define NSPS 1000000000  /* Nanoseconds Per Second */
 
-/**
- * @brief Get high-resolution performance counter (ticks since SDL init).
- * @return uint64_t Tick count.
+#if IS_USING_SDL_1
+#define clockU64()            castU64(SDL_GetTicks())
+#define clockFrequencyU64()   castU64(MSPS)
+#define clockMsU64()          castU64(SDL_GetTicks())
+#else
+
+/** @brief Get high-resolution performance counter (ticks since SDL init).
+ *  @return uint64_t Tick count.
  */
 #define clockU64() SDL_GetPerformanceCounter()
 
-/**
- * @brief Get performance frequency (ticks per second).
- * @return uint64_t Frequency in ticks/second.
+/** @brief Get performance frequency (ticks per second).
+ *  @return uint64_t Frequency in ticks/second.
  */
 #define clockFrequencyU64() SDL_GetPerformanceFrequency()
 
-/**
- * @brief Get wall-clock time in milliseconds (since SDL init).
- * @return uint64_t Milliseconds.
+/** @brief Get wall-clock time in milliseconds (since SDL init).
+ *  @return uint64_t Milliseconds.
  */
 #define clockMsU64() SDL_GetTicks()
+
+#endif
 
 
 
@@ -663,117 +779,6 @@ staticAssert(sizeof(void*) == (1<<PTR_EXPONENT), PTR_EXPONENT_IS_PICKED_INCORREC
 #else
   #define alignof(T) (__alignof__(T))
 #endif
-
-
-
-
-/*
-██╗███╗   ██╗████████╗███████╗ ██████╗ ███████╗██████╗ ███████╗
-██║████╗  ██║╚══██╔══╝██╔════╝██╔════╝ ██╔════╝██╔══██╗██╔════╝
-██║██╔██╗ ██║   ██║   █████╗  ██║  ███╗█████╗  ██████╔╝███████╗
-██║██║╚██╗██║   ██║   ██╔══╝  ██║   ██║██╔══╝  ██╔══██╗╚════██║
-██║██║ ╚████║   ██║   ███████╗╚██████╔╝███████╗██║  ██║███████║
-╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝
-*/
-
-typedef Sint8 i8;
-typedef Sint16 i16;
-typedef Sint32 i32;
-typedef Sint64 i64;
-typedef Uint8 u8;
-typedef Uint16 u16;
-typedef Uint32 u32;
-typedef Uint64 u64;
-typedef size_t usize;
-#if IS_OS_WINDOWS
-  typedef SSIZE_T isize;
-#else
-  typedef ssize_t isize;
-#endif
-
-#if IS_C_PLUS_PLUS_98
-  #define castI8(value) (static_cast<i8>(value))
-  #define castI16(value) (static_cast<i16>(value))
-  #define castI32(value) (static_cast<i32>(value))
-  #define castI64(value) (static_cast<i64>(value))
-  #define castU8(value) (static_cast<u8>(value))
-  #define castU16(value) (static_cast<u16>(value))
-  #define castU32(value) (static_cast<u32>(value))
-  #define castU64(value) (static_cast<u64>(value))
-  #define castUSize(value) (static_cast<usize>(value))
-  #define castISize(value) (static_cast<isize>(value))
-  #define castPtr(value) (static_cast<void*>(value))
-  #define castFloat(value) (static_cast<float>(value))
-  #define castDouble(value) (static_cast<double>(value))
-#else
-  #define castI8(value) ((i8)(value))
-  #define castI16(value) ((i16)(value))
-  #define castI32(value) ((i32)(value))
-  #define castI64(value) ((i64)(value))
-  #define castU8(value) ((u8)(value))
-  #define castU16(value) ((u16)(value))
-  #define castU32(value) ((u32)(value))
-  #define castU64(value) ((u64)(value))
-  #define castUSize(value) ((usize)(value))
-  #define castISize(value) ((isize)(value))
-  #define castPtr(value) ((void*)(value))
-  #define castFloat(value) ((float)(value))
-  #define castDouble(value) ((double)(value))
-#endif
-
-#define I8_WIDTH 8
-#define I16_WIDTH 16
-#define I32_WIDTH 32
-#define I64_WIDTH 64
-#define U8_WIDTH 8
-#define U16_WIDTH 16
-#define U32_WIDTH 32
-#define U64_WIDTH 64
-#if IS_PTR_32_BIT
-  #define ISIZE_WIDTH I32_WIDTH
-  #define USIZE_WIDTH U32_WIDTH
-#elif IS_PTR_64_BIT
-  #define ISIZE_WIDTH I64_WIDTH
-  #define USIZE_WIDTH U64_WIDTH
-#endif
-
-#define I8_MIN SDL_MIN_SINT8
-#define I8_MAX SDL_MAX_SINT8
-#define I16_MIN SDL_MIN_SINT16
-#define I16_MAX SDL_MAX_SINT16
-#define I32_MIN SDL_MIN_SINT32
-#define I32_MAX SDL_MAX_SINT32
-#define I64_MIN SDL_MIN_SINT64
-#define I64_MAX SDL_MAX_SINT64
-#define U8_MIN SDL_MIN_UINT8
-#define U8_MAX SDL_MAX_UINT8
-#define U16_MIN SDL_MIN_UINT16
-#define U16_MAX SDL_MAX_UINT16
-#define U32_MIN SDL_MIN_UINT32
-#define U32_MAX SDL_MAX_UINT32
-#define U64_MIN SDL_MIN_UINT64
-#define U64_MAX SDL_MAX_UINT64
-#if IS_PTR_32_BIT
-  #define ISIZE_MIN I32_MIN
-  #define ISIZE_MAX I32_MAX
-  #define USIZE_MIN U32_MIN
-  #define USIZE_MAX U32_MAX
-#elif IS_PTR_64_BIT
-  #define ISIZE_MIN I64_MIN
-  #define ISIZE_MAX I64_MAX
-  #define USIZE_MIN U64_MIN
-  #define USIZE_MAX U64_MAX
-#endif
-
-/** Maximum number that can be held by this type.
- *  Assumes unsigned integer type.
- */
-#define maxOfUnsignedIntegerType(TYPE) (tttUSize(mul1BL(BINLOG_8, sizeof(TYPE))) - 1)
-
-/** Capacity. Unique states that can be held by this type.
- *  Assumes unsigned integer type.
- */
-#define capOfUnsignedIntegerType(TYPE) tttUSize(mul1BL(BINLOG_8, sizeof(TYPE)))
 
 
 
