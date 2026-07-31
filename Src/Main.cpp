@@ -64,7 +64,12 @@ int main(int argc, char** argv) {
     while (SDL_PollEvent(&event)) {
       CHECK(engine.eventSdl(&event));
     }
-    CHECK(engine.stepEngine());
+repeat_step:
+    switch (engine.stepEngine()) {
+      case E_SYS_REPEAT: goto repeat_step;
+      case E_SYS_CONTINUE: break;
+      default: return shutdown(engine);
+    }
     timing.frameEnd(engine.target_delta_ms);
   }
   /* ReSharper disable once CppDFAUnreachableCode */

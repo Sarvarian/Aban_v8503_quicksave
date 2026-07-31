@@ -121,7 +121,6 @@ void calculateDeltaTime(DebugData& db) {
     db.past = now;
     print("delta: %f\tfps: %f\n", delta, fps);
   } /* End { Print Frame Time } */
-
 }
 
 ESysStatus Engine::stepEngine() {

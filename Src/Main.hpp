@@ -631,12 +631,14 @@ typedef size_t usize;
     E_SYS_CONTINUE = SDL_APP_CONTINUE,
     E_SYS_QUIT = SDL_APP_SUCCESS,
     E_SYS_FATALITY = SDL_APP_FAILURE,
+    E_SYS_REPEAT
   } ESysStatus;
 #else
   typedef enum ESysStatus {
-    E_SYS_CONTINUE,
-    E_SYS_QUIT,
-    E_SYS_FATALITY
+    E_SYS_CONTINUE, /**<< Continue to the next procedure. */
+    E_SYS_QUIT, /**<< Exit normally. */
+    E_SYS_FATALITY, /**<< Exit with error. */
+    E_SYS_REPEAT /**<< Repeat the same procedure. */
   } ESysStatus;
 #endif
 
