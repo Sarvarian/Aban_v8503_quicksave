@@ -336,4 +336,4 @@ EMutexResult semaphoreSignal(Semaphore* semaphore) {
 
 #endif
 
-#endif /* !AB_NO_CONCUR */
+#endif /* AB_CONCUR */
