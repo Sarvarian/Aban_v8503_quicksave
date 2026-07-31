@@ -52,6 +52,8 @@ add_executable(Aban
   Src/Engine.hpp
   Src/Main.hpp
   Src/Main.cpp
+  Src/Memory.cpp
+  Src/Memory.hpp
   Src/Sdl.cpp
   Src/Sdl.hpp
 )
