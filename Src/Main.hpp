@@ -389,6 +389,106 @@
 
 
 /*
+ █████╗ ███████╗███████╗███████╗██████╗ ████████╗
+██╔══██╗██╔════╝██╔════╝██╔════╝██╔══██╗╚══██╔══╝
+███████║███████╗███████╗█████╗  ██████╔╝   ██║
+██╔══██║╚════██║╚════██║██╔══╝  ██╔══██╗   ██║
+██║  ██║███████║███████║███████╗██║  ██║   ██║
+╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝
+*/
+#if IS_C_11
+  #define staticAssert(EXPRESSION, MESSAGE) \
+  static_assert((EXPRESSION), #MESSAGE);
+#else
+  #define staticAssert(EXPRESSION, MESSAGE) \
+  typedef char staticAssert_##MESSAGE[(EXPRESSION) ? 1 : -1];
+#endif
+/*  System Assert Include End */
+
+
+
+
+/*
+██████╗  ██████╗  ██████╗ ██╗
+██╔══██╗██╔═══██╗██╔═══██╗██║
+██████╔╝██║   ██║██║   ██║██║
+██╔══██╗██║   ██║██║   ██║██║
+██████╔╝╚██████╔╝╚██████╔╝███████╗
+╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝
+*/
+#if  !(IS_C_PLUS_PLUS)  &&  !(IS_C_23)  &&  ( !(IS_COMPILER_MSVC) || IS_COMPILER_MSVC_2013 )
+  #include <stdbool.h>
+#endif
+#if IS_C_PLUS_PLUS || IS_C_23
+  /* empty */
+#elif defined(_STDBOOL_H) || defined(__STDBOOL_H)
+  /* empty */
+#elif defined(bool) && defined(true) && defined(false)
+  /* empty */
+#elif defined(SDL_stdinc_h_)
+  #define bool SDL_bool
+  #define false SDL_FALSE
+  #define true SDL_TRUE
+#elif   IS_C_99   ||       ( !(IS_C_PLUS_PLUS  &&  IS_C  &&  IS_COMPILER_MSVC_2013) )
+  #define bool _Bool
+  #define false 0
+  #define true 1
+#else
+  typedef enum {
+    false = 0,
+    true = 1
+  } bool;
+#endif
+
+
+
+
+/*
+███╗   ██╗██╗   ██╗██╗     ██╗
+████╗  ██║██║   ██║██║     ██║
+██╔██╗ ██║██║   ██║██║     ██║
+██║╚██╗██║██║   ██║██║     ██║
+██║ ╚████║╚██████╔╝███████╗███████╗
+╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚══════╝
+*/
+#if IS_C_PLUS_PLUS_11
+#define null nullptr
+#else
+#if !defined(NULL)
+#include <stddef.h>
+#endif
+#define null NULL
+#endif
+
+
+
+
+/*
+██████╗ ████████╗██████╗
+██╔══██╗╚══██╔══╝██╔══██╗
+██████╔╝   ██║   ██████╔╝
+██╔═══╝    ██║   ██╔══██╗
+██║        ██║   ██║  ██║
+╚═╝        ╚═╝   ╚═╝  ╚═╝
+*/
+/* Exponent that results in the pointer size in byte. */
+#if ULONG_MAX == 0xFFFFFFFFU /* system is 32 bit. */
+#define PTR_EXPONENT 2 /* 32-bit, 4 byte, 2^2. */
+#elif ULONG_MAX == UINT64_MAX
+#define PTR_EXPONENT 3 /* 64-bit, 8 byte, 2^3. */
+#else
+#error "Failed to recognize pointer size."
+#endif
+#define PTR_SIZE ( 1 << PTR_EXPONENT ) /* 2^PTR_EXPONENT */
+#define PTR_BITS  ( PTR_SIZE << 3 ) /* 8×PTR_SIZE */
+#define IS_PTR_32_BIT ( PTR_BITS == 32 )
+#define IS_PTR_64_BIT ( PTR_BITS == 64 )
+staticAssert(sizeof(void*) == (1<<PTR_EXPONENT), PTR_EXPONENT_IS_PICKED_INCORRECTLY)
+
+
+
+
+/*
 ██╗███╗   ██╗████████╗███████╗ ██████╗ ███████╗██████╗ ███████╗
 ██║████╗  ██║╚══██╔══╝██╔════╝██╔════╝ ██╔════╝██╔══██╗██╔════╝
 ██║██╔██╗ ██║   ██║   █████╗  ██║  ███╗█████╗  ██████╔╝███████╗
@@ -664,100 +764,6 @@ typedef size_t usize;
 
 #define _stringify__(X) #X
 #define stringify(X) _stringify__(X)
-
-
-/*
- █████╗ ███████╗███████╗███████╗██████╗ ████████╗
-██╔══██╗██╔════╝██╔════╝██╔════╝██╔══██╗╚══██╔══╝
-███████║███████╗███████╗█████╗  ██████╔╝   ██║
-██╔══██║╚════██║╚════██║██╔══╝  ██╔══██╗   ██║
-██║  ██║███████║███████║███████╗██║  ██║   ██║
-╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝
-*/
-#if IS_C_11
-  #define staticAssert(EXPRESSION, MESSAGE) \
-  static_assert((EXPRESSION), #MESSAGE);
-#else
-  #define staticAssert(EXPRESSION, MESSAGE) \
-  typedef char staticAssert_##MESSAGE[(EXPRESSION) ? 1 : -1];
-#endif
-/*  System Assert Include End */
-
-
-
-
-/*
-██████╗  ██████╗  ██████╗ ██╗
-██╔══██╗██╔═══██╗██╔═══██╗██║
-██████╔╝██║   ██║██║   ██║██║
-██╔══██╗██║   ██║██║   ██║██║
-██████╔╝╚██████╔╝╚██████╔╝███████╗
-╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝
-*/
-#if  !(IS_C_PLUS_PLUS)  &&  !(IS_C_23)  &&  ( !(IS_COMPILER_MSVC) || IS_COMPILER_MSVC_2013 )
-  #include <stdbool.h>
-#endif
-#if IS_C_PLUS_PLUS || IS_C_23
-  /* empty */
-#elif defined(_STDBOOL_H) || defined(__STDBOOL_H)
-  /* empty */
-#elif defined(bool) && defined(true) && defined(false)
-  /* empty */
-#elif defined(SDL_stdinc_h_)
-  #define bool SDL_bool
-  #define false SDL_FALSE
-  #define true SDL_TRUE
-#elif   IS_C_99   ||       ( !(IS_C_PLUS_PLUS  &&  IS_C  &&  IS_COMPILER_MSVC_2013) )
-  #define bool _Bool
-  #define false 0
-  #define true 1
-#else
-  typedef enum {
-    false = 0,
-    true = 1
-  } bool;
-#endif
-
-
-/*
-███╗   ██╗██╗   ██╗██╗     ██╗
-████╗  ██║██║   ██║██║     ██║
-██╔██╗ ██║██║   ██║██║     ██║
-██║╚██╗██║██║   ██║██║     ██║
-██║ ╚████║╚██████╔╝███████╗███████╗
-╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚══════╝
-*/
-#if IS_C_PLUS_PLUS_11
-#define null nullptr
-#else
-#if !defined(NULL)
-#include <stddef.h>
-#endif
-#define null NULL
-#endif
-
-
-/*
-██████╗ ████████╗██████╗
-██╔══██╗╚══██╔══╝██╔══██╗
-██████╔╝   ██║   ██████╔╝
-██╔═══╝    ██║   ██╔══██╗
-██║        ██║   ██║  ██║
-╚═╝        ╚═╝   ╚═╝  ╚═╝
-*/
-/* Exponent that results in the pointer size in byte. */
-#if ULONG_MAX == 0xFFFFFFFFU /* system is 32 bit. */
-#define PTR_EXPONENT 2 /* 32-bit, 4 byte, 2^2. */
-#elif ULONG_MAX == UINT64_MAX
-#define PTR_EXPONENT 3 /* 64-bit, 8 byte, 2^3. */
-#else
-#error "Failed to recognize pointer size."
-#endif
-#define PTR_SIZE ( 1 << PTR_EXPONENT ) /* 2^PTR_EXPONENT */
-#define PTR_BITS  ( PTR_SIZE << 3 ) /* 8×PTR_SIZE */
-#define IS_PTR_32_BIT ( PTR_BITS == 32 )
-#define IS_PTR_64_BIT ( PTR_BITS == 64 )
-staticAssert(sizeof(void*) == (1<<PTR_EXPONENT), PTR_EXPONENT_IS_PICKED_INCORRECTLY)
 
 
 /*
