@@ -21,9 +21,4 @@ Note: Free as in freedom and liberty; not price.
 
 ## Aban Project Structure
 
-Directories (Ordered by importance):
-
-- Zero: A static library responsible for
-handling `main` entry point and platform
-interface abstraction.
-- Engine
+To be written.
