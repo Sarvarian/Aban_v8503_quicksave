@@ -128,7 +128,7 @@ Mutex* mutexDestroy(Mutex*);
 EMutexResult mutexLock(Mutex*);
 
 #if IS_USING_SDL_1
-/* Unfortunately SDL1 does have MutexTryLock. */
+/* Unfortunately SDL1 does not have MutexTryLock. */
 /* If someone wants to write a compatibility function, go ahead. */
 #else
 /** @return `E_MUTEX_SUCCEEDED` on success,
