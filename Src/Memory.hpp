@@ -45,16 +45,13 @@ staticAssert(MM_POOL_CAPACITY_MIN > 0, mmPoolShouldBeBiggerThanBuffers)
  */
 
 /** Cache and minimize calling this routine.
- *  @return Returns 0 in case of failure to get system memory.
- */
+ *  @return Returns 0 in case of failure to get system memory. */
 usize totalRawMemory();
 
-/** @return Check return for failure.
- */
+/** @return Check return for failure. */
 void* allocatePool(Index capacity);
 
-/** @return Always returns null.
- */
+/** @return Always returns null. */
 void* deallocatePool(void* location, Index capacity);
 
 /** [Multithread Safe]
@@ -62,14 +59,12 @@ void* deallocatePool(void* location, Index capacity);
  *  @param capacity  Capacity in block units.
  *  @param scale Should be less than or
  *               equal to (`MM_EXPONENT_MAX` - 1).
- *  @return Returns 0 in case of failure.
- */
+ *  @return Returns 0 in case of failure. */
 Index pushBlock(Atomic* used, Index capacity, Scale scale);
 
 /** @brief This is NOT intended for multithread use.
  *  @param used Atomic int, head of pool usage.
- *  @param scale Amount of block units to pop.
- */
+ *  @param scale Amount of block units to pop. */
 Index popBlock(Atomic* used, Scale scale);
 
 class Pool;
@@ -77,26 +72,26 @@ class Block {};
 class Buffer {};
 
 template<Scale SCALE>
-class BufferTemplate : public Buffer {
+class BufferTemplated : public Buffer {
 protected:
   u8 raw_[mmBufferSize(SCALE)];
-  BufferTemplate() : raw_() {}
+  BufferTemplated() : raw_() {}
 };
 
-class Buffer0 : public BufferTemplate<0> {};
+class Buffer0 : public BufferTemplated<0> {};
+class Buffer1 : public BufferTemplated<1> {};
+class Buffer2 : public BufferTemplated<2> {};
+class Buffer3 : public BufferTemplated<3> {};
 staticAssert(sizeof(Buffer0) == mmBufferSize(0), IS_SIZE_OF_CLASS_BUFFER0_CORRECT)
-class Buffer1 : public BufferTemplate<1> {};
 staticAssert(sizeof(Buffer1) == mmBufferSize(1), IS_SIZE_OF_CLASS_BUFFER1_CORRECT)
-class Buffer2 : public BufferTemplate<2> {};
 staticAssert(sizeof(Buffer2) == mmBufferSize(2), IS_SIZE_OF_CLASS_BUFFER2_CORRECT)
-class Buffer3 : public BufferTemplate<3> {};
 staticAssert(sizeof(Buffer3) == mmBufferSize(3), IS_SIZE_OF_CLASS_BUFFER3_CORRECT)
 
 template<class BUFFER_TYPE>
-class BlockTemplate : public Block {
+class BlockTemplated : public Block {
 protected:
   BUFFER_TYPE buffer_[MM_BLOCK_CAPACITY];
-  BlockTemplate() : buffer_(0) {}
+  BlockTemplated() : buffer_(0) {}
 public:
   bool isValid(const Pool* location) const {
     return static_cast<const void*>(location) != static_cast<const void*>(buffer_) ? true : false;
@@ -106,13 +101,13 @@ public:
   }
 };
 
-class Block0 : public BlockTemplate<Buffer0> {};
+class Block0 : public BlockTemplated<Buffer0> {};
+class Block1 : public BlockTemplated<Buffer1> {};
+class Block2 : public BlockTemplated<Buffer2> {};
+class Block3 : public BlockTemplated<Buffer3> {};
 staticAssert(sizeof(Block0) == mmBlockSize(0), IS_SIZE_OF_CLASS_BLOCK0_CORRECT)
-class Block1 : public BlockTemplate<Buffer1> {};
 staticAssert(sizeof(Block1) == mmBlockSize(1), IS_SIZE_OF_CLASS_BLOCK1_CORRECT)
-class Block2 : public BlockTemplate<Buffer2> {};
 staticAssert(sizeof(Block2) == mmBlockSize(2), IS_SIZE_OF_CLASS_BLOCK2_CORRECT)
-class Block3 : public BlockTemplate<Buffer3> {};
 staticAssert(sizeof(Block3) == mmBlockSize(3), IS_SIZE_OF_CLASS_BLOCK3_CORRECT)
 
 class BlockIndex {
@@ -165,16 +160,16 @@ public:
 };
 
 template<Index CAPACITY>
-class PoolTemplate : public Pool {
+class PoolTemplated : public Pool {
 protected:
-  PoolTemplate() {}
-  PoolTemplate* getPoolTemplate() { return this; }
+  PoolTemplated() {}
+  PoolTemplated* getPoolTemplated() { return this; }
 public:
-  static PoolTemplate* def() {
-    return static_cast<PoolTemplate*>(allocatePool(CAPACITY));
+  static PoolTemplated* def() {
+    return static_cast<PoolTemplated*>(allocatePool(CAPACITY));
   }
-  PoolTemplate* undef() {
-    return static_cast<PoolTemplate*>(deallocatePool(this, CAPACITY));
+  PoolTemplated* undef() {
+    return static_cast<PoolTemplated*>(deallocatePool(this, CAPACITY));
   }
 
   class BlockAllocator : public Pool::BlockAllocator {
@@ -201,123 +196,123 @@ public:
   }
 };
 
-class Pool4 : public PoolTemplate<TTT_6> {
+class Pool4 : public PoolTemplated<TTT_6> {
 protected:
   Pool4() {}
 public:
   static Pool4* def() {
-    return reinterpret_cast<Pool4*>(PoolTemplate::def());
+    return reinterpret_cast<Pool4*>(PoolTemplated::def());
   }
   Pool4* undef() {
-    return reinterpret_cast<Pool4*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool4*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool8 : public PoolTemplate<TTT_7> {
+class Pool8 : public PoolTemplated<TTT_7> {
 protected:
   Pool8() {}
 public:
   static Pool8* def() {
-    return reinterpret_cast<Pool8*>(PoolTemplate::def());
+    return reinterpret_cast<Pool8*>(PoolTemplated::def());
   }
   Pool8* undef() {
-    return reinterpret_cast<Pool8*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool8*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool16 : public PoolTemplate<TTT_8> {
+class Pool16 : public PoolTemplated<TTT_8> {
 protected:
   Pool16() {}
 public:
   static Pool16* def() {
-    return reinterpret_cast<Pool16*>(PoolTemplate::def());
+    return reinterpret_cast<Pool16*>(PoolTemplated::def());
   }
   Pool16* undef() {
-    return reinterpret_cast<Pool16*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool16*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool32 : public PoolTemplate<TTT_9> {
+class Pool32 : public PoolTemplated<TTT_9> {
 protected:
   Pool32() {}
 public:
   static Pool32* def() {
-    return reinterpret_cast<Pool32*>(PoolTemplate::def());
+    return reinterpret_cast<Pool32*>(PoolTemplated::def());
   }
   Pool32* undef() {
-    return reinterpret_cast<Pool32*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool32*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool64 : public PoolTemplate<TTT_10> {
+class Pool64 : public PoolTemplated<TTT_10> {
 protected:
   Pool64() {}
 public:
   static Pool64* def() {
-    return reinterpret_cast<Pool64*>(PoolTemplate::def());
+    return reinterpret_cast<Pool64*>(PoolTemplated::def());
   }
   Pool64* undef() {
-    return reinterpret_cast<Pool64*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool64*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool128 : public PoolTemplate<TTT_11> {
+class Pool128 : public PoolTemplated<TTT_11> {
 protected:
   Pool128() {}
 public:
   static Pool128* def() {
-    return reinterpret_cast<Pool128*>(PoolTemplate::def());
+    return reinterpret_cast<Pool128*>(PoolTemplated::def());
   }
   Pool128* undef() {
-    return reinterpret_cast<Pool128*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool128*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool256 : public PoolTemplate<TTT_12> {
+class Pool256 : public PoolTemplated<TTT_12> {
 protected:
   Pool256() {}
 public:
   static Pool256* def() {
-    return reinterpret_cast<Pool256*>(PoolTemplate::def());
+    return reinterpret_cast<Pool256*>(PoolTemplated::def());
   }
   Pool256* undef() {
-    return reinterpret_cast<Pool256*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool256*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool512 : public PoolTemplate<TTT_13> {
+class Pool512 : public PoolTemplated<TTT_13> {
 protected:
   Pool512() {}
 public:
   static Pool512* def() {
-    return reinterpret_cast<Pool512*>(PoolTemplate::def());
+    return reinterpret_cast<Pool512*>(PoolTemplated::def());
   }
   Pool512* undef() {
-    return reinterpret_cast<Pool512*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool512*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool1024 : public PoolTemplate<TTT_14> {
+class Pool1024 : public PoolTemplated<TTT_14> {
 protected:
   Pool1024() {}
 public:
   static Pool1024* def() {
-    return reinterpret_cast<Pool1024*>(PoolTemplate::def());
+    return reinterpret_cast<Pool1024*>(PoolTemplated::def());
   }
   Pool1024* undef() {
-    return reinterpret_cast<Pool1024*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool1024*>(getPoolTemplated()->undef());
   }
 };
 
-class Pool2048 : public PoolTemplate<TTT_15> {
+class Pool2048 : public PoolTemplated<TTT_15> {
 protected:
   Pool2048() {}
 public:
   static Pool2048* def() {
-    return reinterpret_cast<Pool2048*>(PoolTemplate::def());
+    return reinterpret_cast<Pool2048*>(PoolTemplated::def());
   }
   Pool2048* undef() {
-    return reinterpret_cast<Pool2048*>(getPoolTemplate()->undef());
+    return reinterpret_cast<Pool2048*>(getPoolTemplated()->undef());
   }
 };
 
