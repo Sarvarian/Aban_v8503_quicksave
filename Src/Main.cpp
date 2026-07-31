@@ -5,8 +5,10 @@
   #include <SDL3/SDL_main.h>
 #elif IS_USING_SDL_2
   #include <SDL2/SDL.h>
-  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL2/SDL_main.h>
+#elif IS_USING_SDL_1
+  #include <SDL/SDL.h>
+  #include <SDL/SDL_main.h>
 #endif
 
 #include "Engine.hpp"

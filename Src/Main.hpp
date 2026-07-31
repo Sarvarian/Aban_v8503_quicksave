@@ -739,7 +739,11 @@ typedef size_t usize;
   #define _ab_debugBreak__ raise(SIGTRAP);
 #endif
 
-#define _ab_print__ SDL_Log
+#if IS_USING_SDL_1
+  #define _ab_print__ printf
+#else
+  #define _ab_print__ SDL_Log
+#endif
 
 #if !defined(NDEBUG) || DEBUG
   #define debugBreak _ab_debugBreak__

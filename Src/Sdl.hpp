@@ -17,8 +17,16 @@ public:
   Status init();
   static void quit();
 
+  /** Add timer subsystem to init flags. */
+  Sdl& timer();
+  /** Add audio subsystem to init flags. */
+  Sdl& audio();
   /** Add video subsystem to init flags. */
   Sdl& video();
+  /** Add joystick subsystem to init flags. */
+  Sdl& joystick();
+  /** Add event thread subsystem to init flags. */
+  Sdl& eventThread();
 
 private:
   Sdl();

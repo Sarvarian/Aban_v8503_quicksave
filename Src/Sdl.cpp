@@ -14,6 +14,10 @@ Sdl::Sdl() {
   subsystem_flags_ = 0;
 }
 
+Sdl Sdl::def() {
+  return Sdl();
+}
+
 Sdl::Status Sdl::init() {
   const int res = SDL_Init(subsystem_flags_);
   return res == 0 ? INIT_SUCCEED : INIT_FAILED;
@@ -23,13 +27,37 @@ void Sdl::quit() {
   SDL_Quit();
 }
 
+Sdl& Sdl::timer() {
+  subsystem_flags_ |= SDL_INIT_TIMER;
+  return *this;
+}
+
+Sdl & Sdl::audio() {
+  subsystem_flags_ |= SDL_INIT_AUDIO;
+  return *this;
+}
+
 Sdl& Sdl::video() {
   subsystem_flags_ |= SDL_INIT_VIDEO;
   return *this;
 }
 
+Sdl& Sdl::joystick() {
+  subsystem_flags_ |= SDL_INIT_JOYSTICK;
+  return *this;
+}
+
+Sdl& Sdl::eventThread() {
+  subsystem_flags_ |= SDL_INIT_EVENTTHREAD;
+  return *this;
+}
+
 SdlWindow::SdlWindow() {
   handle_ = null;
+}
+
+SdlWindow SdlWindow::def() {
+  return SdlWindow();
 }
 
 SdlWindow::Status SdlWindow::create() {

@@ -14,11 +14,11 @@ ESysStatus Engine::initSdl(int, char**) {
     | SDL_INIT_VIDEO
   );
   */
-  Sdl::def().video().init();
+  Sdl::def().timer().video().eventThread().init();
   return E_SYS_CONTINUE;
 }
 
-struct SdlWindowBuffer { SDL_Window* buffer[sizeof(Buffer0) / sizeof(SDL_Window*)]; };
+struct SdlWindowBuffer { SdlWindow buffer[sizeof(Buffer0) / sizeof(SdlWindow)]; };
 staticAssert(sizeof(SdlWindowBuffer) == sizeof(Buffer0), SDL_WINDOW_BUFFER_FIT_INTO_ONE_BUFFER0)
 
 struct NullField {
@@ -80,18 +80,19 @@ ESysStatus Engine::eventSdl(const SDL_Event* event) {
   switch (event->type) {
   case SDL_EVENT_QUIT:  return E_SYS_QUIT;
   case SDL_KEYUP:
-    if (event->key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+    // print("%d\n", event->key.keysym.scancode);
+    if (event->key.keysym.scancode == 9) {
       return E_SYS_QUIT;
-    } else if (event->key.keysym.scancode == SDL_SCANCODE_0) {
+    } else if (event->key.keysym.scancode == 19) {
       target_delta_ms = 0;
       return E_SYS_CONTINUE;
-    } else if (event->key.keysym.scancode == SDL_SCANCODE_1) {
+    } else if (event->key.keysym.scancode == 10) {
       target_delta_ms = MSPS / 30;
       return E_SYS_CONTINUE;
-    } else if (event->key.keysym.scancode == SDL_SCANCODE_2) {
+    } else if (event->key.keysym.scancode == 11) {
       target_delta_ms = MSPS / 60;
       return E_SYS_CONTINUE;
-    } else if (event->key.keysym.scancode == SDL_SCANCODE_3) {
+    } else if (event->key.keysym.scancode == 12) {
       target_delta_ms = MSPS / 120;
       return E_SYS_CONTINUE;
     } else {
