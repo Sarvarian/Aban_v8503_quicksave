@@ -19,6 +19,17 @@ After my works here, I will publish my cleaned up and worthy works on [Aban_v850
 Note: Free as in freedom and liberty; not price.
 (Freedom of expression; not free beer.)
 
+## Code of Conduct (Or Rather Lack of It)
+
+- Freedom of expression must prevail.
+- Thou shalt not censor for others. But only ban for thee.
+- There is no such thing as insult or hate in speech.
+    As meaning lies in interpretation and not words themselves.
+- Any foul-mouthing only signals the speaker's anger and need for attention;
+    So, pay attention and do not escalate farther by bringing your own anger.
+- Forks and third-party communities are welcome. Diversity may make it difficult
+    to understand for outsiders, but it only makes the whole stronger.
+
 ## Aban Project Structure
 
 To be written.
