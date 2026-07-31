@@ -47,6 +47,26 @@ Sdl& Sdl::joystick() {
   return *this;
 }
 
+Sdl& Sdl::haptic() {
+  /* No Such Init For SDL1 */
+  return *this;
+}
+
+Sdl& Sdl::gameController() {
+  /* No Such Init For SDL1 */
+  return *this;
+}
+
+Sdl& Sdl::events() {
+  /* No Such Init For SDL1 */
+  return *this;
+}
+
+Sdl& Sdl::sensor() {
+  /* No Such Init For SDL1 */
+  return *this;
+}
+
 Sdl& Sdl::eventThread() {
   subsystem_flags_ |= SDL_INIT_EVENTTHREAD;
   return *this;
