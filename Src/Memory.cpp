@@ -52,6 +52,7 @@ void* deallocatePool(void* location, const Index capacity) {
   return null;
 }
 
+#if AB_CONCUR
 Index pushBlock(Atomic* used, const Index capacity, const Scale scale) {
   /* `pool->used_units` should never fall below 1. */
   /* Because, 0 is failure indicator. */
@@ -71,9 +72,29 @@ Index pushBlock(Atomic* used, const Index capacity, const Scale scale) {
     }
   }
 }
+#else
+Index pushBlock(int* used, const Index capacity, const Scale scale) {
+  /* `pool->used_units` should never fall below 1. */
+  /* Because, 0 is failure indicator. */
+  /* And index 0 is always implicitly allocated. */
+  assert(*used > 0);
+  /* Exponent should not be greater than (MM_BLOCK_CAPACITY_MAX_EXPONENT - 1) to prevent overflow. */
+  assert(mmBlockExponentCheck(scale) == false);
+  const int request = mmBlockUnitCount(scale);
+  const int current = *used;
+  const int final = current + request;
+  if (final > capacity) {
+    return 0;
+  } else {
+    *used = final;
+    return static_cast<Index>(current);
+  }
+}
+#endif
 
+#if AB_CONCUR
 Index popBlock(Atomic* used, const Scale scale) {
-  /* `pool-used` should never fall below 1. */
+  /* `pool->used` should never fall below 1. */
   /* Because, 0 is failure indicator. */
   /* And index 0 is always implicitly allocated. */
   assert(atomicGet(used) > 0);
@@ -82,16 +103,30 @@ Index popBlock(Atomic* used, const Scale scale) {
   const int request = mmBlockUnitCount(scale);
   while (true) {
     const int current = atomicGet(used);
-    if (request > current) {
-      debugBreak;
-      atomicSet(used, 0);
-      return 0;
-    } else {
-      const int final = current - request;
-      const bool didWork = atomicCAS(used, current, final);
-      if (didWork) { return final; }
-    }
+    int final = current - request;
+    assert(final > 0);
+    final = final > 0 ? final : 1;
+    const bool didWork = atomicCAS(used, current, final);
+    if (didWork) { return final; }
   }
 }
+#else
+Index popBlock(int* used, const Scale scale) {
+  /* `pool->used` should never fall below 1. */
+  /* Because, 0 is failure indicator. */
+  /* And index 0 is always implicitly allocated. */
+  assert(*used > 0);
+  /* Exponent should not be greater than (MM_BLOCK_CAPACITY_MAX_EXPONENT - 1) to prevent overflow. */
+  assert(mmBlockExponentCheck(scale) == false);
+  const int request = mmBlockUnitCount(scale);
+  const int current = *used;
+  int final = current - request;
+  assert(final > 0);
+  final = final > 0 ? final : 1;
+  *used = final;
+  return final;
+}
+#endif
+
 }
 

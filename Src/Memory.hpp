@@ -70,6 +70,7 @@ void* allocatePool(Index capacity);
 /** @return Always returns null. */
 void* deallocatePool(void* location, Index capacity);
 
+#if AB_CONCUR
 /** [Multithread Safe]
  *  @param used Atomic int, head of pool usage.
  *  @param capacity  Capacity in block units.
@@ -77,11 +78,18 @@ void* deallocatePool(void* location, Index capacity);
  *               equal to (`MM_EXPONENT_MAX` - 1).
  *  @return Returns 0 in case of failure. */
 Index pushBlock(Atomic* used, Index capacity, Scale scale);
+#else
+Index pushBlock(int* used, Index capacity, Scale scale);
+#endif
 
+#if AB_CONCUR
 /** @brief This is NOT intended for multithread use.
  *  @param used Atomic int, head of pool usage.
  *  @param scale Amount of block units to pop. */
 Index popBlock(Atomic* used, Scale scale);
+#else
+Index popBlock(int* used, Scale scale);
+#endif
 
 class Pool;
 class Block {};
@@ -179,10 +187,15 @@ protected:
 public:
   class BlockAllocator {
   protected:
+#if AB_CONCUR
     Atomic used_; /**< Always initialize it with 1.
                        Block index 0, is implicitly allocated.
                        So, we can use index 0 as null index. */
     BlockAllocator() : used_() { atomicSet(&used_, 1); }
+#else
+    int used_;
+    BlockAllocator() : used_(1) {}
+#endif
   public:
     BlockIndex pushBlock0(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 0)); }
     BlockIndex pushBlock1(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 1)); }
