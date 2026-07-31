@@ -159,18 +159,10 @@ public:
   bool isValid() const {
     return index_ != 0 ? true : false;
   }
-  Block0* toBlock0(Pool* location) const {
-    return reinterpret_cast<Block0*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_));
-  }
-  Block1* toBlock1(Pool* location) const {
-    return reinterpret_cast<Block1*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_));
-  }
-  Block2* toBlock2(Pool* location) const {
-    return reinterpret_cast<Block2*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_));
-  }
-  Block3* toBlock3(Pool* location) const {
-    return reinterpret_cast<Block3*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_));
-  }
+  Block0* toBlock0(Pool* location) const { return reinterpret_cast<Block0*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_)); }
+  Block1* toBlock1(Pool* location) const { return reinterpret_cast<Block1*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_)); }
+  Block2* toBlock2(Pool* location) const { return reinterpret_cast<Block2*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_)); }
+  Block3* toBlock3(Pool* location) const { return reinterpret_cast<Block3*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_)); }
 };
 
 /*
@@ -192,18 +184,10 @@ public:
                        So, we can use index 0 as null index. */
     BlockAllocator() : used_() { atomicSet(&used_, 1); }
   public:
-    BlockIndex pushBlock0(const Index capacity) {
-      return BlockIndex(pushBlock(&used_, capacity, 0));
-    }
-    BlockIndex pushBlock1(const Index capacity) {
-      return BlockIndex(pushBlock(&used_, capacity, 1));
-    }
-    BlockIndex pushBlock2(const Index capacity) {
-      return BlockIndex(pushBlock(&used_, capacity, 2));
-    }
-    BlockIndex pushBlock3(const Index capacity) {
-      return BlockIndex(pushBlock(&used_, capacity, 3));
-    }
+    BlockIndex pushBlock0(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 0)); }
+    BlockIndex pushBlock1(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 1)); }
+    BlockIndex pushBlock2(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 2)); }
+    BlockIndex pushBlock3(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 3)); }
   };
 };
 
@@ -225,18 +209,10 @@ public:
     static BlockAllocator def() {
       return BlockAllocator();
     }
-    BlockIndex pushBlock0() {
-      return pushBlock0(CAPACITY);
-    }
-    BlockIndex pushBlock1() {
-      return pushBlock1(CAPACITY);
-    }
-    BlockIndex pushBlock2() {
-      return pushBlock2(CAPACITY);
-    }
-    BlockIndex pushBlock3() {
-      return pushBlock3(CAPACITY);
-    }
+    BlockIndex pushBlock0() { return pushBlock0(CAPACITY); }
+    BlockIndex pushBlock1() { return pushBlock1(CAPACITY); }
+    BlockIndex pushBlock2() { return pushBlock2(CAPACITY); }
+    BlockIndex pushBlock3() { return pushBlock3(CAPACITY); }
   };
 
   BlockAllocator defBlockAllocator() {
