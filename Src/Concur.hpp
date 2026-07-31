@@ -211,3 +211,17 @@ EMutexResult semaphoreSignal(Semaphore*);
 #endif /* AB_CONCUR */
 
 #endif /* AB_CONCUR_HPP */
+
+/** A note about SDL1 Concur support.
+ *  SDL1 is at the edge of our compatibility support.
+ *  It lacks full implementation for all SDL1 supported platforms.
+ *  It lacks MutexTryLock function.
+ *  It only supports atomics on modern versions of two specific compilers (gcc, clang).
+ *  And there is a known possible bug that may or may not cause SemaphoreWaitTimeout to
+ *    report Fialure in case of just a timeout. (On some SDL 1.2.15 implementations.)
+ *  SDL1 support exist at the very edge of our compatbility support, just to make builds
+ *    on some older GNU/Linux distros possible and convinient; the ones that does not come
+ *    SDL2 in their official repositories. This is for accessibility mostly, so you don't
+ *    have to build SDL2 from source, or get it from an unoficial repository.
+ *  Or if you want to actually do push the compatiblity and add full SDl1 support by yourself!
+ */
