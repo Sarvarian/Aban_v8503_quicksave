@@ -63,6 +63,15 @@ private:
   ESysStatus user(const SDL_UserEvent& event); /**< "User" Custom Event */
   /* SDL1, SDL2, SDL3 Common Events End */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  /* SDL2 Only and SDL3 Only Events Begin */
+  ESysStatus terminating(const SDL_CommonEvent& event); /**< App Terminating */
+  ESysStatus low(const SDL_CommonEvent& event); /**< App Low Memory */
+  ESysStatus backWill(const SDL_CommonEvent& event); /**< Will Enter Background */
+  ESysStatus backDid(const SDL_CommonEvent& event); /**< Did Enter Background */
+  /* SDL2 Only and SDL3 Only Events End */
+#endif
+
 };
 
 
