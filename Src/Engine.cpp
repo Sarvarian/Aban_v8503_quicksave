@@ -1,6 +1,7 @@
 #include "Engine.hpp"
 
 #include "Journal.hpp"
+#include "InputEventPort.hpp"
 
 ESysStatus Engine::preSdlInit(int, char**) {
   return E_SYS_CONTINUE;
@@ -77,6 +78,15 @@ ESysStatus Engine::initEngine(int, char**) {
 }
 
 ESysStatus Engine::eventSdl(const SDL_Event* event) {
+  EventReceiver receiver = EventReceiver::def();
+  ReceiveSdlInputEvent(*event, receiver);
+  /*
+  if keyboard:
+    SDL_Event_Key:
+      storeKey(event.key);
+  */
+
+#if IS_USING_SDL_1
   switch (event->type) {
   case SDL_EVENT_QUIT:  return E_SYS_QUIT;
   case SDL_KEYUP:
@@ -100,6 +110,9 @@ ESysStatus Engine::eventSdl(const SDL_Event* event) {
     }
   default: return E_SYS_CONTINUE;
   }
+#endif
+
+  return E_SYS_CONTINUE;
 }
 
 struct DebugData {
