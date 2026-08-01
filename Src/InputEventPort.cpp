@@ -6,6 +6,14 @@ EventReceiver EventReceiver::def() {
   return EventReceiver();
 }
 
+ESysStatus EventReceiver::unrecognized(const SDL_Event &event) {
+  /* I don't think `default` should be reachable. */
+  /* I put a debugBreak so if it ever happened,   */
+  /*     I get a change to investigate it.        */
+  debugBreak;
+  return E_SYS_CONTINUE;
+}
+
 #if IS_USING_SDL_1
 ESysStatus EventReceiver::active(const SDL_ActiveEvent &event) {
   return E_SYS_CONTINUE;
@@ -94,15 +102,9 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event &event) {
     case SDL_VIDEORESIZE: return resize(event.resize);
     case SDL_VIDEOEXPOSE: return expose(event.expose);
     case SDL_USEREVENT: return user(event.user);
-    default: {
-      /* I don't think `default` should be reachable. */
-      /* I put a debugBreak so if it ever happened,   */
-      /*     I get a change to investigate it.        */
-      debugBreak;
-      return E_SYS_CONTINUE;
-    };
+    default: return unrecognized(event);
   }
-  return E_SYS_CONTINUE;
+  return unrecognized(event);
 }
 #elif IS_USING_SDL_2
 ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event &event) {

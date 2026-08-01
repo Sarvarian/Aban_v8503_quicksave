@@ -21,6 +21,8 @@ public:
 private:
   EventReceiver();
 
+  ESysStatus unrecognized(const SDL_Event& event); /* Unrecognized SDL Event */
+
 #if IS_USING_SDL_1
   /** SDL1 Active Event */
   ESysStatus active(const SDL_ActiveEvent& event);
