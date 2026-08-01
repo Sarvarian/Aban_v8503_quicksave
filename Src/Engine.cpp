@@ -79,7 +79,7 @@ ESysStatus Engine::initEngine(int, char**) {
 
 ESysStatus Engine::eventSdl(const SDL_Event* event) {
   EventReceiver receiver = EventReceiver::def();
-  receiveSdlInputEvent(*event, receiver);
+  receiver.receiveSdlInputEvent(*event);
   /*
   if keyboard:
     SDL_Event_Key:

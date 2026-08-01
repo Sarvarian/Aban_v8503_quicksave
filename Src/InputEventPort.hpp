@@ -15,21 +15,19 @@
   #include <SDL/SDL_events.h>
 #endif
 
-
 class EventReceiver {
 public:
   static EventReceiver def();
 
   /** SDL1 Active Event */
-  void active(const SDL_ActiveEvent& event);
+  ESysStatus active(const SDL_ActiveEvent& event);
+
+  ESysStatus receiveSdlInputEvent(const SDL_Event& event);
 
 private:
   EventReceiver();
 
 };
-
-
-void receiveSdlInputEvent(const SDL_Event& event, EventReceiver& receiver);
 
 
 #endif /* AB_INPUT_EVENT_PORT_HPP */
