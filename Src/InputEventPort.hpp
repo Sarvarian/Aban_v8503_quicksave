@@ -20,7 +20,8 @@ class EventReceiver {
 public:
   static EventReceiver def();
 
-  void activeEvent(const SDL_ActiveEvent& event);
+  /** SDL1 Active Event */
+  void active(const SDL_ActiveEvent& event);
 
 private:
   EventReceiver();
@@ -28,7 +29,7 @@ private:
 };
 
 
-void ReceiveSdlInputEvent(const SDL_Event& event, EventReceiver& receiver);
+void receiveSdlInputEvent(const SDL_Event& event, EventReceiver& receiver);
 
 
 #endif /* AB_INPUT_EVENT_PORT_HPP */
