@@ -1,7 +1,5 @@
 #include "InputEventPort.hpp"
 
-#include "Main.hpp"
-
 #if IS_USING_SDL_1
 void ReceiveSdlInputEvent(const union SDL_Event& event, class EventReciever& receiver) {
   switch (event.type) {
@@ -47,7 +45,6 @@ void ReceiveSdlInputEvent(const union SDL_Event& event, class EventReciever& rec
   }
 }
 #elif IS_USING_SDL_3
-#include <SDL3/SDL_events.h>
 void ReceiveSdlInputEvent(const union SDL_Event& event, class EventReciever& receiver) {
   switch (event.type) {
     case SDL_EVENT_ACTIVEEVENT: break;
@@ -79,5 +76,8 @@ EventReceiver::EventReceiver() {
 
 EventReceiver EventReceiver::def() {
   return EventReceiver();
+}
+
+void EventReceiver::activeEvent(SDL_ActiveEvent &event) {
 }
 

@@ -654,22 +654,6 @@ typedef size_t usize;
   #error "Failed to detect SDL version."
 #endif
 
-#if IS_USING_SDL_3
-  #include <SDL3/SDL_events.h>
-#elif IS_USING_SDL_2
-  #include <SDL2/SDL_events.h>
-  enum {
-    SDL_EVENT_QUIT = SDL_QUIT
-  };
-#elif IS_USING_SDL_1
-  #include <SDL/SDL_events.h>
-  enum {
-    SDL_EVENT_QUIT = SDL_QUIT
-  };
-#else
-  #error "Failed to detect SDL version."
-#endif
-
 
 
 
