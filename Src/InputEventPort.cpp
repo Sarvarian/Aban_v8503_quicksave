@@ -102,6 +102,18 @@ ESysStatus EventReceiver::backWill(const SDL_CommonEvent& event) {
 ESysStatus EventReceiver::backDid(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
+
+ESysStatus EventReceiver::foreWill(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::foreDid(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::locale(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
 #endif
 
 #if IS_USING_SDL_1
@@ -137,9 +149,9 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
     case SDL_APP_LOWMEMORY: return low(event.common);
     case SDL_APP_WILLENTERBACKGROUND: return backWill(event.common);
     case SDL_APP_DIDENTERBACKGROUND: return backDid(event.common);
-    case SDL_APP_WILLENTERFOREGROUND: ;
-    case SDL_APP_DIDENTERFOREGROUND: ;
-    case SDL_LOCALECHANGED: ;
+    case SDL_APP_WILLENTERFOREGROUND: return foreWill(event.common);
+    case SDL_APP_DIDENTERFOREGROUND: return foreDid(event.common);
+    case SDL_LOCALECHANGED: return locale(event.common);
     default: return unrecognized(event);
   }
   return unrecognized(event);

@@ -69,6 +69,9 @@ private:
   ESysStatus low(const SDL_CommonEvent& event); /**< App Low Memory */
   ESysStatus backWill(const SDL_CommonEvent& event); /**< Will Enter Background */
   ESysStatus backDid(const SDL_CommonEvent& event); /**< Did Enter Background */
+  ESysStatus foreWill(const SDL_CommonEvent& event); /**< Will Enter Foreground */
+  ESysStatus foreDid(const SDL_CommonEvent& event); /**< Did Enter Foreground */
+  ESysStatus locale(const SDL_CommonEvent& event); /**< User Locale Changed */
   /* SDL2 Only and SDL3 Only Events End */
 #endif
 
