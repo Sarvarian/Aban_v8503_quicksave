@@ -49,6 +49,10 @@ staticAssert(sizeof(Bootstrapper) == sizeof(Block0), BOOTSTRAPPER_FIT_INTO_ONE_B
 
 
 ESysStatus Engine::initEngine(int, char**) {
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  SDL_SetEventFilter(EventReceiver::sdlEventFilter, null);
+#endif
+
   // 1. Building the first memory data structure.
   // 2. Running the system.
 

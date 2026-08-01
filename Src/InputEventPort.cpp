@@ -14,6 +14,10 @@ ESysStatus EventReceiver::unrecognized(const SDL_Event &event) {
   return E_SYS_CONTINUE;
 }
 
+int EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
+  return static_cast<EventReceiver*>(self)->sdlEventFilter(*event);
+}
+
 #if IS_USING_SDL_1
 ESysStatus EventReceiver::active(const SDL_ActiveEvent &event) {
   return E_SYS_CONTINUE;
@@ -127,6 +131,11 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event &event) {
     case SDL_USEREVENT: break;
     default: break;
   }
+  return unrecognized(event);
+}
+
+int EventReceiver::sdlEventFilter(SDL_Event& event) {
+  return 1;
 }
 #elif IS_USING_SDL_3
 ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event &event) {
@@ -149,6 +158,11 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event &event) {
     case SDL_EVENT_USER: break;
     default: break;
   }
+  return unrecognized(event);
+}
+
+int EventReceiver::sdlEventFilter(SDL_Event& event) {
+  return 1;
 }
 #endif
 

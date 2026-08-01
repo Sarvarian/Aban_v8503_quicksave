@@ -18,8 +18,16 @@ public:
   static EventReceiver def();
   ESysStatus receiveSdlInputEvent(const SDL_Event& event);
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  static int sdlEventFilter(void* self, SDL_Event* event);
+#endif
+
 private:
   EventReceiver();
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  int sdlEventFilter(SDL_Event& event);
+#endif
 
   ESysStatus unrecognized(const SDL_Event& event); /* Unrecognized SDL Event */
 
