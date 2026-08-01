@@ -53,7 +53,7 @@ ESysStatus EventReceiver::quit(const SDL_QuitEvent& event) {
 }
 
 #if IS_USING_SDL_1 || IS_USING_SDL_2
-ESysStatus EventReceiver::sysWM(const SDL_SysWMEvent& event) {
+ESysStatus EventReceiver::sys(const SDL_SysWMEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
@@ -179,7 +179,7 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
     case SDL_JOYBUTTONDOWN: return joyDown(event.jbutton);
     case SDL_JOYBUTTONUP: return joyUp(event.jbutton);
     case SDL_QUIT: return quit(event.quit);
-    case SDL_SYSWMEVENT: return sysWM(event.syswm);
+    case SDL_SYSWMEVENT: return sys(event.syswm);
     case SDL_VIDEORESIZE: return resize(event.resize);
     case SDL_VIDEOEXPOSE: return expose(event.expose);
     case SDL_USEREVENT: return user(event.user);

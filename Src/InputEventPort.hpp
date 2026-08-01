@@ -48,7 +48,7 @@ private:
 
 #if IS_USING_SDL_1 || IS_USING_SDL_2
   /** SDL1, SDL2 SysWM Event */
-  ESysStatus sysWM(const SDL_SysWMEvent& event);
+  ESysStatus sys(const SDL_SysWMEvent& event);
 #endif
 
   /* SDL1, SDL2, SDL3 Common Events Begin */
