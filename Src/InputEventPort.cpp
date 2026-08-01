@@ -35,7 +35,7 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event &event) {
   return E_SYS_CONTINUE;
 }
 #elif IS_USING_SDL_2
-void receiveSdlInputEvent(const SDL_Event& event, EventReciever& receiver) {
+ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event &event) {
   switch (event.type) {
     case SDL_ACTIVEEVENT: break;
     case SDL_KEYDOWN: break;
@@ -57,7 +57,7 @@ void receiveSdlInputEvent(const SDL_Event& event, EventReciever& receiver) {
   }
 }
 #elif IS_USING_SDL_3
-void receiveSdlInputEvent(const SDL_Event& event, EventReciever& receiver) {
+ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event &event) {
   switch (event.type) {
     case SDL_EVENT_ACTIVEEVENT: break;
     case SDL_EVENT_KEY_DOWN: break;
