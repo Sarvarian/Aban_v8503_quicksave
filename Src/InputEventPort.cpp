@@ -1,9 +1,9 @@
 #include "InputEventPort.hpp"
 
 #if IS_USING_SDL_1
-void ReceiveSdlInputEvent(const union SDL_Event& event, class EventReciever& receiver) {
+void ReceiveSdlInputEvent(const union SDL_Event& event, class EventReceiver& receiver) {
   switch (event.type) {
-    case SDL_ACTIVEEVENT: break;
+    case SDL_ACTIVEEVENT: receiver.activeEvent(event.active); break;
     case SDL_KEYDOWN: break;
     case SDL_KEYUP: break;
     case SDL_MOUSEMOTION: break;
@@ -78,6 +78,6 @@ EventReceiver EventReceiver::def() {
   return EventReceiver();
 }
 
-void EventReceiver::activeEvent(SDL_ActiveEvent &event) {
+void EventReceiver::activeEvent(const SDL_ActiveEvent &event) {
 }
 

@@ -88,7 +88,7 @@ ESysStatus Engine::eventSdl(const SDL_Event* event) {
 
 #if IS_USING_SDL_1
   switch (event->type) {
-  case SDL_EVENT_QUIT:  return E_SYS_QUIT;
+  case SDL_QUIT:  return E_SYS_QUIT;
   case SDL_KEYUP:
     // print("%d\n", event->key.keysym.scancode);
     if (event->key.keysym.scancode == 9) {

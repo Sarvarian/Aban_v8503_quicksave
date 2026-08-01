@@ -5,10 +5,6 @@
 
 #include "Main.hpp"
 
-
-void ReceiveSdlInputEvent(const union SDL_Event& event, class EventReceiver& receiver);
-
-
 #if IS_USING_SDL_3
   #include <SDL3/SDL_events.h>
   struct SDL_ActiveEvent;
@@ -24,12 +20,15 @@ class EventReceiver {
 public:
   static EventReceiver def();
 
-  void activeEvent(SDL_ActiveEvent& event);
+  void activeEvent(const SDL_ActiveEvent& event);
 
 private:
   EventReceiver();
 
 };
+
+
+void ReceiveSdlInputEvent(const SDL_Event& event, EventReceiver& receiver);
 
 
 #endif /* AB_INPUT_EVENT_PORT_HPP */
