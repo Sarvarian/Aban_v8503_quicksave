@@ -18,14 +18,13 @@
 class EventReceiver {
 public:
   static EventReceiver def();
-
-  /** SDL1 Active Event */
-  ESysStatus active(const SDL_ActiveEvent& event);
-
   ESysStatus receiveSdlInputEvent(const SDL_Event& event);
 
 private:
   EventReceiver();
+
+  /** SDL1 Active Event */
+  ESysStatus active(const SDL_ActiveEvent& event);
 
 };
 
