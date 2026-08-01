@@ -14,6 +14,22 @@ ESysStatus EventReceiver::unrecognized(const SDL_Event &event) {
   return E_SYS_CONTINUE;
 }
 
+ESysStatus EventReceiver::unrecognizedOrientationEvent(const SDL_DisplayEvent &event) {
+  /* I don't think `default` should be reachable. */
+  /* I put a debugBreak so if it ever happened,   */
+  /*     I get a change to investigate it.        */
+  debugBreak;
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::unrecognizedDisplayEvent(const SDL_DisplayEvent &event) {
+  /* I don't think `default` should be reachable. */
+  /* I put a debugBreak so if it ever happened,   */
+  /*     I get a change to investigate it.        */
+  debugBreak;
+  return E_SYS_CONTINUE;
+}
+
 int EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
   return static_cast<EventReceiver*>(self)->sdlEventFilter(*event);
 }
@@ -114,6 +130,38 @@ ESysStatus EventReceiver::foreDid(const SDL_CommonEvent& event) {
 ESysStatus EventReceiver::locale(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
+
+ESysStatus EventReceiver::disoriented(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::landscape(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::landscapeFlipped(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::portrait(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::portraitFlipped(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::on(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::off(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::reposition(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
 #endif
 
 #if IS_USING_SDL_1
@@ -152,6 +200,23 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
     case SDL_APP_WILLENTERFOREGROUND: return foreWill(event.common);
     case SDL_APP_DIDENTERFOREGROUND: return foreDid(event.common);
     case SDL_LOCALECHANGED: return locale(event.common);
+    /* Display events */
+    case SDL_DISPLAYEVENT:
+      switch (event.display.event) {
+        case SDL_DISPLAYEVENT_ORIENTATION:
+          switch (event.display.data1) {
+            case SDL_ORIENTATION_UNKNOWN: return disoriented(event.display);
+            case SDL_ORIENTATION_LANDSCAPE: return landscape(event.display);
+            case SDL_ORIENTATION_LANDSCAPE_FLIPPED: return landscapeFlipped(event.display);
+            case SDL_ORIENTATION_PORTRAIT: return portrait(event.display);
+            case SDL_ORIENTATION_PORTRAIT_FLIPPED: return portraitFlipped(event.display);
+            default: return unrecognizedOrientationEvent(event.display);
+          }
+        case SDL_DISPLAYEVENT_CONNECTED: return on(event.display);
+        case SDL_DISPLAYEVENT_DISCONNECTED: return off(event.display);
+        case SDL_DISPLAYEVENT_MOVED: reposition(event.display);
+        default: return unrecognizedDisplayEvent(event.display);
+      }
     default: return unrecognized(event);
   }
   return unrecognized(event);

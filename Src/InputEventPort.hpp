@@ -30,6 +30,8 @@ private:
 #endif
 
   ESysStatus unrecognized(const SDL_Event& event); /* Unrecognized SDL Event */
+  ESysStatus unrecognizedOrientationEvent(const SDL_DisplayEvent& event); /* Unrecognized Display Orientation Event */
+  ESysStatus unrecognizedDisplayEvent(const SDL_DisplayEvent& event); /* Unrecognized Display Event */
 
 #if IS_USING_SDL_1
   /** SDL1 Active Event */
@@ -72,6 +74,14 @@ private:
   ESysStatus foreWill(const SDL_CommonEvent& event); /**< Will Enter Foreground */
   ESysStatus foreDid(const SDL_CommonEvent& event); /**< Did Enter Foreground */
   ESysStatus locale(const SDL_CommonEvent& event); /**< User Locale Changed */
+  ESysStatus disoriented(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Unknown */
+  ESysStatus landscape(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Landscape */
+  ESysStatus landscapeFlipped(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Landscape Flipped */
+  ESysStatus portrait(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Portrait */
+  ESysStatus portraitFlipped(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Portrait Flipped */
+  ESysStatus on(const SDL_DisplayEvent& event); /**< System Display Added */
+  ESysStatus off(const SDL_DisplayEvent& event); /**< System Display Removed */
+  ESysStatus reposition(const SDL_DisplayEvent& event); /**< System Display Position Changed */
   /* SDL2 Only and SDL3 Only Events End */
 #endif
 
