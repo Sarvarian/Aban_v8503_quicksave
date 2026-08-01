@@ -81,7 +81,7 @@ private:
   ESysStatus portraitFlipped(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Portrait Flipped */
   ESysStatus on(const SDL_DisplayEvent& event); /**< System Display Added */
   ESysStatus off(const SDL_DisplayEvent& event); /**< System Display Removed */
-  ESysStatus relocation(const SDL_DisplayEvent& event); /**< System Display Position Changed */
+  ESysStatus replace(const SDL_DisplayEvent& event); /**< System Display Position Changed */
   /* SDL2 Only and SDL3 Only Events End */
 #endif
 

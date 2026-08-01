@@ -159,7 +159,7 @@ ESysStatus EventReceiver::off(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus EventReceiver::relocation(const SDL_DisplayEvent& event) {
+ESysStatus EventReceiver::replace(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
@@ -214,7 +214,7 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
           }
         case SDL_DISPLAYEVENT_CONNECTED: return on(event.display);
         case SDL_DISPLAYEVENT_DISCONNECTED: return off(event.display);
-        case SDL_DISPLAYEVENT_MOVED: return relocation(event.display);
+        case SDL_DISPLAYEVENT_MOVED: return replace(event.display);
         default: return unrecognizedDisplayEvent(event.display);
       }
     default: return unrecognized(event);
