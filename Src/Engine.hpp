@@ -52,7 +52,7 @@ public:
   ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
 */
 
-  ESysStatus unrecognizedEvent(const SDL_Event&); /* Unrecognized SDL Event */
+  ESysStatus on_unrecognized_event(const SDL_Event&); /* Unrecognized SDL Event */
 
 /*
    █████╗ ██████╗ ██████╗
@@ -63,17 +63,17 @@ public:
   ╚═╝  ╚═╝╚═╝     ╚═╝
 */
 
-  ESysStatus quitEvent(const SDL_QuitEvent& event);
+  ESysStatus on_quit(const SDL_QuitEvent& event);
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-  ESysStatus terminating(const SDL_CommonEvent&); /**< App Terminating */
-  ESysStatus lowMemory(const SDL_CommonEvent&); /**< App Low Memory */
-  ESysStatus willEnterBackground(const SDL_CommonEvent&); /**< Will Enter Background */
-  ESysStatus didEnterBackground(const SDL_CommonEvent&); /**< Did Enter Background */
-  ESysStatus willEnterForeground(const SDL_CommonEvent&); /**< Will Enter Foreground */
-  ESysStatus didEnterForeground(const SDL_CommonEvent&); /**< Did Enter Foreground */
-  ESysStatus localeChanged(const SDL_CommonEvent&); /**< User Locale Changed */
-  ESysStatus systemThemeChanged(const SDL_CommonEvent&); /**< System Theme Changed */
+  ESysStatus on_terminating(const SDL_CommonEvent&); /**< App Terminating */
+  ESysStatus on_low_memory(const SDL_CommonEvent&); /**< App Low Memory */
+  ESysStatus on_will_enter_background(const SDL_CommonEvent&); /**< Will Enter Background */
+  ESysStatus did_enter_background(const SDL_CommonEvent&); /**< Did Enter Background */
+  ESysStatus will_enter_foreground(const SDL_CommonEvent&); /**< Will Enter Foreground */
+  ESysStatus did_enter_foreground(const SDL_CommonEvent&); /**< Did Enter Foreground */
+  ESysStatus locale_changed(const SDL_CommonEvent&); /**< User Locale Changed */
+  ESysStatus system_theme_changed(const SDL_CommonEvent&); /**< System Theme Changed */
 #endif
 
 /*
@@ -86,17 +86,17 @@ public:
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-  ESysStatus orientationUnknown(const SDL_DisplayEvent&); /**< Display Orientation Changed, Unknown */
-  ESysStatus orientationLandscape(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape */
-  ESysStatus orientationLandscapeFlipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape Flipped */
-  ESysStatus orientationPortrait(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait */
-  ESysStatus orientationPortraitFlipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait Flipped */
-  ESysStatus displayAdded(const SDL_DisplayEvent&); /**< System Display Added */
-  ESysStatus displayRemoved(const SDL_DisplayEvent&); /**< System Display Removed */
-  ESysStatus displayMoved(const SDL_DisplayEvent&); /**< System Display Position Changed */
-  ESysStatus displayDesktopModeChanged(const SDL_DisplayEvent&);
-  ESysStatus displayCurrentModeChanged(const SDL_DisplayEvent&);
-  ESysStatus displayContentScaleChanged(const SDL_DisplayEvent&);
+  ESysStatus orientation_unknown(const SDL_DisplayEvent&); /**< Display Orientation Changed, Unknown */
+  ESysStatus orientation_landscape(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape */
+  ESysStatus orientation_landscape_flipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape Flipped */
+  ESysStatus orientation_portrait(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait */
+  ESysStatus orientation_portrait_flipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait Flipped */
+  ESysStatus display_added(const SDL_DisplayEvent&); /**< System Display Added */
+  ESysStatus display_removed(const SDL_DisplayEvent&); /**< System Display Removed */
+  ESysStatus display_moved(const SDL_DisplayEvent&); /**< System Display Position Changed */
+  ESysStatus display_desktop_mode_changed(const SDL_DisplayEvent&);
+  ESysStatus display_current_mode_changed(const SDL_DisplayEvent&);
+  ESysStatus display_content_scale_changed(const SDL_DisplayEvent&);
 #endif
 
 /*
@@ -109,45 +109,45 @@ public:
 */
 
 #if IS_USING_SDL_1
-  ESysStatus windowExposed(); /**< Window Exposed, Need Redraw */
-  ESysStatus windowResized(const int w, const int h); /**< Window Resized */
-  ESysStatus windowMinimized(); /**< Window Minimized */
-  ESysStatus windowRestored(); /**< Window Restored */
-  ESysStatus windowMouseEnter(); /**< Window Gained Mouse Focus */
-  ESysStatus windowMouseLeave(); /**< Window Lost Mouse Focus */
-  ESysStatus windowFocusGained(); /**< Window Gained Keyboard Focus */
-  ESysStatus windowFocusLost(); /**< Window Lost Keyboard Focus */
+  ESysStatus window_exposed(); /**< Window Exposed, Need Redraw */
+  ESysStatus window_resized(const int w, const int h); /**< Window Resized */
+  ESysStatus window_minimized(); /**< Window Minimized */
+  ESysStatus window_restored(); /**< Window Restored */
+  ESysStatus window_mouse_enter(); /**< Window Gained Mouse Focus */
+  ESysStatus window_mouse_leave(); /**< Window Lost Mouse Focus */
+  ESysStatus window_focus_gained(); /**< Window Gained Keyboard Focus */
+  ESysStatus window_focus_lost(); /**< Window Lost Keyboard Focus */
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-  ESysStatus windowExposed(const SDL_WindowEvent&); /**< Window Exposed, Need Redraw */
-  ESysStatus windowResized(const SDL_WindowEvent&); /**< Window Resized */
-  ESysStatus windowMinimized(const SDL_WindowEvent&); /**< Window Minimized */
-  ESysStatus windowRestored(const SDL_WindowEvent&); /**< Window Restored */
-  ESysStatus windowMouseEnter(const SDL_WindowEvent&); /**< Window Gained Mouse Focus */
-  ESysStatus windowMouseLeave(const SDL_WindowEvent&); /**< Window Lost Mouse Focus */
-  ESysStatus windowFocusGained(const SDL_WindowEvent&); /**< Window Gained Keyboard Focus */
-  ESysStatus windowFocusLost(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
+  ESysStatus window_exposed(const SDL_WindowEvent&); /**< Window Exposed, Need Redraw */
+  ESysStatus window_resized(const SDL_WindowEvent&); /**< Window Resized */
+  ESysStatus window_minimized(const SDL_WindowEvent&); /**< Window Minimized */
+  ESysStatus window_restored(const SDL_WindowEvent&); /**< Window Restored */
+  ESysStatus window_mouse_enter(const SDL_WindowEvent&); /**< Window Gained Mouse Focus */
+  ESysStatus window_mouse_leave(const SDL_WindowEvent&); /**< Window Lost Mouse Focus */
+  ESysStatus window_focus_gained(const SDL_WindowEvent&); /**< Window Gained Keyboard Focus */
+  ESysStatus window_focus_lost(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
 #endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-  ESysStatus windowShown(const SDL_WindowEvent&); /**< Window Shown */
-  ESysStatus windowHidden(const SDL_WindowEvent&); /**< Window Hidden */
-  ESysStatus windowMoved(const SDL_WindowEvent&); /**< Window Moved */
-  ESysStatus windowPixelSizeChanged(const SDL_WindowEvent&);
-  ESysStatus windowMetalViewResized(const SDL_WindowEvent&);
-  ESysStatus windowSizeChanged(const SDL_WindowEvent&); /**< Window Size Changed */
-  ESysStatus windowMaximized(const SDL_WindowEvent&); /**< Window Maximized */
-  ESysStatus windowCloseRequest(const SDL_WindowEvent&); /**< Window Requested For Close */
-  ESysStatus windowTakeFocus(const SDL_WindowEvent&); /**< Window Offered Focus */
-  ESysStatus windowHitTest(const SDL_WindowEvent&); /**< Window Had Hit Test, That Wasn't SDL_HITTEST_NORMAL */
-  ESysStatus windowIccChanged(const SDL_WindowEvent&); /**< Window's Display ICC Profile Changed */
-  ESysStatus windowDisplayChanged(const SDL_WindowEvent&); /**< Window Moved Display */
-  ESysStatus windowDisplayScaleChanged(const SDL_WindowEvent&);
-  ESysStatus windowSafeAreaChanged(const SDL_WindowEvent&);
-  ESysStatus windowOccluded(const SDL_WindowEvent&);
-  ESysStatus windowEnterFullscreen(const SDL_WindowEvent&);
-  ESysStatus windowLeaveFullscreen(const SDL_WindowEvent&);
-  ESysStatus windowDestroyed(const SDL_WindowEvent&);
-  ESysStatus windowHdrStateChanged(const SDL_WindowEvent&);
+  ESysStatus window_shown(const SDL_WindowEvent&); /**< Window Shown */
+  ESysStatus window_hidden(const SDL_WindowEvent&); /**< Window Hidden */
+  ESysStatus window_moved(const SDL_WindowEvent&); /**< Window Moved */
+  ESysStatus window_pixel_size_changed(const SDL_WindowEvent&);
+  ESysStatus window_metal_view_resized(const SDL_WindowEvent&);
+  ESysStatus window_size_changed(const SDL_WindowEvent&); /**< Window Size Changed */
+  ESysStatus window_maximized(const SDL_WindowEvent&); /**< Window Maximized */
+  ESysStatus window_close_request(const SDL_WindowEvent&); /**< Window Requested For Close */
+  ESysStatus window_take_focus(const SDL_WindowEvent&); /**< Window Offered Focus */
+  ESysStatus window_hit_test(const SDL_WindowEvent&); /**< Window Had Hit Test, That Wasn't SDL_HITTEST_NORMAL */
+  ESysStatus window_icc_changed(const SDL_WindowEvent&); /**< Window's Display ICC Profile Changed */
+  ESysStatus window_display_changed(const SDL_WindowEvent&); /**< Window Moved Display */
+  ESysStatus window_display_scale_changed(const SDL_WindowEvent&);
+  ESysStatus window_safe_area_changed(const SDL_WindowEvent&);
+  ESysStatus window_occluded(const SDL_WindowEvent&);
+  ESysStatus window_enter_fullscreen(const SDL_WindowEvent&);
+  ESysStatus window_leave_fullscreen(const SDL_WindowEvent&);
+  ESysStatus window_destroyed(const SDL_WindowEvent&);
+  ESysStatus window_hdr_state_changed(const SDL_WindowEvent&);
 #endif
 
 /*
@@ -160,13 +160,13 @@ public:
 */
 
 
-  ESysStatus onKeyboardKeyDown(const SDL_KeyboardEvent& event); /**< Keyboard Key Down */
-  ESysStatus onKeyboardKeyUp(const SDL_KeyboardEvent& event); /**< Keyboard Key Up */
+  ESysStatus keyboard_key_down(const SDL_KeyboardEvent& event); /**< Keyboard Key Down */
+  ESysStatus keyboard_key_up(const SDL_KeyboardEvent& event); /**< Keyboard Key Up */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-  ESysStatus onTextEditing(const SDL_TextEditingEvent&); /**< Keyboard Text Composition Editing */
-  ESysStatus onTextInput(const SDL_TextInputEvent&); /**< Keyboard Text Input */
-  ESysStatus onKeymapChanged(const SDL_CommonEvent&); /**< System Keyboard Layout Changed */
+  ESysStatus text_editing(const SDL_TextEditingEvent&); /**< Keyboard Text Composition Editing */
+  ESysStatus text_input(const SDL_TextInputEvent&); /**< Keyboard Text Input */
+  ESysStatus keymap_changed(const SDL_CommonEvent&); /**< System Keyboard Layout Changed */
 #endif
 
 #if IS_USING_SDL_2
@@ -174,13 +174,13 @@ public:
       `text` will be freed after calling this.
       So, make a hard copy of `text` if you need it.
    */
-  ESysStatus onTextEditingExt(const SDL_TextEditingExtEvent&);
+  ESysStatus text_editing_ext(const SDL_TextEditingExtEvent&);
 #endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-  ESysStatus onKeyboardAdded(const SDL_TextEditingExtEvent&);
-  ESysStatus onKeyboardRemoved(const SDL_TextEditingExtEvent&);
-  ESysStatus onTextEditingCandidates(const SDL_TextEditingExtEvent&);
+  ESysStatus keyboard_added(const SDL_TextEditingExtEvent&);
+  ESysStatus keyboard_removed(const SDL_TextEditingExtEvent&);
+  ESysStatus text_editing_candidates(const SDL_TextEditingExtEvent&);
 #endif
 
 };
