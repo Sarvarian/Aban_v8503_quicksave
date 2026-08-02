@@ -18,11 +18,6 @@ bool EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
 
 
 
-#if IS_USING_SDL_1 || IS_USING_SDL_2
-ESysStatus EventReceiver::sysWmEvent(const SDL_SysWMEvent& event) {
-  return E_SYS_CONTINUE;
-}
-#endif
 
 
 ESysStatus EventReceiver::mouseMotion(const SDL_MouseMotionEvent& event) {

@@ -150,6 +150,11 @@ public:
   ESysStatus on_window_hdr_state_changed(const SDL_WindowEvent&);
 #endif
 
+#if IS_USING_SDL_1 || IS_USING_SDL_2
+  /** SDL1, SDL2 SysWM Event */
+  ESysStatus sysWmEvent(const SDL_SysWMEvent& event);
+#endif
+
 /*
   ██╗  ██╗███████╗██╗   ██╗██████╗  ██████╗  █████╗ ██████╗ ██████╗
   ██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔══██╗

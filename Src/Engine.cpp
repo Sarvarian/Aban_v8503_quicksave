@@ -490,6 +490,12 @@ ESysStatus Engine::on_window_hdr_state_changed(const SDL_WindowEvent& event) {
 }
 #endif
 
+#if IS_USING_SDL_1 || IS_USING_SDL_2
+ESysStatus Engine::sysWmEvent(const SDL_SysWMEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
   ██╗  ██╗███████╗██╗   ██╗██████╗  ██████╗  █████╗ ██████╗ ██████╗
   ██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔══██╗
