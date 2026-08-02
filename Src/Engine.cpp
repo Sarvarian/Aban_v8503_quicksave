@@ -534,15 +534,15 @@ ESysStatus Engine::on_text_editing_ext(const SDL_TextEditingExtEvent& event) {
 #endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_keyboard_added(const SDL_TextEditingExtEvent& event) {
+ESysStatus Engine::on_keyboard_added(const SDL_KeyboardEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_keyboard_removed(const SDL_TextEditingExtEvent& event) {
+ESysStatus Engine::on_keyboard_removed(const SDL_KeyboardEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_text_editing_candidates(const SDL_TextEditingExtEvent& event) {
+ESysStatus Engine::on_text_editing_candidates(const SDL_KeyboardEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
