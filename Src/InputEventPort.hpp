@@ -112,6 +112,7 @@ private:
   ESysStatus writing(const SDL_TextEditingEvent&); /**< Keyboard Text Composition Editing */
   ESysStatus text(const SDL_TextInputEvent&); /**< Keyboard Text Input */
   ESysStatus layout(const SDL_CommonEvent&); /**< System Keyboard Layout Changed */
+  ESysStatus wheel(const SDL_MouseWheelEvent&); /**< Mouse Wheel Motion */
   /* SDL2 Only and SDL3 Only Events End */
 #endif
 
