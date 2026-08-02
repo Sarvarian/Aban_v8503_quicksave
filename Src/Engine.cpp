@@ -489,3 +489,55 @@ ESysStatus Engine::windowHdrStateChanged(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
+
+/*
+  ██╗  ██╗███████╗██╗   ██╗██████╗  ██████╗  █████╗ ██████╗ ██████╗
+  ██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔══██╗
+  █████╔╝ █████╗   ╚████╔╝ ██████╔╝██║   ██║███████║██████╔╝██║  ██║
+  ██╔═██╗ ██╔══╝    ╚██╔╝  ██╔══██╗██║   ██║██╔══██║██╔══██╗██║  ██║
+  ██║  ██╗███████╗   ██║   ██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
+  ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
+*/
+
+ESysStatus Engine::onKeyboardKeyDown(const SDL_KeyboardEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::onKeyboardKeyUp(const SDL_KeyboardEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::onTextEditing(const SDL_TextEditingEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::onTextInput(const SDL_TextInputEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::onKeymapChanged(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
+#if IS_USING_SDL_2
+ESysStatus Engine::onTextEditingExt(const SDL_TextEditingExtEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::onKeyboardAdded(const SDL_TextEditingExtEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::onKeyboardRemoved(const SDL_TextEditingExtEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::onTextEditingCandidates(const SDL_TextEditingExtEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+

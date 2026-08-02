@@ -39,8 +39,6 @@ private:
 #endif
 
   /* SDL1, SDL2, SDL3 Common Events Begin */
-  ESysStatus keyboardKeyDown(const SDL_KeyboardEvent& event); /**< Keyboard Key Down */
-  ESysStatus keyboardKeyUp(const SDL_KeyboardEvent& event); /**< Keyboard Key Up */
   ESysStatus mouseMotion(const SDL_MouseMotionEvent& event); /**< Mouse Motion */
   ESysStatus mouseButtonDown(const SDL_MouseButtonEvent& event); /**< Mouse Button Down */
   ESysStatus mouseButtonUp(const SDL_MouseButtonEvent& event); /**< Mouse Button Up */
@@ -53,19 +51,9 @@ private:
   /* SDL1, SDL2, SDL3 Common Events End */
 
 
-#if IS_USING_SDL_2
-  /** Extended Keyboard Text Composition Edition.
-      `text` will be freed after calling this.
-      So, make a hard copy of `text` if you need it.
-   */
-  ESysStatus textEditingExt(const SDL_TextEditingExtEvent&);
-#endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   /* SDL2 Only and SDL3 Only Events Begin */
-  ESysStatus textEditing(const SDL_TextEditingEvent&); /**< Keyboard Text Composition Editing */
-  ESysStatus textInput(const SDL_TextInputEvent&); /**< Keyboard Text Input */
-  ESysStatus keymapChanged(const SDL_CommonEvent&); /**< System Keyboard Layout Changed */
   ESysStatus mouseWheel(const SDL_MouseWheelEvent&); /**< Mouse Wheel Motion */
   /* SDL2 Only and SDL3 Only Events End */
 #endif

@@ -24,13 +24,6 @@ ESysStatus EventReceiver::sysWmEvent(const SDL_SysWMEvent& event) {
 }
 #endif
 
-ESysStatus EventReceiver::keyboardKeyDown(const SDL_KeyboardEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::keyboardKeyUp(const SDL_KeyboardEvent& event) {
-  return E_SYS_CONTINUE;
-}
 
 ESysStatus EventReceiver::mouseMotion(const SDL_MouseMotionEvent& event) {
   return E_SYS_CONTINUE;
@@ -69,26 +62,10 @@ ESysStatus EventReceiver::userEvent(const SDL_UserEvent& event) {
 }
 
 
-#if IS_USING_SDL_2
-ESysStatus EventReceiver::textEditingExt(const SDL_TextEditingExtEvent& event) {
-  return E_SYS_CONTINUE;
-}
-#endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
 
 
-ESysStatus EventReceiver::textEditing(const SDL_TextEditingEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::textInput(const SDL_TextInputEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::keymapChanged(const SDL_CommonEvent& event) {
-  return E_SYS_CONTINUE;
-}
 
 ESysStatus EventReceiver::mouseWheel(const SDL_MouseWheelEvent& event) {
   return E_SYS_CONTINUE;
