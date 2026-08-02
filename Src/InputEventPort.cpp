@@ -20,32 +20,6 @@ ESysStatus EventReceiver::unrecognized(const SDL_Event& event) {
   return E_SYS_CONTINUE;
 }
 
-#if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus EventReceiver::unrecognizedOrientation(const SDL_DisplayEvent& event) {
-  /* I don't think `default` should be reachable. */
-  /* I put a debugBreak so if it ever happened,   */
-  /*     I get a change to investigate it.        */
-  debugBreak;
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::unrecognizedDisplay(const SDL_DisplayEvent& event) {
-  /* I don't think `default` should be reachable. */
-  /* I put a debugBreak so if it ever happened,   */
-  /*     I get a change to investigate it.        */
-  debugBreak;
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::unrecognizedWindow(const SDL_WindowEvent& event) {
-  /* I don't think `default` should be reachable. */
-  /* I put a debugBreak so if it ever happened,   */
-  /*     I get a change to investigate it.        */
-  debugBreak;
-  return E_SYS_CONTINUE;
-}
-#endif
-
 #if IS_USING_SDL_1
 ESysStatus EventReceiver::active(const SDL_ActiveEvent& event) {
   return E_SYS_CONTINUE;
@@ -294,13 +268,15 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
       case SDL_ORIENTATION_LANDSCAPE_FLIPPED: return landscapeFlipped(event.display);
       case SDL_ORIENTATION_PORTRAIT: return portrait(event.display);
       case SDL_ORIENTATION_PORTRAIT_FLIPPED: return portraitFlipped(event.display);
-      default: return unrecognizedOrientation(event.display);
+      default: break;
       }
+      break;
     case SDL_DISPLAYEVENT_CONNECTED: return on(event.display);
     case SDL_DISPLAYEVENT_DISCONNECTED: return off(event.display);
     case SDL_DISPLAYEVENT_MOVED: return replace(event.display);
-    default: return unrecognizedDisplay(event.display);
+    default: break;
     }
+    break;
   case SDL_WINDOWEVENT:
     switch (event.window.event) {
     case SDL_WINDOWEVENT_SHOWN: return shown(event.window);
@@ -321,8 +297,9 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
     case SDL_WINDOWEVENT_HIT_TEST: return hit(event.window);
     case SDL_WINDOWEVENT_ICCPROF_CHANGED: return icc(event.window);
     case SDL_WINDOWEVENT_DISPLAY_CHANGED: return relocate(event.window);
-    default: return unrecognizedWindow(event.window);
+    default: break;
     }
+    break;
   case SDL_SYSWMEVENT: return sys(event.syswm);
   default: return unrecognized(event);
   }

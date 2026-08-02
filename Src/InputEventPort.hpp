@@ -30,11 +30,6 @@ private:
 #endif
 
   ESysStatus unrecognized(const SDL_Event&); /* Unrecognized SDL Event */
-#if IS_USING_SDL_2 || IS_USING_SDL_3
-  ESysStatus unrecognizedOrientation(const SDL_DisplayEvent&); /* Unrecognized Display Orientation Event */
-  ESysStatus unrecognizedDisplay(const SDL_DisplayEvent&); /* Unrecognized Display Event */
-  ESysStatus unrecognizedWindow(const SDL_WindowEvent&); /* Unrecognized Window Event */
-#endif
 
 #if IS_USING_SDL_1
   /** SDL1 Active Event */
