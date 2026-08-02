@@ -190,34 +190,40 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
 #elif IS_USING_SDL_2
 ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
   switch (event.type) {
-    /* Application events */
-    case SDL_QUIT: return quit(event.quit);
-    /* These application events have special meaning on iOS, see SDL2 README-ios.md for details */
-    case SDL_APP_TERMINATING: return terminating(event.common);
-    case SDL_APP_LOWMEMORY: return low(event.common);
-    case SDL_APP_WILLENTERBACKGROUND: return backWill(event.common);
-    case SDL_APP_DIDENTERBACKGROUND: return backDid(event.common);
-    case SDL_APP_WILLENTERFOREGROUND: return foreWill(event.common);
-    case SDL_APP_DIDENTERFOREGROUND: return foreDid(event.common);
-    case SDL_LOCALECHANGED: return locale(event.common);
-    /* Display events */
-    case SDL_DISPLAYEVENT:
-      switch (event.display.event) {
-        case SDL_DISPLAYEVENT_ORIENTATION:
-          switch (event.display.data1) {
-            case SDL_ORIENTATION_UNKNOWN: return disoriented(event.display);
-            case SDL_ORIENTATION_LANDSCAPE: return landscape(event.display);
-            case SDL_ORIENTATION_LANDSCAPE_FLIPPED: return landscapeFlipped(event.display);
-            case SDL_ORIENTATION_PORTRAIT: return portrait(event.display);
-            case SDL_ORIENTATION_PORTRAIT_FLIPPED: return portraitFlipped(event.display);
-            default: return unrecognizedOrientationEvent(event.display);
-          }
-        case SDL_DISPLAYEVENT_CONNECTED: return on(event.display);
-        case SDL_DISPLAYEVENT_DISCONNECTED: return off(event.display);
-        case SDL_DISPLAYEVENT_MOVED: return replace(event.display);
-        default: return unrecognizedDisplayEvent(event.display);
+  /* Application events */
+  case SDL_QUIT: return quit(event.quit);
+  /* These application events have special meaning on iOS, see SDL2 README-ios.md for details */
+  case SDL_APP_TERMINATING: return terminating(event.common);
+  case SDL_APP_LOWMEMORY: return low(event.common);
+  case SDL_APP_WILLENTERBACKGROUND: return backWill(event.common);
+  case SDL_APP_DIDENTERBACKGROUND: return backDid(event.common);
+  case SDL_APP_WILLENTERFOREGROUND: return foreWill(event.common);
+  case SDL_APP_DIDENTERFOREGROUND: return foreDid(event.common);
+  case SDL_LOCALECHANGED: return locale(event.common);
+  /* Display events */
+  case SDL_DISPLAYEVENT:
+    switch (event.display.event) {
+    case SDL_DISPLAYEVENT_ORIENTATION:
+      switch (event.display.data1) {
+      case SDL_ORIENTATION_UNKNOWN: return disoriented(event.display);
+      case SDL_ORIENTATION_LANDSCAPE: return landscape(event.display);
+      case SDL_ORIENTATION_LANDSCAPE_FLIPPED: return landscapeFlipped(event.display);
+      case SDL_ORIENTATION_PORTRAIT: return portrait(event.display);
+      case SDL_ORIENTATION_PORTRAIT_FLIPPED: return portraitFlipped(event.display);
+      default: return unrecognizedOrientationEvent(event.display);
       }
-    default: return unrecognized(event);
+    case SDL_DISPLAYEVENT_CONNECTED: return on(event.display);
+    case SDL_DISPLAYEVENT_DISCONNECTED: return off(event.display);
+    case SDL_DISPLAYEVENT_MOVED: return replace(event.display);
+    default: return unrecognizedDisplayEvent(event.display);
+    }
+  case SDL_WINDOWEVENT:
+    switch (event.window.event) {
+    case SDL_WINDOWEVENT_SHOWN:
+    default: ;
+    }
+  case SDL_SYSWMEVENT: sys(event.syswm);
+  default: return unrecognized(event);
   }
   return unrecognized(event);
 }
