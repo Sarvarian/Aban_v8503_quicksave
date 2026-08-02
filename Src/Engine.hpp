@@ -164,8 +164,8 @@ public:
   ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 */
 
-  ESysStatus on_keyboard_key_down(const SDL_KeyboardEvent& event); /**< Keyboard Key Down */
-  ESysStatus on_keyboard_key_up(const SDL_KeyboardEvent& event); /**< Keyboard Key Up */
+  ESysStatus on_keyboard_key_down(const SDL_KeyboardEvent&); /**< Keyboard Key Down */
+  ESysStatus on_keyboard_key_up(const SDL_KeyboardEvent&); /**< Keyboard Key Up */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_text_editing(const SDL_TextEditingEvent&); /**< Keyboard Text Composition Editing */
@@ -196,9 +196,9 @@ public:
   ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
 */
 
-  ESysStatus on_mouse_motion(const SDL_MouseMotionEvent& event); /**< Mouse Motion */
-  ESysStatus on_mouse_button_down(const SDL_MouseButtonEvent& event); /**< Mouse Button Down */
-  ESysStatus on_mouse_button_up(const SDL_MouseButtonEvent& event); /**< Mouse Button Up */
+  ESysStatus on_mouse_motion(const SDL_MouseMotionEvent&); /**< Mouse Motion */
+  ESysStatus on_mouse_button_down(const SDL_MouseButtonEvent&); /**< Mouse Button Down */
+  ESysStatus on_mouse_button_up(const SDL_MouseButtonEvent&); /**< Mouse Button Up */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_mouse_wheel(const SDL_MouseWheelEvent&); /**< Mouse Wheel Motion */
@@ -217,6 +217,19 @@ public:
   ╚█████╔╝╚██████╔╝   ██║   ███████║   ██║   ██║╚██████╗██║  ██╗
    ╚════╝  ╚═════╝    ╚═╝   ╚══════╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝
 */
+
+  ESysStatus on_joystick_axis_motion(const SDL_JoyAxisEvent&); /**< Joystick Axis Motion */
+  ESysStatus on_joystick_ball_motion(const SDL_JoyBallEvent&); /**< Joystick Ball Motion */
+  ESysStatus on_joystick_hat_motion(const SDL_JoyHatEvent&); /**< Joystick Hat Motion */
+  ESysStatus on_joystick_button_down(const SDL_JoyButtonEvent&); /**< Joystick Button Down */
+  ESysStatus on_joystick_button_up(const SDL_JoyButtonEvent&); /**< Joystick Button Up */
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  ESysStatus on_joystick_added(const SDL_JoyDeviceEvent&);
+  ESysStatus on_joystick_removed(const SDL_JoyDeviceEvent&);
+  ESysStatus on_joystick_battery_updated(const SDL_JoyBatteryEvent&);
+  ESysStatus on_joystick_update_complete(const SDL_JoyDeviceEvent&);
+#endif
 
 /*
    ██████╗  █████╗ ███╗   ███╗███████╗██████╗  █████╗ ██████╗

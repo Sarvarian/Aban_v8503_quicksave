@@ -593,6 +593,44 @@ ESysStatus Engine::on_mouse_removed(const SDL_MouseDeviceEvent& event) {
    ╚════╝  ╚═════╝    ╚═╝   ╚══════╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝
 */
 
+ESysStatus Engine::on_joystick_axis_motion(const SDL_JoyAxisEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_joystick_ball_motion(const SDL_JoyBallEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_joystick_hat_motion(const SDL_JoyHatEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_joystick_button_down(const SDL_JoyButtonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_joystick_button_up(const SDL_JoyButtonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_joystick_added(const SDL_JoyDeviceEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_joystick_removed(const SDL_JoyDeviceEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_joystick_battery_updated(const SDL_JoyBatteryEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_joystick_update_complete(const SDL_JoyDeviceEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
    ██████╗  █████╗ ███╗   ███╗███████╗██████╗  █████╗ ██████╗
   ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██╔══██╗██╔══██╗██╔══██╗

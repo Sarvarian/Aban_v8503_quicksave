@@ -20,26 +20,6 @@ bool EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
 
 
 
-ESysStatus EventReceiver::joystickAxisMotion(const SDL_JoyAxisEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::joystickBallMotion(const SDL_JoyBallEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::joystickHatMotion(const SDL_JoyHatEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::joystickButtonDown(const SDL_JoyButtonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::joystickButtonUp(const SDL_JoyButtonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
 ESysStatus EventReceiver::userEvent(const SDL_UserEvent& event) {
   return E_SYS_CONTINUE;
 }

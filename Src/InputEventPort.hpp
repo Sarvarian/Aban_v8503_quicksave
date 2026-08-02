@@ -35,11 +35,6 @@ private:
 
 
   /* SDL1, SDL2, SDL3 Common Events Begin */
-  ESysStatus joystickAxisMotion(const SDL_JoyAxisEvent& event); /**< Joystick Axis Motion */
-  ESysStatus joystickBallMotion(const SDL_JoyBallEvent& event); /**< Joystick Ball Motion */
-  ESysStatus joystickHatMotion(const SDL_JoyHatEvent& event); /**< Joystick Hat Motion */
-  ESysStatus joystickButtonDown(const SDL_JoyButtonEvent& event); /**< Joystick Button Down */
-  ESysStatus joystickButtonUp(const SDL_JoyButtonEvent& event); /**< Joystick Button Up */
   ESysStatus userEvent(const SDL_UserEvent& event); /**< "User" Custom Event */
   /* SDL1, SDL2, SDL3 Common Events End */
 
