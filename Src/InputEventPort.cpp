@@ -16,18 +16,7 @@ bool EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
 }
 #endif
 
-ESysStatus EventReceiver::unrecognizedEvent(const SDL_Event& event) {
-  /* I don't think `default` should be reachable. */
-  /* I put a debugBreak so if it ever happened,   */
-  /*     I get a change to investigate it.        */
-  debugBreak;
-  return E_SYS_CONTINUE;
-}
 
-
-ESysStatus EventReceiver::quitEvent(const SDL_QuitEvent& event) {
-  return E_SYS_QUIT;
-}
 
 #if IS_USING_SDL_1 || IS_USING_SDL_2
 ESysStatus EventReceiver::sysWmEvent(const SDL_SysWMEvent& event) {
@@ -79,69 +68,6 @@ ESysStatus EventReceiver::userEvent(const SDL_UserEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::windowExposed() {
-#else
-ESysStatus EventReceiver::windowExposed(const SDL_WindowEvent& event) {
-#endif
-  return E_SYS_CONTINUE;
-}
-
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::windowResized(const int w, const int h) {
-#else
-ESysStatus EventReceiver::windowResized(const SDL_WindowEvent& event) {
-#endif
-  return E_SYS_CONTINUE;
-}
-
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::windowMinimized() {
-#else
-ESysStatus EventReceiver::windowMinimized(const SDL_WindowEvent& event) {
-#endif
-  return E_SYS_CONTINUE;
-}
-
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::windowRestored() {
-#else
-ESysStatus EventReceiver::windowRestored(const SDL_WindowEvent& event) {
-#endif
-  return E_SYS_CONTINUE;
-}
-
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::windowMouseEnter() {
-#else
-ESysStatus EventReceiver::windowMouseEnter(const SDL_WindowEvent& event) {
-#endif
-  return E_SYS_CONTINUE;
-}
-
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::windowMouseLeave() {
-#else
-ESysStatus EventReceiver::windowMouseLeave(const SDL_WindowEvent& event) {
-#endif
-  return E_SYS_CONTINUE;
-}
-
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::windowFocusGained() {
-#else
-ESysStatus EventReceiver::windowFocusGained(const SDL_WindowEvent& event) {
-#endif
-  return E_SYS_CONTINUE;
-}
-
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::windowFocusLost() {
-#else
-ESysStatus EventReceiver::windowFocusLost(const SDL_WindowEvent& event) {
-#endif
-  return E_SYS_CONTINUE;
-}
 
 #if IS_USING_SDL_2
 ESysStatus EventReceiver::textEditingExt(const SDL_TextEditingExtEvent& event) {
@@ -150,105 +76,7 @@ ESysStatus EventReceiver::textEditingExt(const SDL_TextEditingExtEvent& event) {
 #endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus EventReceiver::terminating(const SDL_CommonEvent& event) {
-  return E_SYS_CONTINUE;
-}
 
-ESysStatus EventReceiver::lowMemory(const SDL_CommonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::willEnterBackground(const SDL_CommonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::didEnterBackground(const SDL_CommonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::willEnterForeground(const SDL_CommonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::didEnterForeground(const SDL_CommonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::localeChanged(const SDL_CommonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::orientationUnknown(const SDL_DisplayEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::orientationLandscape(const SDL_DisplayEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::orientationLandscapeFlipped(const SDL_DisplayEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::orientationPortrait(const SDL_DisplayEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::orientationPortraitFlipped(const SDL_DisplayEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::displayAdded(const SDL_DisplayEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::displayRemoved(const SDL_DisplayEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::displayMoved(const SDL_DisplayEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowShown(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowHidden(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowMoved(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowSizeChanged(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowMaximized(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowCloseRequest(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowTakeFocus(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowHitTest(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowIccChanged(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::windowDisplayChanged(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
 
 ESysStatus EventReceiver::textEditing(const SDL_TextEditingEvent& event) {
   return E_SYS_CONTINUE;

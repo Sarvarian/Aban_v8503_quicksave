@@ -222,3 +222,270 @@ Engine Engine::def() {
   return Engine();
 }
 
+/*
+  ███████╗██╗   ██╗███████╗███╗   ██╗████████╗███████╗
+  ██╔════╝██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔════╝
+  █████╗  ██║   ██║█████╗  ██╔██╗ ██║   ██║   ███████╗
+  ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ╚════██║
+  ███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   ███████║
+  ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
+*/
+
+ESysStatus Engine::unrecognizedEvent(const SDL_Event& event) {
+  /* I don't think `default` should be reachable. */
+  /* I put a debugBreak so if it ever happened,   */
+  /*     I get a change to investigate it.        */
+  debugBreak;
+  return E_SYS_CONTINUE;
+}
+
+/*
+   █████╗ ██████╗ ██████╗
+  ██╔══██╗██╔══██╗██╔══██╗
+  ███████║██████╔╝██████╔╝
+  ██╔══██║██╔═══╝ ██╔═══╝
+  ██║  ██║██║     ██║
+  ╚═╝  ╚═╝╚═╝     ╚═╝
+*/
+
+ESysStatus Engine::quitEvent(const SDL_QuitEvent& event) {
+  return E_SYS_QUIT;
+}
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::terminating(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::lowMemory(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::willEnterBackground(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::didEnterBackground(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::willEnterForeground(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::didEnterForeground(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::localeChanged(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::systemThemeChanged(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
+/*
+  ██████╗ ██╗███████╗██████╗ ██╗      █████╗ ██╗   ██╗
+  ██╔══██╗██║██╔════╝██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝
+  ██║  ██║██║███████╗██████╔╝██║     ███████║ ╚████╔╝
+  ██║  ██║██║╚════██║██╔═══╝ ██║     ██╔══██║  ╚██╔╝
+  ██████╔╝██║███████║██║     ███████╗██║  ██║   ██║
+  ╚═════╝ ╚═╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝
+*/
+
+ESysStatus Engine::orientationUnknown(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::orientationLandscape(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::orientationLandscapeFlipped(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::orientationPortrait(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::orientationPortraitFlipped(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::displayAdded(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::displayRemoved(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::displayMoved(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::displayDesktopModeChanged(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::displayCurrentModeChanged(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::displayContentScaleChanged(const SDL_DisplayEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+/*
+  ██╗    ██╗██╗███╗   ██╗██████╗  ██████╗ ██╗    ██╗
+  ██║    ██║██║████╗  ██║██╔══██╗██╔═══██╗██║    ██║
+  ██║ █╗ ██║██║██╔██╗ ██║██║  ██║██║   ██║██║ █╗ ██║
+  ██║███╗██║██║██║╚██╗██║██║  ██║██║   ██║██║███╗██║
+  ╚███╔███╔╝██║██║ ╚████║██████╔╝╚██████╔╝╚███╔███╔╝
+   ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝  ╚══╝╚══╝
+*/
+
+#if IS_USING_SDL_1
+ESysStatus Engine::windowExposed() {
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowExposed(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus Engine::windowResized(const int w, const int h) {
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowResized(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus Engine::windowMinimized() {
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowMinimized(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus Engine::windowRestored() {
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowRestored(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus Engine::windowMouseEnter() {
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowMouseEnter(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus Engine::windowMouseLeave() {
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowMouseLeave(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus Engine::windowFocusGained() {
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowFocusGained(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus Engine::windowFocusLost() {
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowFocusLost(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::windowShown(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowHidden(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowMoved(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowPixelSizeChanged(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowMetalViewResized(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowSizeChanged(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowMaximized(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowCloseRequest(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowTakeFocus(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowHitTest(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowIccChanged(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowDisplayChanged(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowDisplayScaleChanged(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowSafeAreaChanged(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowOccluded(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowEnterFullscreen(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowLeaveFullscreen(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowDestroyed(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::windowHdrStateChanged(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
