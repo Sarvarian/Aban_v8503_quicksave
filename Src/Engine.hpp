@@ -152,7 +152,7 @@ public:
 
 #if IS_USING_SDL_1 || IS_USING_SDL_2
   /** SDL1, SDL2 SysWM Event */
-  ESysStatus sysWmEvent(const SDL_SysWMEvent& event);
+  ESysStatus on_sys_wm(const SDL_SysWMEvent& event);
 #endif
 
 /*
