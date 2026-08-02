@@ -31,49 +31,49 @@ private:
   bool sdlEventFilter(SDL_Event& event);
 #endif
 
-  ESysStatus unrecognized(const SDL_Event&); /* Unrecognized SDL Event */
+  ESysStatus unrecognizedEvent(const SDL_Event&); /* Unrecognized SDL Event */
 
   /* SDL1, SDL2, SDL3 Common Events Begin */
-  ESysStatus quit(const SDL_QuitEvent& event);
+  ESysStatus quitEvent(const SDL_QuitEvent& event);
   /* SDL1, SDL2, SDL3 Common Events End */
 
 #if IS_USING_SDL_1 || IS_USING_SDL_2
   /** SDL1, SDL2 SysWM Event */
-  ESysStatus sys(const SDL_SysWMEvent& event);
+  ESysStatus sysWmEvent(const SDL_SysWMEvent& event);
 #endif
 
   /* SDL1, SDL2, SDL3 Common Events Begin */
-  ESysStatus keyDown(const SDL_KeyboardEvent& event); /**< Keyboard Key Down */
-  ESysStatus keyUp(const SDL_KeyboardEvent& event); /**< Keyboard Key Up */
-  ESysStatus motion(const SDL_MouseMotionEvent& event); /**< Mouse Motion */
-  ESysStatus buttonDown(const SDL_MouseButtonEvent& event); /**< Mouse Button Down */
-  ESysStatus buttonUp(const SDL_MouseButtonEvent& event); /**< Mouse Button Up */
-  ESysStatus axis(const SDL_JoyAxisEvent& event); /**< Joystick Axis Motion */
-  ESysStatus ball(const SDL_JoyBallEvent& event); /**< Joystick Ball Motion */
-  ESysStatus hat(const SDL_JoyHatEvent& event); /**< Joystick Hat Motion */
-  ESysStatus joyDown(const SDL_JoyButtonEvent& event); /**< Joystick Button Down */
-  ESysStatus joyUp(const SDL_JoyButtonEvent& event); /**< Joystick Button Up */
-  ESysStatus user(const SDL_UserEvent& event); /**< "User" Custom Event */
+  ESysStatus keyboardKeyDown(const SDL_KeyboardEvent& event); /**< Keyboard Key Down */
+  ESysStatus keyboardKeyUp(const SDL_KeyboardEvent& event); /**< Keyboard Key Up */
+  ESysStatus mouseMotion(const SDL_MouseMotionEvent& event); /**< Mouse Motion */
+  ESysStatus mouseButtonDown(const SDL_MouseButtonEvent& event); /**< Mouse Button Down */
+  ESysStatus mouseButtonUp(const SDL_MouseButtonEvent& event); /**< Mouse Button Up */
+  ESysStatus joystickAxisMotion(const SDL_JoyAxisEvent& event); /**< Joystick Axis Motion */
+  ESysStatus joystickBallMotion(const SDL_JoyBallEvent& event); /**< Joystick Ball Motion */
+  ESysStatus joystickHatMotion(const SDL_JoyHatEvent& event); /**< Joystick Hat Motion */
+  ESysStatus joystickButtonDown(const SDL_JoyButtonEvent& event); /**< Joystick Button Down */
+  ESysStatus joystickButtonUp(const SDL_JoyButtonEvent& event); /**< Joystick Button Up */
+  ESysStatus userEvent(const SDL_UserEvent& event); /**< "User" Custom Event */
   /* SDL1, SDL2, SDL3 Common Events End */
 
 #if IS_USING_SDL_1
-  ESysStatus exposed(); /**< Window Exposed, Need Redraw */
-  ESysStatus resized(const int w, const int h); /**< Window Resized */
-  ESysStatus minimized(); /**< Window Minimized */
-  ESysStatus restored(); /**< Window Restored */
-  ESysStatus enter(); /**< Window Gained Mouse Focus */
-  ESysStatus leave(); /**< Window Lost Mouse Focsus */
-  ESysStatus writable(); /**< Window Gained Keyboard Focus */
-  ESysStatus unwritable(); /**< Window Lost Keyboard Focus */
+  ESysStatus windowExposed(); /**< Window Exposed, Need Redraw */
+  ESysStatus windowResized(const int w, const int h); /**< Window Resized */
+  ESysStatus windowMinimized(); /**< Window Minimized */
+  ESysStatus windowRestored(); /**< Window Restored */
+  ESysStatus windowMouseEnter(); /**< Window Gained Mouse Focus */
+  ESysStatus windowMouseLeave(); /**< Window Lost Mouse Focus */
+  ESysStatus windowFocusGained(); /**< Window Gained Keyboard Focus */
+  ESysStatus windowFocusLost(); /**< Window Lost Keyboard Focus */
 #else
-  ESysStatus exposed(const SDL_WindowEvent&); /**< Window Exposed, Need Redraw */
-  ESysStatus resized(const SDL_WindowEvent&); /**< Window Resized */
-  ESysStatus minimized(const SDL_WindowEvent&); /**< Window Minimized */
-  ESysStatus restored(const SDL_WindowEvent&); /**< Window Restored */
-  ESysStatus enter(const SDL_WindowEvent&); /**< Window Gained Mouse Focus */
-  ESysStatus leave(const SDL_WindowEvent&); /**< Window Lost Mouse Focus */
-  ESysStatus writable(const SDL_WindowEvent&); /**< Window Gained Keyboard Focus */
-  ESysStatus unwritable(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
+  ESysStatus windowExposed(const SDL_WindowEvent&); /**< Window Exposed, Need Redraw */
+  ESysStatus windowResized(const SDL_WindowEvent&); /**< Window Resized */
+  ESysStatus windowMinimized(const SDL_WindowEvent&); /**< Window Minimized */
+  ESysStatus windowRestored(const SDL_WindowEvent&); /**< Window Restored */
+  ESysStatus windowMouseEnter(const SDL_WindowEvent&); /**< Window Gained Mouse Focus */
+  ESysStatus windowMouseLeave(const SDL_WindowEvent&); /**< Window Lost Mouse Focus */
+  ESysStatus windowFocusGained(const SDL_WindowEvent&); /**< Window Gained Keyboard Focus */
+  ESysStatus windowFocusLost(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
 #endif
 
 #if IS_USING_SDL_2
@@ -81,40 +81,40 @@ private:
       `text` will be freed after calling this.
       So, make a hard copy of `text` if you need it.
    */
-  ESysStatus writer(const SDL_TextEditingExtEvent&);
+  ESysStatus textEditingExt(const SDL_TextEditingExtEvent&);
 #endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   /* SDL2 Only and SDL3 Only Events Begin */
   ESysStatus terminating(const SDL_CommonEvent&); /**< App Terminating */
-  ESysStatus low(const SDL_CommonEvent&); /**< App Low Memory */
-  ESysStatus backWill(const SDL_CommonEvent&); /**< Will Enter Background */
-  ESysStatus backDid(const SDL_CommonEvent&); /**< Did Enter Background */
-  ESysStatus foreWill(const SDL_CommonEvent&); /**< Will Enter Foreground */
-  ESysStatus foreDid(const SDL_CommonEvent&); /**< Did Enter Foreground */
-  ESysStatus locale(const SDL_CommonEvent&); /**< User Locale Changed */
-  ESysStatus disoriented(const SDL_DisplayEvent&); /**< Display Orientation Changed, Unknown */
-  ESysStatus landscape(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape */
-  ESysStatus landscapeFlipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape Flipped */
-  ESysStatus portrait(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait */
-  ESysStatus portraitFlipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait Flipped */
-  ESysStatus on(const SDL_DisplayEvent&); /**< System Display Added */
-  ESysStatus off(const SDL_DisplayEvent&); /**< System Display Removed */
-  ESysStatus replace(const SDL_DisplayEvent&); /**< System Display Position Changed */
-  ESysStatus shown(const SDL_WindowEvent&); /**< Window Shown */
-  ESysStatus hidden(const SDL_WindowEvent&); /**< Window Hidden */
-  ESysStatus reposition(const SDL_WindowEvent&); /**< Window Moved */
-  ESysStatus sized(const SDL_WindowEvent&); /**< Window Size Changed */
-  ESysStatus maximized(const SDL_WindowEvent&); /**< Window Maximized */
-  ESysStatus close(const SDL_WindowEvent&); /**< Window Requested For Close */
-  ESysStatus take(const SDL_WindowEvent&); /**< Window Offered Focus */
-  ESysStatus hit(const SDL_WindowEvent&); /**< Window Had Hit Test, That Wasn't SDL_HITTEST_NORMAL */
-  ESysStatus icc(const SDL_WindowEvent&); /**< Window's Display ICC Profile Changed */
-  ESysStatus relocate(const SDL_WindowEvent&); /**< Window Moved Display */
-  ESysStatus writing(const SDL_TextEditingEvent&); /**< Keyboard Text Composition Editing */
-  ESysStatus text(const SDL_TextInputEvent&); /**< Keyboard Text Input */
-  ESysStatus layout(const SDL_CommonEvent&); /**< System Keyboard Layout Changed */
-  ESysStatus wheel(const SDL_MouseWheelEvent&); /**< Mouse Wheel Motion */
+  ESysStatus lowMemory(const SDL_CommonEvent&); /**< App Low Memory */
+  ESysStatus willEnterBackground(const SDL_CommonEvent&); /**< Will Enter Background */
+  ESysStatus didEnterBackground(const SDL_CommonEvent&); /**< Did Enter Background */
+  ESysStatus willEnterForeground(const SDL_CommonEvent&); /**< Will Enter Foreground */
+  ESysStatus didEnterForeground(const SDL_CommonEvent&); /**< Did Enter Foreground */
+  ESysStatus localeChanged(const SDL_CommonEvent&); /**< User Locale Changed */
+  ESysStatus orientationUnknown(const SDL_DisplayEvent&); /**< Display Orientation Changed, Unknown */
+  ESysStatus orientationLandscape(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape */
+  ESysStatus orientationLandscapeFlipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape Flipped */
+  ESysStatus orientationPortrait(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait */
+  ESysStatus orientationPortraitFlipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait Flipped */
+  ESysStatus displayAdded(const SDL_DisplayEvent&); /**< System Display Added */
+  ESysStatus displayRemoved(const SDL_DisplayEvent&); /**< System Display Removed */
+  ESysStatus displayMoved(const SDL_DisplayEvent&); /**< System Display Position Changed */
+  ESysStatus windowShown(const SDL_WindowEvent&); /**< Window Shown */
+  ESysStatus windowHidden(const SDL_WindowEvent&); /**< Window Hidden */
+  ESysStatus windowMoved(const SDL_WindowEvent&); /**< Window Moved */
+  ESysStatus windowSizeChanged(const SDL_WindowEvent&); /**< Window Size Changed */
+  ESysStatus windowMaximized(const SDL_WindowEvent&); /**< Window Maximized */
+  ESysStatus windowCloseRequest(const SDL_WindowEvent&); /**< Window Requested For Close */
+  ESysStatus windowTakeFocus(const SDL_WindowEvent&); /**< Window Offered Focus */
+  ESysStatus windowHitTest(const SDL_WindowEvent&); /**< Window Had Hit Test, That Wasn't SDL_HITTEST_NORMAL */
+  ESysStatus windowIccChanged(const SDL_WindowEvent&); /**< Window's Display ICC Profile Changed */
+  ESysStatus windowDisplayChanged(const SDL_WindowEvent&); /**< Window Moved Display */
+  ESysStatus textEditing(const SDL_TextEditingEvent&); /**< Keyboard Text Composition Editing */
+  ESysStatus textInput(const SDL_TextInputEvent&); /**< Keyboard Text Input */
+  ESysStatus keymapChanged(const SDL_CommonEvent&); /**< System Keyboard Layout Changed */
+  ESysStatus mouseWheel(const SDL_MouseWheelEvent&); /**< Mouse Wheel Motion */
   /* SDL2 Only and SDL3 Only Events End */
 #endif
 
