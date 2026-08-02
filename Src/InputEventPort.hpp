@@ -71,7 +71,7 @@ private:
   ESysStatus minimized(const SDL_WindowEvent&); /**< Window Minimized */
   ESysStatus restored(const SDL_WindowEvent&); /**< Window Restored */
   ESysStatus enter(const SDL_WindowEvent&); /**< Window Gained Mouse Focus */
-  ESysStatus leave(const SDL_WindowEvent&); /**< Window Lost Mouse Focsus */
+  ESysStatus leave(const SDL_WindowEvent&); /**< Window Lost Mouse Focus */
   ESysStatus writable(const SDL_WindowEvent&); /**< Window Gained Keyboard Focus */
   ESysStatus unwritable(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
 #endif
