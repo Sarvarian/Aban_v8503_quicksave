@@ -556,6 +556,34 @@ ESysStatus Engine::on_text_editing_candidates(const SDL_KeyboardEvent& event) {
   ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
 */
 
+ESysStatus Engine::on_mouse_motion(const SDL_MouseMotionEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_mouse_button_down(const SDL_MouseButtonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_mouse_button_up(const SDL_MouseButtonEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_mouse_wheel(const SDL_MouseWheelEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
+#if IS_USING_SDL_3
+ESysStatus Engine::on_mouse_added(const SDL_MouseDeviceEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_mouse_removed(const SDL_MouseDeviceEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
        ██╗ ██████╗ ██╗   ██╗███████╗████████╗██╗ ██████╗██╗  ██╗
        ██║██╔═══██╗╚██╗ ██╔╝██╔════╝╚══██╔══╝██║██╔════╝██║ ██╔╝

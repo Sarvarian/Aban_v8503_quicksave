@@ -196,6 +196,19 @@ public:
   ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
 */
 
+  ESysStatus on_mouse_motion(const SDL_MouseMotionEvent& event); /**< Mouse Motion */
+  ESysStatus on_mouse_button_down(const SDL_MouseButtonEvent& event); /**< Mouse Button Down */
+  ESysStatus on_mouse_button_up(const SDL_MouseButtonEvent& event); /**< Mouse Button Up */
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  ESysStatus on_mouse_wheel(const SDL_MouseWheelEvent&); /**< Mouse Wheel Motion */
+#endif
+
+#if IS_USING_SDL_3
+  ESysStatus on_mouse_added(const SDL_MouseDeviceEvent&);
+  ESysStatus on_mouse_removed(const SDL_MouseDeviceEvent&);
+#endif
+
 /*
        ██╗ ██████╗ ██╗   ██╗███████╗████████╗██╗ ██████╗██╗  ██╗
        ██║██╔═══██╗╚██╗ ██╔╝██╔════╝╚══██╔══╝██║██╔════╝██║ ██╔╝

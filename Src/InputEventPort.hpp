@@ -35,9 +35,6 @@ private:
 
 
   /* SDL1, SDL2, SDL3 Common Events Begin */
-  ESysStatus mouseMotion(const SDL_MouseMotionEvent& event); /**< Mouse Motion */
-  ESysStatus mouseButtonDown(const SDL_MouseButtonEvent& event); /**< Mouse Button Down */
-  ESysStatus mouseButtonUp(const SDL_MouseButtonEvent& event); /**< Mouse Button Up */
   ESysStatus joystickAxisMotion(const SDL_JoyAxisEvent& event); /**< Joystick Axis Motion */
   ESysStatus joystickBallMotion(const SDL_JoyBallEvent& event); /**< Joystick Ball Motion */
   ESysStatus joystickHatMotion(const SDL_JoyHatEvent& event); /**< Joystick Hat Motion */
@@ -48,11 +45,6 @@ private:
 
 
 
-#if IS_USING_SDL_2 || IS_USING_SDL_3
-  /* SDL2 Only and SDL3 Only Events Begin */
-  ESysStatus mouseWheel(const SDL_MouseWheelEvent&); /**< Mouse Wheel Motion */
-  /* SDL2 Only and SDL3 Only Events End */
-#endif
 
 };
 

@@ -20,18 +20,6 @@ bool EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
 
 
 
-ESysStatus EventReceiver::mouseMotion(const SDL_MouseMotionEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::mouseButtonDown(const SDL_MouseButtonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::mouseButtonUp(const SDL_MouseButtonEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
 ESysStatus EventReceiver::joystickAxisMotion(const SDL_JoyAxisEvent& event) {
   return E_SYS_CONTINUE;
 }
@@ -58,14 +46,6 @@ ESysStatus EventReceiver::userEvent(const SDL_UserEvent& event) {
 
 
 
-#if IS_USING_SDL_2 || IS_USING_SDL_3
-
-
-
-ESysStatus EventReceiver::mouseWheel(const SDL_MouseWheelEvent& event) {
-  return E_SYS_CONTINUE;
-}
-#endif
 
 #if IS_USING_SDL_1
 ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
