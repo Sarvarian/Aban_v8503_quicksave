@@ -20,19 +20,6 @@ ESysStatus EventReceiver::unrecognized(const SDL_Event& event) {
   return E_SYS_CONTINUE;
 }
 
-#if IS_USING_SDL_1
-ESysStatus EventReceiver::active(const SDL_ActiveEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::resize(const SDL_ResizeEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::expose(const SDL_ExposeEvent& event) {
-  return E_SYS_CONTINUE;
-}
-#endif
 
 ESysStatus EventReceiver::quit(const SDL_QuitEvent& event) {
   return E_SYS_QUIT;
@@ -85,6 +72,70 @@ ESysStatus EventReceiver::joyUp(const SDL_JoyButtonEvent& event) {
 }
 
 ESysStatus EventReceiver::user(const SDL_UserEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus EventReceiver::exposed() {
+#else
+ESysStatus EventReceiver::exposed(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus EventReceiver::resized(const int w, const int h) {
+#else
+ESysStatus EventReceiver::resized(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus EventReceiver::minimized() {
+#else
+ESysStatus EventReceiver::minimized(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus EventReceiver::restored() {
+#else
+ESysStatus EventReceiver::restored(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus EventReceiver::enter() {
+#else
+ESysStatus EventReceiver::enter(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus EventReceiver::leave() {
+#else
+ESysStatus EventReceiver::leave(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus EventReceiver::writable() {
+#else
+ESysStatus EventReceiver::writable(const SDL_WindowEvent& event) {
+#endif
+  return E_SYS_CONTINUE;
+}
+
+#if IS_USING_SDL_1
+ESysStatus EventReceiver::unwritable() {
+#else
+ESysStatus EventReceiver::unwritable(const SDL_WindowEvent& event) {
+#endif
   return E_SYS_CONTINUE;
 }
 
@@ -157,15 +208,7 @@ ESysStatus EventReceiver::hidden(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus EventReceiver::exposed(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
 ESysStatus EventReceiver::reposition(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::resized(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
@@ -173,31 +216,7 @@ ESysStatus EventReceiver::sized(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus EventReceiver::minimized(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
 ESysStatus EventReceiver::maximized(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::restored(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::enter(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::leave(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::writable(const SDL_WindowEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-ESysStatus EventReceiver::unwritable(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
@@ -225,7 +244,14 @@ ESysStatus EventReceiver::relocate(const SDL_WindowEvent& event) {
 #if IS_USING_SDL_1
 ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
   switch (event.type) {
-    case SDL_ACTIVEEVENT: return active(event.active);
+    case SDL_ACTIVEEVENT:
+      switch (event.active.type) {
+      case SDL_APPACTIVE: return event.active.gain ? restored() : minimized();
+      case SDL_APPMOUSEFOCUS: return event.active.gain ? enter() : leave();
+      case SDL_APPINPUTFOCUS: return event.active.gain ? writable() : unwritable();
+      default: break;
+      }
+      break;
     case SDL_KEYDOWN: return keyDown(event.key);
     case SDL_KEYUP: return keyUp(event.key);
     case SDL_MOUSEMOTION: return motion(event.motion);
@@ -238,8 +264,8 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
     case SDL_JOYBUTTONUP: return joyUp(event.jbutton);
     case SDL_QUIT: return quit(event.quit);
     case SDL_SYSWMEVENT: return sys(event.syswm);
-    case SDL_VIDEORESIZE: return resize(event.resize);
-    case SDL_VIDEOEXPOSE: return expose(event.expose);
+    case SDL_VIDEORESIZE: return resized(event.resize.w, event.resize.h);
+    case SDL_VIDEOEXPOSE: return exposed();
     case SDL_USEREVENT: return user(event.user);
     default: return unrecognized(event);
   }

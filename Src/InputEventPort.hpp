@@ -31,15 +31,6 @@ private:
 
   ESysStatus unrecognized(const SDL_Event&); /* Unrecognized SDL Event */
 
-#if IS_USING_SDL_1
-  /** SDL1 Active Event */
-  ESysStatus active(const SDL_ActiveEvent& event);
-  /** SDL1 Resize Event */
-  ESysStatus resize(const SDL_ResizeEvent& event);
-  /** SDL1 Expose Event */
-  ESysStatus expose(const SDL_ExposeEvent& event);
-#endif
-
   /* SDL1, SDL2, SDL3 Common Events Begin */
   ESysStatus quit(const SDL_QuitEvent& event);
   /* SDL1, SDL2, SDL3 Common Events End */
@@ -63,6 +54,26 @@ private:
   ESysStatus user(const SDL_UserEvent& event); /**< "User" Custom Event */
   /* SDL1, SDL2, SDL3 Common Events End */
 
+#if IS_USING_SDL_1
+  ESysStatus exposed(); /**< Window Exposed, Need Redraw */
+  ESysStatus resized(const int w, const int h); /**< Window Resized */
+  ESysStatus minimized(); /**< Window Minimized */
+  ESysStatus restored(); /**< Window Restored */
+  ESysStatus enter(); /**< Window Gained Mouse Focus */
+  ESysStatus leave(); /**< Window Lost Mouse Focsus */
+  ESysStatus writable(); /**< Window Gained Keyboard Focus */
+  ESysStatus unwritable(); /**< Window Lost Keyboard Focus */
+#else
+  ESysStatus exposed(const SDL_WindowEvent&); /**< Window Exposed, Need Redraw */
+  ESysStatus resized(const SDL_WindowEvent&); /**< Window Resized */
+  ESysStatus minimized(const SDL_WindowEvent&); /**< Window Minimized */
+  ESysStatus restored(const SDL_WindowEvent&); /**< Window Restored */
+  ESysStatus enter(const SDL_WindowEvent&); /**< Window Gained Mouse Focus */
+  ESysStatus leave(const SDL_WindowEvent&); /**< Window Lost Mouse Focsus */
+  ESysStatus writable(const SDL_WindowEvent&); /**< Window Gained Keyboard Focus */
+  ESysStatus unwritable(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
+#endif
+
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   /* SDL2 Only and SDL3 Only Events Begin */
   ESysStatus terminating(const SDL_CommonEvent&); /**< App Terminating */
@@ -82,17 +93,9 @@ private:
   ESysStatus replace(const SDL_DisplayEvent&); /**< System Display Position Changed */
   ESysStatus shown(const SDL_WindowEvent&); /**< Window Shown */
   ESysStatus hidden(const SDL_WindowEvent&); /**< Window Hidden */
-  ESysStatus exposed(const SDL_WindowEvent&); /**< Window Exposed, Need Redraw */
   ESysStatus reposition(const SDL_WindowEvent&); /**< Window Moved */
-  ESysStatus resized(const SDL_WindowEvent&); /**< Window Resized */
   ESysStatus sized(const SDL_WindowEvent&); /**< Window Size Changed */
-  ESysStatus minimized(const SDL_WindowEvent&); /**< Window Minimized */
   ESysStatus maximized(const SDL_WindowEvent&); /**< Window Maximized */
-  ESysStatus restored(const SDL_WindowEvent&); /**< Window Restored */
-  ESysStatus enter(const SDL_WindowEvent&); /**< Window Gained Mouse Focus */
-  ESysStatus leave(const SDL_WindowEvent&); /**< Window Lost Mouse Focsus */
-  ESysStatus writable(const SDL_WindowEvent&); /**< Window Gained Keyboard Focus */
-  ESysStatus unwritable(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
   ESysStatus close(const SDL_WindowEvent&); /**< Window Requested For Close */
   ESysStatus take(const SDL_WindowEvent&); /**< Window Offered Focus */
   ESysStatus hit(const SDL_WindowEvent&); /**< Window Had Hit Test, That Wasn't SDL_HITTEST_NORMAL */
