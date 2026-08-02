@@ -265,23 +265,23 @@ ESysStatus Engine::on_will_enter_background(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::did_enter_background(const SDL_CommonEvent& event) {
+ESysStatus Engine::on_did_enter_background(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::will_enter_foreground(const SDL_CommonEvent& event) {
+ESysStatus Engine::on_will_enter_foreground(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::did_enter_foreground(const SDL_CommonEvent& event) {
+ESysStatus Engine::on_did_enter_foreground(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::locale_changed(const SDL_CommonEvent& event) {
+ESysStatus Engine::on_locale_changed(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::system_theme_changed(const SDL_CommonEvent& event) {
+ESysStatus Engine::on_system_theme_changed(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
@@ -295,47 +295,47 @@ ESysStatus Engine::system_theme_changed(const SDL_CommonEvent& event) {
   ╚═════╝ ╚═╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝
 */
 
-ESysStatus Engine::orientation_unknown(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_orientation_unknown(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::orientation_landscape(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_orientation_landscape(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::orientation_landscape_flipped(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_orientation_landscape_flipped(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::orientation_portrait(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_orientation_portrait(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::orientation_portrait_flipped(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_orientation_portrait_flipped(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::display_added(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_display_added(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::display_removed(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_display_removed(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::display_moved(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_display_moved(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::display_desktop_mode_changed(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_display_desktop_mode_changed(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::display_current_mode_changed(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_display_current_mode_changed(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::display_content_scale_changed(const SDL_DisplayEvent& event) {
+ESysStatus Engine::on_display_content_scale_changed(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
 
@@ -349,143 +349,143 @@ ESysStatus Engine::display_content_scale_changed(const SDL_DisplayEvent& event) 
 */
 
 #if IS_USING_SDL_1
-ESysStatus Engine::window_exposed() {
+ESysStatus Engine::on_window_exposed() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_exposed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_exposed(const SDL_WindowEvent& event) {
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_1
-ESysStatus Engine::window_resized(const int w, const int h) {
+ESysStatus Engine::on_window_resized(const int w, const int h) {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_resized(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_resized(const SDL_WindowEvent& event) {
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_1
-ESysStatus Engine::window_minimized() {
+ESysStatus Engine::on_window_minimized() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_minimized(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_minimized(const SDL_WindowEvent& event) {
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_1
-ESysStatus Engine::window_restored() {
+ESysStatus Engine::on_window_restored() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_restored(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_restored(const SDL_WindowEvent& event) {
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_1
-ESysStatus Engine::window_mouse_enter() {
+ESysStatus Engine::on_window_mouse_enter() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_mouse_enter(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_mouse_enter(const SDL_WindowEvent& event) {
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_1
-ESysStatus Engine::window_mouse_leave() {
+ESysStatus Engine::on_window_mouse_leave() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_mouse_leave(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_mouse_leave(const SDL_WindowEvent& event) {
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_1
-ESysStatus Engine::window_focus_gained() {
+ESysStatus Engine::on_window_focus_gained() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_focus_gained(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_focus_gained(const SDL_WindowEvent& event) {
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_1
-ESysStatus Engine::window_focus_lost() {
+ESysStatus Engine::on_window_focus_lost() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_focus_lost(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_focus_lost(const SDL_WindowEvent& event) {
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::window_shown(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_shown(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_hidden(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_hidden(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_moved(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_moved(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_pixel_size_changed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_pixel_size_changed(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_metal_view_resized(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_metal_view_resized(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_size_changed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_size_changed(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_maximized(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_maximized(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_close_request(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_close_request(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_take_focus(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_take_focus(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_hit_test(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_hit_test(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_icc_changed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_icc_changed(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_display_changed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_display_changed(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_display_scale_changed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_display_scale_changed(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_safe_area_changed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_safe_area_changed(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_occluded(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_occluded(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_enter_fullscreen(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_enter_fullscreen(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_leave_fullscreen(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_leave_fullscreen(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_destroyed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_destroyed(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::window_hdr_state_changed(const SDL_WindowEvent& event) {
+ESysStatus Engine::on_window_hdr_state_changed(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
@@ -499,44 +499,44 @@ ESysStatus Engine::window_hdr_state_changed(const SDL_WindowEvent& event) {
   ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 */
 
-ESysStatus Engine::keyboard_key_down(const SDL_KeyboardEvent& event) {
+ESysStatus Engine::on_keyboard_key_down(const SDL_KeyboardEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::keyboard_key_up(const SDL_KeyboardEvent& event) {
+ESysStatus Engine::on_keyboard_key_up(const SDL_KeyboardEvent& event) {
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::text_editing(const SDL_TextEditingEvent& event) {
+ESysStatus Engine::on_text_editing(const SDL_TextEditingEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::text_input(const SDL_TextInputEvent& event) {
+ESysStatus Engine::on_text_input(const SDL_TextInputEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::keymap_changed(const SDL_CommonEvent& event) {
+ESysStatus Engine::on_keymap_changed(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
 
 #if IS_USING_SDL_2
-ESysStatus Engine::text_editing_ext(const SDL_TextEditingExtEvent& event) {
+ESysStatus Engine::on_text_editing_ext(const SDL_TextEditingExtEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::keyboard_added(const SDL_TextEditingExtEvent& event) {
+ESysStatus Engine::on_keyboard_added(const SDL_TextEditingExtEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::keyboard_removed(const SDL_TextEditingExtEvent& event) {
+ESysStatus Engine::on_keyboard_removed(const SDL_TextEditingExtEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::text_editing_candidates(const SDL_TextEditingExtEvent& event) {
+ESysStatus Engine::on_text_editing_candidates(const SDL_TextEditingExtEvent& event) {
   return E_SYS_CONTINUE;
 }
 #endif
