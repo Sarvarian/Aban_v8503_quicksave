@@ -63,7 +63,7 @@ public:
   ╚═╝  ╚═╝╚═╝     ╚═╝
 */
 
-  ESysStatus on_quit(const SDL_QuitEvent& event);
+  ESysStatus on_quit(const SDL_QuitEvent&);
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_terminating(const SDL_CommonEvent&); /**< App Terminating */
@@ -152,7 +152,7 @@ public:
 
 #if IS_USING_SDL_1 || IS_USING_SDL_2
   /** SDL1, SDL2 SysWM Event */
-  ESysStatus on_sys_wm(const SDL_SysWMEvent& event);
+  ESysStatus on_sys_wm(const SDL_SysWMEvent&);
 #endif
 
 /*
