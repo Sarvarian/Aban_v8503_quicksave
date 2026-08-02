@@ -164,7 +164,6 @@ public:
   ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 */
 
-
   ESysStatus on_keyboard_key_down(const SDL_KeyboardEvent& event); /**< Keyboard Key Down */
   ESysStatus on_keyboard_key_up(const SDL_KeyboardEvent& event); /**< Keyboard Key Up */
 
