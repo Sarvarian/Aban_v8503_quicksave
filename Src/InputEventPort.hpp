@@ -74,6 +74,14 @@ private:
   ESysStatus unwritable(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
 #endif
 
+#if IS_USING_SDL_2
+  /** Extended Keyboard Text Composition Edition.
+      `text` will be freed after calling this.
+      So, make a hard copy of `text` if you need it.
+   */
+  ESysStatus writer(const SDL_TextEditingExtEvent&);
+#endif
+
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   /* SDL2 Only and SDL3 Only Events Begin */
   ESysStatus terminating(const SDL_CommonEvent&); /**< App Terminating */
@@ -101,6 +109,9 @@ private:
   ESysStatus hit(const SDL_WindowEvent&); /**< Window Had Hit Test, That Wasn't SDL_HITTEST_NORMAL */
   ESysStatus icc(const SDL_WindowEvent&); /**< Window's Display ICC Profile Changed */
   ESysStatus relocate(const SDL_WindowEvent&); /**< Window Moved Display */
+  ESysStatus writing(const SDL_TextEditingEvent&); /**< Keyboard Text Composition Editing */
+  ESysStatus text(const SDL_TextInputEvent&); /**< Keyboard Text Input */
+  ESysStatus layout(const SDL_CommonEvent&); /**< System Keyboard Layout Changed */
   /* SDL2 Only and SDL3 Only Events End */
 #endif
 

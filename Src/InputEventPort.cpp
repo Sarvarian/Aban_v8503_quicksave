@@ -139,6 +139,12 @@ ESysStatus EventReceiver::unwritable(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
 
+#if IS_USING_SDL_2
+ESysStatus EventReceiver::writer(const SDL_TextEditingExtEvent& event) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 #if IS_USING_SDL_2 || IS_USING_SDL_3
 ESysStatus EventReceiver::terminating(const SDL_CommonEvent& event) {
   return E_SYS_CONTINUE;
@@ -239,6 +245,18 @@ ESysStatus EventReceiver::icc(const SDL_WindowEvent& event) {
 ESysStatus EventReceiver::relocate(const SDL_WindowEvent& event) {
   return E_SYS_CONTINUE;
 }
+
+ESysStatus EventReceiver::writing(const SDL_TextEditingEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::text(const SDL_TextInputEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::layout(const SDL_CommonEvent& event) {
+  return E_SYS_CONTINUE;
+}
 #endif
 
 #if IS_USING_SDL_1
@@ -327,6 +345,17 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
     }
     break;
   case SDL_SYSWMEVENT: return sys(event.syswm);
+  /* Keyboard events */
+    case SDL_KEYDOWN: return keyDown(event.key);
+    case SDL_KEYUP: return keyUp(event.key);
+    case SDL_TEXTEDITING: return writing(event.edit);
+    case SDL_TEXTINPUT: return text(event.text);
+    case SDL_KEYMAPCHANGED: return layout(event.common);
+    case SDL_TEXTEDITING_EXT: {
+      const ESysStatus res = writer(event.editExt);
+      SDL_free(event.editExt.text);
+      return res;
+    }
   default: return unrecognized(event);
   }
   return unrecognized(event);
