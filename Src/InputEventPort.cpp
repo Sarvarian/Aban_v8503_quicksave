@@ -6,7 +6,7 @@ EventReceiver EventReceiver::def() {
   return EventReceiver();
 }
 
-ESysStatus EventReceiver::unrecognized(const SDL_Event &event) {
+ESysStatus EventReceiver::unrecognized(const SDL_Event& event) {
   /* I don't think `default` should be reachable. */
   /* I put a debugBreak so if it ever happened,   */
   /*     I get a change to investigate it.        */
@@ -14,7 +14,7 @@ ESysStatus EventReceiver::unrecognized(const SDL_Event &event) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus EventReceiver::unrecognizedOrientationEvent(const SDL_DisplayEvent &event) {
+ESysStatus EventReceiver::unrecognizedOrientation(const SDL_DisplayEvent& event) {
   /* I don't think `default` should be reachable. */
   /* I put a debugBreak so if it ever happened,   */
   /*     I get a change to investigate it.        */
@@ -22,7 +22,15 @@ ESysStatus EventReceiver::unrecognizedOrientationEvent(const SDL_DisplayEvent &e
   return E_SYS_CONTINUE;
 }
 
-ESysStatus EventReceiver::unrecognizedDisplayEvent(const SDL_DisplayEvent &event) {
+ESysStatus EventReceiver::unrecognizedDisplay(const SDL_DisplayEvent& event) {
+  /* I don't think `default` should be reachable. */
+  /* I put a debugBreak so if it ever happened,   */
+  /*     I get a change to investigate it.        */
+  debugBreak;
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::unrecognizedWindow(const SDL_WindowEvent& event) {
   /* I don't think `default` should be reachable. */
   /* I put a debugBreak so if it ever happened,   */
   /*     I get a change to investigate it.        */
@@ -162,6 +170,78 @@ ESysStatus EventReceiver::off(const SDL_DisplayEvent& event) {
 ESysStatus EventReceiver::replace(const SDL_DisplayEvent& event) {
   return E_SYS_CONTINUE;
 }
+
+ESysStatus EventReceiver::shown(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::hidden(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::exposed(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::reposition(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::resized(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::sized(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::minimized(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::maximized(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::restored(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::enter(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::leave(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::writable(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::unwritable(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::close(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::take(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::hit(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::icc(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus EventReceiver::relocate(const SDL_WindowEvent& event) {
+  return E_SYS_CONTINUE;
+}
 #endif
 
 #if IS_USING_SDL_1
@@ -210,19 +290,36 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
       case SDL_ORIENTATION_LANDSCAPE_FLIPPED: return landscapeFlipped(event.display);
       case SDL_ORIENTATION_PORTRAIT: return portrait(event.display);
       case SDL_ORIENTATION_PORTRAIT_FLIPPED: return portraitFlipped(event.display);
-      default: return unrecognizedOrientationEvent(event.display);
+      default: return unrecognizedOrientation(event.display);
       }
     case SDL_DISPLAYEVENT_CONNECTED: return on(event.display);
     case SDL_DISPLAYEVENT_DISCONNECTED: return off(event.display);
     case SDL_DISPLAYEVENT_MOVED: return replace(event.display);
-    default: return unrecognizedDisplayEvent(event.display);
+    default: return unrecognizedDisplay(event.display);
     }
   case SDL_WINDOWEVENT:
     switch (event.window.event) {
-    case SDL_WINDOWEVENT_SHOWN:
-    default: ;
+    case SDL_WINDOWEVENT_SHOWN: return shown(event.window);
+    case SDL_WINDOWEVENT_HIDDEN: return hidden(event.window);
+    case SDL_WINDOWEVENT_EXPOSED: return exposed(event.window);
+    case SDL_WINDOWEVENT_MOVED: return reposition(event.window);
+    case SDL_WINDOWEVENT_RESIZED: return resized(event.window);
+    case SDL_WINDOWEVENT_SIZE_CHANGED: return sized(event.window);
+    case SDL_WINDOWEVENT_MINIMIZED: return minimized(event.window);
+    case SDL_WINDOWEVENT_MAXIMIZED: return maximized(event.window);
+    case SDL_WINDOWEVENT_RESTORED: return restored(event.window);
+    case SDL_WINDOWEVENT_ENTER: return enter(event.window);
+    case SDL_WINDOWEVENT_LEAVE: return leave(event.window);
+    case SDL_WINDOWEVENT_FOCUS_GAINED: return writable(event.window);
+    case SDL_WINDOWEVENT_FOCUS_LOST: return unwritable(event.window);
+    case SDL_WINDOWEVENT_CLOSE: return close(event.window);
+    case SDL_WINDOWEVENT_TAKE_FOCUS: return take(event.window);
+    case SDL_WINDOWEVENT_HIT_TEST: return hit(event.window);
+    case SDL_WINDOWEVENT_ICCPROF_CHANGED: return icc(event.window);
+    case SDL_WINDOWEVENT_DISPLAY_CHANGED: return relocate(event.window);
+    default: return unrecognizedWindow(event.window);
     }
-  case SDL_SYSWMEVENT: sys(event.syswm);
+  case SDL_SYSWMEVENT: return sys(event.syswm);
   default: return unrecognized(event);
   }
   return unrecognized(event);

@@ -29,9 +29,10 @@ private:
   int sdlEventFilter(SDL_Event& event);
 #endif
 
-  ESysStatus unrecognized(const SDL_Event& event); /* Unrecognized SDL Event */
-  ESysStatus unrecognizedOrientationEvent(const SDL_DisplayEvent& event); /* Unrecognized Display Orientation Event */
-  ESysStatus unrecognizedDisplayEvent(const SDL_DisplayEvent& event); /* Unrecognized Display Event */
+  ESysStatus unrecognized(const SDL_Event&); /* Unrecognized SDL Event */
+  ESysStatus unrecognizedOrientation(const SDL_DisplayEvent&); /* Unrecognized Display Orientation Event */
+  ESysStatus unrecognizedDisplay(const SDL_DisplayEvent&); /* Unrecognized Display Event */
+  ESysStatus unrecognizedWindow(const SDL_WindowEvent&); /* Unrecognized Window Event */
 
 #if IS_USING_SDL_1
   /** SDL1 Active Event */
@@ -67,21 +68,39 @@ private:
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   /* SDL2 Only and SDL3 Only Events Begin */
-  ESysStatus terminating(const SDL_CommonEvent& event); /**< App Terminating */
-  ESysStatus low(const SDL_CommonEvent& event); /**< App Low Memory */
-  ESysStatus backWill(const SDL_CommonEvent& event); /**< Will Enter Background */
-  ESysStatus backDid(const SDL_CommonEvent& event); /**< Did Enter Background */
-  ESysStatus foreWill(const SDL_CommonEvent& event); /**< Will Enter Foreground */
-  ESysStatus foreDid(const SDL_CommonEvent& event); /**< Did Enter Foreground */
-  ESysStatus locale(const SDL_CommonEvent& event); /**< User Locale Changed */
-  ESysStatus disoriented(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Unknown */
-  ESysStatus landscape(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Landscape */
-  ESysStatus landscapeFlipped(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Landscape Flipped */
-  ESysStatus portrait(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Portrait */
-  ESysStatus portraitFlipped(const SDL_DisplayEvent& event); /**< Display Orientation Changed, Portrait Flipped */
-  ESysStatus on(const SDL_DisplayEvent& event); /**< System Display Added */
-  ESysStatus off(const SDL_DisplayEvent& event); /**< System Display Removed */
-  ESysStatus replace(const SDL_DisplayEvent& event); /**< System Display Position Changed */
+  ESysStatus terminating(const SDL_CommonEvent&); /**< App Terminating */
+  ESysStatus low(const SDL_CommonEvent&); /**< App Low Memory */
+  ESysStatus backWill(const SDL_CommonEvent&); /**< Will Enter Background */
+  ESysStatus backDid(const SDL_CommonEvent&); /**< Did Enter Background */
+  ESysStatus foreWill(const SDL_CommonEvent&); /**< Will Enter Foreground */
+  ESysStatus foreDid(const SDL_CommonEvent&); /**< Did Enter Foreground */
+  ESysStatus locale(const SDL_CommonEvent&); /**< User Locale Changed */
+  ESysStatus disoriented(const SDL_DisplayEvent&); /**< Display Orientation Changed, Unknown */
+  ESysStatus landscape(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape */
+  ESysStatus landscapeFlipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Landscape Flipped */
+  ESysStatus portrait(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait */
+  ESysStatus portraitFlipped(const SDL_DisplayEvent&); /**< Display Orientation Changed, Portrait Flipped */
+  ESysStatus on(const SDL_DisplayEvent&); /**< System Display Added */
+  ESysStatus off(const SDL_DisplayEvent&); /**< System Display Removed */
+  ESysStatus replace(const SDL_DisplayEvent&); /**< System Display Position Changed */
+  ESysStatus shown(const SDL_WindowEvent&); /**< Window Shown */
+  ESysStatus hidden(const SDL_WindowEvent&); /**< Window Hidden */
+  ESysStatus exposed(const SDL_WindowEvent&); /**< Window Exposed, Need Redraw */
+  ESysStatus reposition(const SDL_WindowEvent&); /**< Window Moved */
+  ESysStatus resized(const SDL_WindowEvent&); /**< Window Resized */
+  ESysStatus sized(const SDL_WindowEvent&); /**< Window Size Changed */
+  ESysStatus minimized(const SDL_WindowEvent&); /**< Window Minimized */
+  ESysStatus maximized(const SDL_WindowEvent&); /**< Window Maximized */
+  ESysStatus restored(const SDL_WindowEvent&); /**< Window Restored */
+  ESysStatus enter(const SDL_WindowEvent&); /**< Window Gained Mouse Focus */
+  ESysStatus leave(const SDL_WindowEvent&); /**< Window Lost Mouse Focsus */
+  ESysStatus writable(const SDL_WindowEvent&); /**< Window Gained Keyboard Focus */
+  ESysStatus unwritable(const SDL_WindowEvent&); /**< Window Lost Keyboard Focus */
+  ESysStatus close(const SDL_WindowEvent&); /**< Window Requested For Close */
+  ESysStatus take(const SDL_WindowEvent&); /**< Window Offered Focus */
+  ESysStatus hit(const SDL_WindowEvent&); /**< Window Had Hit Test, That Wasn't SDL_HITTEST_NORMAL */
+  ESysStatus icc(const SDL_WindowEvent&); /**< Window's Display ICC Profile Changed */
+  ESysStatus relocate(const SDL_WindowEvent&); /**< Window Moved Display */
   /* SDL2 Only and SDL3 Only Events End */
 #endif
 
