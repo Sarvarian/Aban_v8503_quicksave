@@ -6,6 +6,12 @@ EventReceiver EventReceiver::def() {
   return EventReceiver();
 }
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+int EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
+  return static_cast<EventReceiver*>(self)->sdlEventFilter(*event);
+}
+#endif
+
 ESysStatus EventReceiver::unrecognized(const SDL_Event& event) {
   /* I don't think `default` should be reachable. */
   /* I put a debugBreak so if it ever happened,   */
@@ -14,6 +20,7 @@ ESysStatus EventReceiver::unrecognized(const SDL_Event& event) {
   return E_SYS_CONTINUE;
 }
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
 ESysStatus EventReceiver::unrecognizedOrientation(const SDL_DisplayEvent& event) {
   /* I don't think `default` should be reachable. */
   /* I put a debugBreak so if it ever happened,   */
@@ -37,10 +44,7 @@ ESysStatus EventReceiver::unrecognizedWindow(const SDL_WindowEvent& event) {
   debugBreak;
   return E_SYS_CONTINUE;
 }
-
-int EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
-  return static_cast<EventReceiver*>(self)->sdlEventFilter(*event);
-}
+#endif
 
 #if IS_USING_SDL_1
 ESysStatus EventReceiver::active(const SDL_ActiveEvent& event) {
