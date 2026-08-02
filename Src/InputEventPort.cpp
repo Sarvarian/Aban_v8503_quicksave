@@ -369,6 +369,27 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
   case SDL_MOUSEBUTTONDOWN: return buttonDown(event.button);
   case SDL_MOUSEBUTTONUP: return buttonUp(event.button);
   case SDL_MOUSEWHEEL: return wheel(event.wheel);
+  /* Joystick events */
+  case SDL_JOYAXISMOTION:
+  case SDL_JOYBALLMOTION:
+  case SDL_JOYHATMOTION:
+  case SDL_JOYBUTTONDOWN:
+  case SDL_JOYBUTTONUP:
+  case SDL_JOYDEVICEADDED:
+  case SDL_JOYDEVICEREMOVED:
+  case SDL_JOYBATTERYUPDATED:
+  /* Game controller events */
+  case SDL_CONTROLLERAXISMOTION:
+  case SDL_CONTROLLERBUTTONDOWN:
+  case SDL_CONTROLLERBUTTONUP:
+  case SDL_CONTROLLERDEVICEADDED:
+  case SDL_CONTROLLERDEVICEREMOVED:
+  case SDL_CONTROLLERDEVICEREMAPPED:
+  case SDL_CONTROLLERTOUCHPADDOWN:
+  case SDL_CONTROLLERTOUCHPADMOTION:
+  case SDL_CONTROLLERTOUCHPADUP:
+  case SDL_CONTROLLERSENSORUPDATE:
+  case SDL_CONTROLLERSTEAMHANDLEUPDATED:
   default: return unrecognized(event);
   }
   return unrecognized(event);
