@@ -699,6 +699,24 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
      ╚═╝    ╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝
 */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_finger_down(const SDL_TouchFingerEvent& tfinger) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_finger_up(const SDL_TouchFingerEvent& tfinger) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_finger_motion(const SDL_TouchFingerEvent& tfinger) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_finger_cancel(const SDL_TouchFingerEvent& tfinger) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
    ██████╗ ███████╗███████╗████████╗██╗   ██╗██████╗ ███████╗
   ██╔════╝ ██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗██╔════╝
@@ -707,6 +725,20 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
   ╚██████╔╝███████╗███████║   ██║   ╚██████╔╝██║  ██║███████╗
    ╚═════╝ ╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
 */
+
+#if IS_USING_SDL_2
+ESysStatus Engine::on_dollar_gesture(const SDL_DollarGestureEvent& dgesture) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_dollar_cord(const SDL_DollarGestureEvent& dgesture) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_multi_gesture(const SDL_MultiGestureEvent& mgesture) {
+  return E_SYS_CONTINUE;
+}
+#endif
 
 /*
    ██████╗██╗     ██╗██████╗ ██████╗  ██████╗  █████╗ ██████╗ ██████╗
@@ -717,6 +749,12 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
    ╚═════╝╚══════╝╚═╝╚═╝     ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_clipboard_update(const SDL_ClipboardEvent& clipboard) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
   ██████╗ ██████╗  ██████╗ ██████╗
   ██╔══██╗██╔══██╗██╔═══██╗██╔══██╗
@@ -725,6 +763,28 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
   ██████╔╝██║  ██║╚██████╔╝██║
   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝
 */
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_drop_file(const SDL_DropEvent& drop) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_drop_text(const SDL_DropEvent& drop) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_drop_begin(const SDL_DropEvent& drop) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_drop_complete(const SDL_DropEvent& drop) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_drop_position(const SDL_DropEvent& drop) {
+  return E_SYS_CONTINUE;
+}
+#endif
 
 /*
    █████╗ ██╗   ██╗██████╗ ██╗ ██████╗
@@ -735,6 +795,20 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝ ╚═════╝
 */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_audio_device_added(const SDL_AudioDeviceEvent& adevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_audio_device_removed(const SDL_AudioDeviceEvent& adevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_audio_device_format_changed(const SDL_AudioDeviceEvent& adevice) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
   ███████╗███████╗███╗   ██╗███████╗ ██████╗ ██████╗
   ██╔════╝██╔════╝████╗  ██║██╔════╝██╔═══██╗██╔══██╗
@@ -743,6 +817,12 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
   ███████║███████╗██║ ╚████║███████║╚██████╔╝██║  ██║
   ╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
 */
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_sensor_update(const SDL_SensorEvent& sensor) {
+  return E_SYS_CONTINUE;
+}
+#endif
 
 /*
   ██████╗ ███████╗███╗   ██╗
@@ -753,6 +833,40 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
   ╚═╝     ╚══════╝╚═╝  ╚═══╝
 */
 
+#if IS_USING_SDL_3
+ESysStatus Engine::on_pen_proximity_in(const SDL_PenProximityEvent& pproximity) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_pen_proximity_out(const SDL_PenProximityEvent& pproximity) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_pen_down(const SDL_PenTouchEvent& ptouch) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_pen_up(const SDL_PenTouchEvent& ptouch) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_pen_button_down(const SDL_PenButtonEvent& pbutton) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_pen_button_up(const SDL_PenButtonEvent& pbutton) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_pen_motion(const SDL_PenMotionEvent& pmotion) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_pen_axis(const SDL_PenAxisEvent& paxis) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
    ██████╗ █████╗ ███╗   ███╗███████╗██████╗  █████╗
   ██╔════╝██╔══██╗████╗ ████║██╔════╝██╔══██╗██╔══██╗
@@ -761,6 +875,24 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
   ╚██████╗██║  ██║██║ ╚═╝ ██║███████╗██║  ██║██║  ██║
    ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 */
+
+#if IS_USING_SDL_3
+ESysStatus Engine::on_camera_device_added(const SDL_CameraDeviceEvent& cdevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_camera_device_removed(const SDL_CameraDeviceEvent& cdevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_camera_device_approved(const SDL_CameraDeviceEvent& cdevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_camera_device_denied(const SDL_CameraDeviceEvent& cdevice) {
+  return E_SYS_CONTINUE;
+}
+#endif
 
 /*
   ██████╗ ███████╗███╗   ██╗██████╗ ███████╗██████╗
@@ -771,6 +903,20 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_render_targets_reset(const SDL_RenderEvent& render) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_render_device_reset(const SDL_RenderEvent& render) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_render_device_lost(const SDL_RenderEvent& render) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
   ██╗   ██╗███████╗███████╗██████╗
   ██║   ██║██╔════╝██╔════╝██╔══██╗
@@ -779,4 +925,8 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
   ╚██████╔╝███████║███████╗██║  ██║
    ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
 */
+
+ESysStatus Engine::on_user_event(const SDL_UserEvent& event) {
+  return E_SYS_CONTINUE;
+}
 
