@@ -273,7 +273,7 @@ private:
   ESysStatus on_finger_down(const SDL_TouchFingerEvent& tfinger);
   ESysStatus on_finger_up(const SDL_TouchFingerEvent& tfinger);
   ESysStatus on_finger_motion(const SDL_TouchFingerEvent& tfinger);
-  ESysStatus on_finger_cancel(const SDL_TouchFingerEvent& tfinger);
+  ESysStatus on_finger_canceled(const SDL_TouchFingerEvent& tfinger);
 #endif
 
 /*

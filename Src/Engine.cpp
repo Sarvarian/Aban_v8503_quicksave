@@ -728,7 +728,7 @@ ESysStatus Engine::on_finger_motion(const SDL_TouchFingerEvent& tfinger) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_finger_cancel(const SDL_TouchFingerEvent& tfinger) {
+ESysStatus Engine::on_finger_canceled(const SDL_TouchFingerEvent& tfinger) {
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1108,10 +1108,125 @@ bool EventReceiver::sdlEventFilter(SDL_Event& event) {
 #elif IS_USING_SDL_3
 ESysStatus Engine::eventSdl(const SDL_Event& event) {
   switch (event.type) {
-    /* Application events */
-    case SDL_EVENT_QUIT: return on_quit(event.quit);
-    /* These application events have special meaning on iOS and Android, see README-ios.md and README-android.md for details */
+  /* Application events */
+  case SDL_EVENT_QUIT: return on_quit(event.quit);
+  /* These application events have special meaning on iOS and Android, see README-ios.md and README-android.md for details */
+  case SDL_EVENT_TERMINATING: return on_terminating(event.common);
+  case SDL_EVENT_LOW_MEMORY: return on_low_memory(event.common);
+  case SDL_EVENT_WILL_ENTER_BACKGROUND: return on_will_enter_background(event.common);
+  case SDL_EVENT_DID_ENTER_BACKGROUND: return on_did_enter_background(event.common);
+  case SDL_EVENT_WILL_ENTER_FOREGROUND: return on_will_enter_foreground(event.common);
+  case SDL_EVENT_DID_ENTER_FOREGROUND: return on_did_enter_foreground(event.common);
+  case SDL_EVENT_LOCALE_CHANGED: return on_locale_changed(event.common);
+  case SDL_EVENT_SYSTEM_THEME_CHANGED: return on_system_theme_changed(event.common);
+  /* Display events */
+  case SDL_EVENT_DISPLAY_ORIENTATION:
+    switch (event.display.data1) {
+    case SDL_ORIENTATION_UNKNOWN: return on_orientation_unknown(event.display);
+    case SDL_ORIENTATION_LANDSCAPE: return on_orientation_landscape(event.display);
+    case SDL_ORIENTATION_LANDSCAPE_FLIPPED: return on_orientation_landscape_flipped(event.display);
+    case SDL_ORIENTATION_PORTRAIT: return on_orientation_portrait(event.display);
+    case SDL_ORIENTATION_PORTRAIT_FLIPPED: return on_orientation_portrait_flipped(event.display);
     default: break;
+    }
+    break;
+  case SDL_EVENT_DISPLAY_ADDED: return on_display_added(event.display);
+  case SDL_EVENT_DISPLAY_REMOVED: return on_display_removed(event.display);
+  case SDL_EVENT_DISPLAY_MOVED: return on_display_moved(event.display);
+  case SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED: return on_display_desktop_mode_changed(event.display);
+  case SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED: return on_display_current_mode_changed(event.display);
+  case SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED: return on_display_content_scale_changed(event.display);
+  /* Window events */
+  case SDL_EVENT_WINDOW_SHOWN: return on_window_shown(event.window);
+  case SDL_EVENT_WINDOW_HIDDEN: return on_window_hidden(event.window);
+  case SDL_EVENT_WINDOW_EXPOSED: return on_window_exposed(event.window);
+  case SDL_EVENT_WINDOW_MOVED: return on_window_moved(event.window);
+  case SDL_EVENT_WINDOW_RESIZED: return on_window_resized(event.window);
+  case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED: return on_window_pixel_size_changed(event.window);
+  case SDL_EVENT_WINDOW_METAL_VIEW_RESIZED: return on_window_metal_view_resized(event.window);
+  case SDL_EVENT_WINDOW_MINIMIZED: return on_window_minimized(event.window);
+  case SDL_EVENT_WINDOW_MAXIMIZED: return on_window_maximized(event.window);
+  case SDL_EVENT_WINDOW_RESTORED: return on_window_restored(event.window);
+  case SDL_EVENT_WINDOW_MOUSE_ENTER: return on_window_mouse_enter(event.window);
+  case SDL_EVENT_WINDOW_MOUSE_LEAVE: return on_window_mouse_leave(event.window);
+  case SDL_EVENT_WINDOW_FOCUS_GAINED: return on_window_focus_gained(event.window);
+  case SDL_EVENT_WINDOW_FOCUS_LOST: return on_window_focus_lost(event.window);
+  case SDL_EVENT_WINDOW_CLOSE_REQUESTED: return on_window_close_request(event.window);
+  case SDL_EVENT_WINDOW_HIT_TEST: return on_window_hit_test(event.window);
+  case SDL_EVENT_WINDOW_ICCPROF_CHANGED: return on_window_icc_changed(event.window);
+  case SDL_EVENT_WINDOW_DISPLAY_CHANGED: return on_window_display_changed(event.window);
+  case SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED: return on_window_display_scale_changed(event.window);
+  case SDL_EVENT_WINDOW_SAFE_AREA_CHANGED: return on_window_safe_area_changed(event.window);
+  case SDL_EVENT_WINDOW_OCCLUDED: return on_window_occluded(event.window);
+  case SDL_EVENT_WINDOW_ENTER_FULLSCREEN: return on_window_enter_fullscreen(event.window);
+  case SDL_EVENT_WINDOW_LEAVE_FULLSCREEN: return on_window_leave_fullscreen(event.window);
+  case SDL_EVENT_WINDOW_DESTROYED: return on_window_destroyed(event.window);
+  case SDL_EVENT_WINDOW_HDR_STATE_CHANGED: return on_window_hdr_state_changed(event.window);
+  /* Keyboard events */
+  case SDL_EVENT_KEY_DOWN: return on_keyboard_key_down(event.key);
+  case SDL_EVENT_KEY_UP: return on_keyboard_key_up(event.key);
+  case SDL_EVENT_TEXT_EDITING: return on_text_editing(event.edit);
+  case SDL_EVENT_TEXT_INPUT: return on_text_input(event.text);
+  case SDL_EVENT_KEYMAP_CHANGED: return on_keyboard_keymap_changed(event.common);
+  case SDL_EVENT_KEYBOARD_ADDED: return on_keyboard_added(event.kdevice);
+  case SDL_EVENT_KEYBOARD_REMOVED: return on_keyboard_removed(event.kdevice);
+  case SDL_EVENT_TEXT_EDITING_CANDIDATES: return on_text_editing_candidates(event.edit_candidates);
+  /* Mouse events */
+  case SDL_EVENT_MOUSE_MOTION: return on_mouse_motion(event.motion);
+  case SDL_EVENT_MOUSE_BUTTON_DOWN: return on_mouse_button_down(event.button);
+  case SDL_EVENT_MOUSE_BUTTON_UP: return on_mouse_button_up(event.button);
+  case SDL_EVENT_MOUSE_WHEEL: return on_mouse_wheel(event.wheel);
+  case SDL_EVENT_MOUSE_ADDED: return on_mouse_added(event.mdevice);
+  case SDL_EVENT_MOUSE_REMOVED: return on_mouse_removed(event.mdevice);
+  /* Joystick events */
+  case SDL_EVENT_JOYSTICK_AXIS_MOTION: return on_joystick_axis_motion(event.jaxis);
+  case SDL_EVENT_JOYSTICK_BALL_MOTION: return on_joystick_ball_motion(event.jball);
+  case SDL_EVENT_JOYSTICK_HAT_MOTION: return on_joystick_hat_motion(event.jhat);
+  case SDL_EVENT_JOYSTICK_BUTTON_DOWN: return on_joystick_button_down(event.jbutton);
+  case SDL_EVENT_JOYSTICK_BUTTON_UP: return on_joystick_button_up(event.jbutton);
+  case SDL_EVENT_JOYSTICK_ADDED: return on_joystick_added(event.jdevice);
+  case SDL_EVENT_JOYSTICK_REMOVED: return on_joystick_removed(event.jdevice);
+  case SDL_EVENT_JOYSTICK_BATTERY_UPDATED: return on_joystick_battery_updated(event.jbattery);
+  case SDL_EVENT_JOYSTICK_UPDATE_COMPLETE: return on_joystick_update_complete(event.jdevice);
+  /* Gamepad events (renamed from "Game controller" / CONTROLLER in SDL2) */
+  case SDL_EVENT_GAMEPAD_AXIS_MOTION: return on_gamepad_axis_motion(event.gaxis);
+  case SDL_EVENT_GAMEPAD_BUTTON_DOWN: return on_gamepad_button_down(event.gbutton);
+  case SDL_EVENT_GAMEPAD_BUTTON_UP: return on_gamepad_button_up(event.gbutton);
+  case SDL_EVENT_GAMEPAD_ADDED: return on_gamepad_added(event.gdevice);
+  case SDL_EVENT_GAMEPAD_REMOVED: return on_gamepad_removed(event.gdevice);
+  case SDL_EVENT_GAMEPAD_REMAPPED: return on_gamepad_remapped(event.gdevice);
+  case SDL_EVENT_GAMEPAD_TOUCHPAD_DOWN: return on_gamepad_touchpad_down(event.gtouchpad);
+  case SDL_EVENT_GAMEPAD_TOUCHPAD_MOTION: return on_gamepad_touchpad_motion(event.gtouchpad);
+  case SDL_EVENT_GAMEPAD_TOUCHPAD_UP: return on_gamepad_touchpad_up(event.gtouchpad);
+  case SDL_EVENT_GAMEPAD_SENSOR_UPDATE: return on_gamepad_sensor_update(event.gsensor);
+  case SDL_EVENT_GAMEPAD_UPDATE_COMPLETE: return on_gamepad_update_complete(event.gdevice);
+  case SDL_EVENT_GAMEPAD_STEAM_HANDLE_UPDATED: return on_gamepad_steam_handle_updated(event.gdevice);
+  /* Touch events */
+  case SDL_EVENT_FINGER_DOWN: return on_finger_down(event.tfinger);
+  case SDL_EVENT_FINGER_UP: return on_finger_up(event.tfinger);
+  case SDL_EVENT_FINGER_MOTION: return on_finger_motion(event.tfinger);
+  case SDL_EVENT_FINGER_CANCELED: return on_finger_canceled(event.tfinger);
+  /* Clipboard events */
+  case SDL_EVENT_CLIPBOARD_UPDATE: return on_clipboard_update(event.clipboard);
+  /* Drag and drop events */
+  case SDL_EVENT_DROP_FILE: return on_drop_file(event.drop);
+  case SDL_EVENT_DROP_TEXT: return on_drop_text(event.drop);
+  case SDL_EVENT_DROP_BEGIN: return on_drop_begin(event.drop);
+  case SDL_EVENT_DROP_COMPLETE: return on_drop_complete(event.drop);
+  case SDL_EVENT_DROP_POSITION: return on_drop_position(event.drop);
+  /* Audio hotplug events */
+  case SDL_EVENT_AUDIO_DEVICE_ADDED: return on_audio_device_added(event.adevice);
+  case SDL_EVENT_AUDIO_DEVICE_REMOVED: return on_audio_device_removed(event.adevice);
+  case SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED: return on_audio_device_format_changed(event.adevice);
+  /* Sensor events */
+  case SDL_EVENT_SENSOR_UPDATE: return on_sensor_update(event.sensor);
+  /* Render events */
+  case SDL_EVENT_RENDER_TARGETS_RESET: return on_render_targets_reset(event.render);
+  case SDL_EVENT_RENDER_DEVICE_RESET: return on_render_device_reset(event.render);
+  case SDL_EVENT_RENDER_DEVICE_LOST: return on_render_device_lost(event.render);
+  /* User events */
+  case SDL_EVENT_USER: return on_user_event(event.user);
+  default: break;
   }
   return on_unrecognized_event(event);
 }
