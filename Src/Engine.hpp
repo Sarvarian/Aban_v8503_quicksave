@@ -19,7 +19,7 @@ public:
   u8 _pad01_ : 1;
   u8 _pad00_[mmBufferSize(0) - 1];
 };
-staticAssert(sizeof(Step) == sizeof(Buffer0), Step_FIT_INTO_ONE_BUFFER0)
+staticAssert(sizeof(Step) == sizeof(Buffer0), Step_FIT_INTO_ONE_Buffer0)
 
 class Engine {
 public:
