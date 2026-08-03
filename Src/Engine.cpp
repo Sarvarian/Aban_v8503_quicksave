@@ -946,9 +946,6 @@ ESysStatus Engine::on_user_event(const SDL_UserEvent& event) {
   return E_SYS_CONTINUE;
 }
 
-
-
-
 #if IS_USING_SDL_1
 ESysStatus Engine::eventSdl(const SDL_Event& event) {
   switch (event.type) {
