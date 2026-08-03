@@ -1100,34 +1100,6 @@ typedef size_t usize;
 #define feq(a, b, epsilon) (fabs(a - b) < epsilon ? true : false)
 
 
-class IEngine {
-public:
-  virtual ESysStatus preSdlInit(int, char**) = 0;
-  virtual ESysStatus initSdl(int, char**) = 0;
-  virtual ESysStatus initEngine(int, char**) = 0;
-  virtual ESysStatus eventSdl(const SDL_Event*) = 0;
-  virtual ESysStatus stepEngine() = 0;
-  virtual void       shutEngine() = 0;
-  virtual void       shutSdl() = 0;
-
-
-  /* Target milliseconds per step.
-     Should be sub second.
-     Set to zero for uncapped step frequency.
-     To calculate this you can use following formula:
-       (millisecond_per_seconds / target_frequency) => (1000 / 260)
-       Also, there is a macro name `MSPS` in `Scalar.hpp`
-       which is a constant for 'millisecond per seconds'.
-   */
-  u32 target_delta_ms;
-
-  int exit_code;
-
-  IEngine() : target_delta_ms(0), exit_code(EXIT_SUCCESS) {}
-  virtual ~IEngine() {}
-
-};
-
 
 
 #endif /* AB_MAIN_HPP */

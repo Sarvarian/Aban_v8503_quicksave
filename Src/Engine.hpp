@@ -21,8 +21,10 @@ public:
 };
 staticAssert(sizeof(Step) == sizeof(Buffer0), Step_FIT_INTO_ONE_BUFFER0)
 
-class Engine : public virtual IEngine {
+class Engine {
 public:
+  static Engine def();
+
   ESysStatus preSdlInit(int, char**);
   ESysStatus initSdl(int, char**);
   ESysStatus initEngine(int, char**);
@@ -31,17 +33,26 @@ public:
   void       shutEngine();
   void       shutSdl();
 
-protected:
+  /* Target milliseconds per step.
+     Should be sub second.
+     Set to zero for uncapped step frequency.
+     To calculate this you can use following formula:
+       (millisecond_per_seconds / target_frequency) => (1000 / 260)
+       Also, there is a macro name `MSPS` in `Scalar.hpp`
+       which is a constant for 'millisecond per seconds'.
+   */
+  u32 target_delta_ms;
+
+  int exit_code;
+
+private:
+  Engine();
+
   SdlWindow window_;
   struct DebugData* db_;
   struct Bootstrapper* boot_;
   Step* current_;
   Step* next_;
-
-  Engine();
-
-public:
-  static Engine def();
 
 /*
   ███████╗██╗   ██╗███████╗███╗   ██╗████████╗███████╗
