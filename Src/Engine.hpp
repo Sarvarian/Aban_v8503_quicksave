@@ -37,8 +37,8 @@ public:
      Should be sub second.
      Set to zero for uncapped step frequency.
      To calculate this you can use following formula:
-       (millisecond_per_seconds / target_frequency) => (1000 / 260)
-       Also, there is a macro name `MSPS` in `Scalar.hpp`
+       (millisecond_per_seconds / target_frequency) example: (1000 / 260)
+       Also, there is a macro name `MSPS` in `Main.hpp`
        which is a constant for 'millisecond per seconds'.
    */
   u32 target_delta_ms;
