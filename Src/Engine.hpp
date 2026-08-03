@@ -240,6 +240,14 @@ public:
    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝╚═════╝
 */
 
+#if IS_USING_SDL_2
+  typedef SDL_ControllerAxisEvent SDL_GamepadAxisEvent;
+  typedef SDL_ControllerButtonEvent SDL_GamepadButtonEvent;
+  typedef SDL_ControllerDeviceEvent SDL_GamepadDeviceEvent;
+  typedef SDL_ControllerTouchpadEvent SDL_GamepadTouchpadEvent;
+  typedef SDL_ControllerSensorEvent SDL_GamepadSensorEvent;
+#endif
+
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_gamepad_axis_motion(const SDL_GamepadAxisEvent& gaxis);
   ESysStatus on_gamepad_button_down(const SDL_GamepadButtonEvent& gbutton);
@@ -264,6 +272,13 @@ public:
      ╚═╝    ╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝
 */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  ESysStatus on_finger_down(const SDL_TouchFingerEvent& tfinger);
+  ESysStatus on_finger_up(const SDL_TouchFingerEvent& tfinger);
+  ESysStatus on_finger_motion(const SDL_TouchFingerEvent& tfinger);
+  ESysStatus on_finger_cancel(const SDL_TouchFingerEvent& tfinger);
+#endif
+
 /*
    ██████╗ ███████╗███████╗████████╗██╗   ██╗██████╗ ███████╗
   ██╔════╝ ██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗██╔════╝
@@ -272,6 +287,13 @@ public:
   ╚██████╔╝███████╗███████║   ██║   ╚██████╔╝██║  ██║███████╗
    ╚═════╝ ╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
 */
+
+#if IS_USING_SDL_2
+  ESysStatus on_dollar_gesture(const SDL_DollarGestureEvent& dgesture);
+  ESysStatus on_dollar_cord(const SDL_DollarGestureEvent& dgesture);
+  ESysStatus on_multi_gesture(const SDL_MultiGestureEvent& mgesture);
+#endif
+
 
 /*
    ██████╗██╗     ██╗██████╗ ██████╗  ██████╗  █████╗ ██████╗ ██████╗
@@ -282,6 +304,14 @@ public:
    ╚═════╝╚══════╝╚═╝╚═╝     ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
 */
 
+#if IS_USING_SDL_2
+  typedef SDL_CommonEvent SDL_ClipboardEvent;
+#endif
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  ESysStatus on_clipboard_update(const SDL_ClipboardEvent& clipboard);
+#endif
+
 /*
   ██████╗ ██████╗  ██████╗ ██████╗
   ██╔══██╗██╔══██╗██╔═══██╗██╔══██╗
@@ -291,6 +321,14 @@ public:
   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝
 */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  ESysStatus on_drop_file(const SDL_DropEvent& drop);
+  ESysStatus on_drop_text(const SDL_DropEvent& drop);
+  ESysStatus on_drop_begin(const SDL_DropEvent& drop);
+  ESysStatus on_drop_complete(const SDL_DropEvent& drop);
+  ESysStatus on_drop_position(const SDL_DropEvent& drop);
+#endif
+
 /*
    █████╗ ██╗   ██╗██████╗ ██╗ ██████╗
   ██╔══██╗██║   ██║██╔══██╗██║██╔═══██╗
@@ -299,6 +337,12 @@ public:
   ██║  ██║╚██████╔╝██████╔╝██║╚██████╔╝
   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝ ╚═════╝
 */
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  ESysStatus on_audio_device_added(const SDL_AudioDeviceEvent& adevice);
+  ESysStatus on_audio_device_removed(const SDL_AudioDeviceEvent& adevice);
+  ESysStatus on_audio_device_format_changed(const SDL_AudioDeviceEvent& adevice);
+#endif
 
 /*
   ███████╗███████╗███╗   ██╗███████╗ ██████╗ ██████╗
