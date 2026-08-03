@@ -94,44 +94,6 @@ ESysStatus Engine::initEngine(int, char**) {
   return E_SYS_CONTINUE;
 }
 
-/*
-ESysStatus Engine::eventSdl(const SDL_Event* event) {
-  EventReceiver receiver = EventReceiver::def();
-  receiver.receiveSdlInputEvent(*event);
-  if keyboard:
-    SDL_Event_Key:
-      storeKey(event.key);
-
-#if IS_USING_SDL_1
-  switch (event->type) {
-  case SDL_QUIT:  return E_SYS_QUIT;
-  case SDL_KEYUP:
-    // print("%d\n", event->key.keysym.scancode);
-    if (event->key.keysym.scancode == 9) {
-      return E_SYS_QUIT;
-    } else if (event->key.keysym.scancode == 19) {
-      target_delta_ms = 0;
-      return E_SYS_CONTINUE;
-    } else if (event->key.keysym.scancode == 10) {
-      target_delta_ms = MSPS / 30;
-      return E_SYS_CONTINUE;
-    } else if (event->key.keysym.scancode == 11) {
-      target_delta_ms = MSPS / 60;
-      return E_SYS_CONTINUE;
-    } else if (event->key.keysym.scancode == 12) {
-      target_delta_ms = MSPS / 120;
-      return E_SYS_CONTINUE;
-    } else {
-      return E_SYS_CONTINUE;
-    }
-  default: return E_SYS_CONTINUE;
-  }
-#endif
-
-  return E_SYS_CONTINUE;
-}
-*/
-
 struct DebugData {
   u64 frequency;
   u64 past;
@@ -521,6 +483,17 @@ ESysStatus Engine::on_sys_wm(const SDL_SysWMEvent& syswm) {
 */
 
 ESysStatus Engine::on_keyboard_key_down(const SDL_KeyboardEvent& key) {
+#if IS_USING_SDL_3
+  switch (key.key) {
+#elif IS_USING_SDL_1 || IS_USING_SDL_2
+  switch (key.keysym.sym) {
+#endif
+  case SDLK_0: target_delta_ms = 0; break;
+  case SDLK_1: target_delta_ms = (MSPS / 30); break;
+  case SDLK_2: target_delta_ms = (MSPS / 60); break;
+  case SDLK_3: target_delta_ms = (MSPS / 120); break;
+  default: break;
+  }
   return E_SYS_CONTINUE;
 }
 
