@@ -538,7 +538,7 @@ ESysStatus Engine::on_text_input(const SDL_TextInputEvent& text) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_keymap_changed(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_keyboard_keymap_changed(const SDL_CommonEvent& common) {
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1036,21 +1036,21 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
     break;
   case SDL_SYSWMEVENT: return on_sys_wm(event.syswm);
   /* Keyboard events */
-  case SDL_KEYDOWN: return keyboardKeyDown(event.key);
-  case SDL_KEYUP: return keyboardKeyUp(event.key);
-  case SDL_TEXTEDITING: return textEditing(event.edit);
-  case SDL_TEXTINPUT: return textInput(event.text);
-  case SDL_KEYMAPCHANGED: return keymapChanged(event.common);
+  case SDL_KEYDOWN: return on_keyboard_key_down(event.key);
+  case SDL_KEYUP: return on_keyboard_key_up(event.key);
+  case SDL_TEXTEDITING: return on_text_editing(event.edit);
+  case SDL_TEXTINPUT: return on_text_input(event.text);
+  case SDL_KEYMAPCHANGED: return on_keyboard_keymap_changed(event.common);
   case SDL_TEXTEDITING_EXT: {
-    const ESysStatus res = textEditingExt(event.editExt);
+    const ESysStatus res = on_text_editing_ext(event.editExt);
     SDL_free(event.editExt.text);
     return res;
   }
   /* Mouse events */
-  case SDL_MOUSEMOTION: return mouseMotion(event.motion);
-  case SDL_MOUSEBUTTONDOWN: return mouseButtonDown(event.button);
-  case SDL_MOUSEBUTTONUP: return mouseButtonUp(event.button);
-  case SDL_MOUSEWHEEL: return mouseWheel(event.wheel);
+  case SDL_MOUSEMOTION: return on_mouse_motion(event.motion);
+  case SDL_MOUSEBUTTONDOWN: return on_mouse_button_down(event.button);
+  case SDL_MOUSEBUTTONUP: return on_mouse_button_up(event.button);
+  case SDL_MOUSEWHEEL: return on_mouse_wheel(event.wheel);
   /* Joystick events */
   case SDL_JOYAXISMOTION:
   case SDL_JOYBALLMOTION:

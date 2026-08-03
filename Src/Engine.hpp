@@ -167,7 +167,7 @@ private:
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_text_editing(const SDL_TextEditingEvent& edit); /**< Keyboard Text Composition Editing */
   ESysStatus on_text_input(const SDL_TextInputEvent& text); /**< Keyboard Text Input */
-  ESysStatus on_keymap_changed(const SDL_CommonEvent& common); /**< System Keyboard Layout Changed */
+  ESysStatus on_keyboard_keymap_changed(const SDL_CommonEvent& common); /**< System Keyboard Layout Changed */
 #endif
 
 #if IS_USING_SDL_2
