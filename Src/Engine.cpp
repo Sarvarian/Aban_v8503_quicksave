@@ -1013,28 +1013,28 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
     break;
   case SDL_WINDOWEVENT:
     switch (event.window.event) {
-    case SDL_WINDOWEVENT_SHOWN: return windowShown(event.window);
-    case SDL_WINDOWEVENT_HIDDEN: return windowHidden(event.window);
-    case SDL_WINDOWEVENT_EXPOSED: return windowExposed(event.window);
-    case SDL_WINDOWEVENT_MOVED: return windowMoved(event.window);
-    case SDL_WINDOWEVENT_RESIZED: return windowResized(event.window);
-    case SDL_WINDOWEVENT_SIZE_CHANGED: return windowSizeChanged(event.window);
-    case SDL_WINDOWEVENT_MINIMIZED: return windowMinimized(event.window);
-    case SDL_WINDOWEVENT_MAXIMIZED: return windowMaximized(event.window);
-    case SDL_WINDOWEVENT_RESTORED: return windowRestored(event.window);
-    case SDL_WINDOWEVENT_ENTER: return windowMouseEnter(event.window);
-    case SDL_WINDOWEVENT_LEAVE: return windowMouseLeave(event.window);
-    case SDL_WINDOWEVENT_FOCUS_GAINED: return windowFocusGained(event.window);
-    case SDL_WINDOWEVENT_FOCUS_LOST: return windowFocusLost(event.window);
-    case SDL_WINDOWEVENT_CLOSE: return windowCloseRequest(event.window);
-    case SDL_WINDOWEVENT_TAKE_FOCUS: return windowTakeFocus(event.window);
-    case SDL_WINDOWEVENT_HIT_TEST: return windowHitTest(event.window);
-    case SDL_WINDOWEVENT_ICCPROF_CHANGED: return windowIccChanged(event.window);
-    case SDL_WINDOWEVENT_DISPLAY_CHANGED: return windowDisplayChanged(event.window);
+    case SDL_WINDOWEVENT_SHOWN: return on_window_shown(event.window);
+    case SDL_WINDOWEVENT_HIDDEN: return on_window_hidden(event.window);
+    case SDL_WINDOWEVENT_EXPOSED: return on_window_exposed(event.window);
+    case SDL_WINDOWEVENT_MOVED: return on_window_moved(event.window);
+    case SDL_WINDOWEVENT_RESIZED: return on_window_resized(event.window);
+    case SDL_WINDOWEVENT_SIZE_CHANGED: return on_window_size_changed(event.window);
+    case SDL_WINDOWEVENT_MINIMIZED: return on_window_minimized(event.window);
+    case SDL_WINDOWEVENT_MAXIMIZED: return on_window_maximized(event.window);
+    case SDL_WINDOWEVENT_RESTORED: return on_window_restored(event.window);
+    case SDL_WINDOWEVENT_ENTER: return on_window_mouse_enter(event.window);
+    case SDL_WINDOWEVENT_LEAVE: return on_window_mouse_leave(event.window);
+    case SDL_WINDOWEVENT_FOCUS_GAINED: return on_window_focus_gained(event.window);
+    case SDL_WINDOWEVENT_FOCUS_LOST: return on_window_focus_lost(event.window);
+    case SDL_WINDOWEVENT_CLOSE: return on_window_close_request(event.window);
+    case SDL_WINDOWEVENT_TAKE_FOCUS: return on_window_take_focus(event.window);
+    case SDL_WINDOWEVENT_HIT_TEST: return on_window_hit_test(event.window);
+    case SDL_WINDOWEVENT_ICCPROF_CHANGED: return on_window_icc_changed(event.window);
+    case SDL_WINDOWEVENT_DISPLAY_CHANGED: return on_window_display_changed(event.window);
     default: break;
     }
     break;
-  case SDL_SYSWMEVENT: return sysWmEvent(event.syswm);
+  case SDL_SYSWMEVENT: return on_sys_wm(event.syswm);
   /* Keyboard events */
   case SDL_KEYDOWN: return keyboardKeyDown(event.key);
   case SDL_KEYUP: return keyboardKeyUp(event.key);
