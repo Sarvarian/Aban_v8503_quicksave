@@ -640,6 +640,56 @@ ESysStatus Engine::on_joystick_update_complete(const SDL_JoyDeviceEvent& jdevice
    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝╚═════╝
 */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+ESysStatus Engine::on_gamepad_axis_motion(const SDL_GamepadAxisEvent& gaxis) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_button_down(const SDL_GamepadButtonEvent& gbutton) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_button_up(const SDL_GamepadButtonEvent& gbutton) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_added(const SDL_GamepadDeviceEvent& gdevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_removed(const SDL_GamepadDeviceEvent& gdevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_remapped(const SDL_GamepadDeviceEvent& gdevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_touchpad_down(const SDL_GamepadTouchpadEvent& gtouchpad) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_touchpad_motion(const SDL_GamepadTouchpadEvent& gtouchpad) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_touchpad_up(const SDL_GamepadTouchpadEvent& gtouchpad) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_sensor_update(const SDL_GamepadSensorEvent& gsensor) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_update_complete(const SDL_GamepadDeviceEvent& gdevice) {
+  return E_SYS_CONTINUE;
+}
+
+ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent& gdevice) {
+  return E_SYS_CONTINUE;
+}
+#endif
+
 /*
   ████████╗ ██████╗ ██╗   ██╗ ██████╗██╗  ██╗
   ╚══██╔══╝██╔═══██╗██║   ██║██╔════╝██║  ██║
