@@ -948,14 +948,12 @@ ESysStatus Engine::on_user_event(const SDL_UserEvent& event) {
 #if IS_USING_SDL_1
 ESysStatus Engine::eventSdl(const SDL_Event& event) {
   switch (event.type) {
-    case SDL_ACTIVEEVENT:
-      switch (event.active.state) {
-      case SDL_APPACTIVE: return event.active.gain ? on_window_restored() : on_window_minimized();
-      case SDL_APPMOUSEFOCUS: return event.active.gain ? on_window_mouse_enter() : on_window_mouse_leave();
-      case SDL_APPINPUTFOCUS: return event.active.gain ? on_window_focus_gained() : on_window_focus_lost();
-      default: break;
-      }
+    case SDL_ACTIVEEVENT: {
+      if (event.active.state & SDL_APPACTIVE) { return event.active.gain ? on_window_restored() : on_window_minimized(); }
+      if (event.active.state & SDL_APPMOUSEFOCUS) { return event.active.gain ? on_window_mouse_enter() : on_window_mouse_leave(); }
+      if (event.active.state & SDL_APPMOUSEFOCUS) { return event.active.gain ? on_window_focus_gained() : on_window_focus_lost(); }
       break;
+    }
     case SDL_KEYDOWN: return on_keyboard_key_down(event.key);
     case SDL_KEYUP: return on_keyboard_key_up(event.key);
     case SDL_MOUSEMOTION: return on_mouse_motion(event.motion);
