@@ -747,7 +747,7 @@ ESysStatus Engine::on_dollar_gesture(const SDL_DollarGestureEvent& dgesture) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_dollar_cord(const SDL_DollarGestureEvent& dgesture) {
+ESysStatus Engine::on_dollar_record(const SDL_DollarGestureEvent& dgesture) {
   return E_SYS_CONTINUE;
 }
 
@@ -1072,6 +1072,16 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   case SDL_CONTROLLERTOUCHPADUP: return on_gamepad_touchpad_up(event.ctouchpad);
   case SDL_CONTROLLERSENSORUPDATE: return on_gamepad_sensor_update(event.csensor);
   case SDL_CONTROLLERSTEAMHANDLEUPDATED: return on_gamepad_steam_handle_updated(event.cdevice);
+  /* Touch events */
+  case SDL_FINGERDOWN: return on_finger_down(event.tfinger);
+  case SDL_FINGERUP: return on_finger_up(event.tfinger);
+  case SDL_FINGERMOTION: return on_finger_motion(event.tfinger);
+  /* Gesture events */
+  case SDL_DOLLARGESTURE: return on_dollar_gesture(event.dgesture);
+  case SDL_DOLLARRECORD : return on_dollar_record(event.dgesture);
+  case SDL_MULTIGESTURE: return on_multi_gesture(event.mgesture);
+  /* Clipboard events */
+  case SDL_CLIPBOARDUPDATE: return on_clipboard_update(event.common);
   default: break;
   }
   return on_unrecognized_event(event);

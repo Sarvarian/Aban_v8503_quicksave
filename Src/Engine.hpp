@@ -287,7 +287,7 @@ private:
 
 #if IS_USING_SDL_2
   ESysStatus on_dollar_gesture(const SDL_DollarGestureEvent& dgesture);
-  ESysStatus on_dollar_cord(const SDL_DollarGestureEvent& dgesture);
+  ESysStatus on_dollar_record(const SDL_DollarGestureEvent& dgesture);
   ESysStatus on_multi_gesture(const SDL_MultiGestureEvent& mgesture);
 #endif
 
