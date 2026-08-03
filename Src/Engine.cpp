@@ -940,30 +940,30 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   switch (event.type) {
     case SDL_ACTIVEEVENT:
       switch (event.active.type) {
-      case SDL_APPACTIVE: return event.active.gain ? windowRestored() : windowMinimized();
-      case SDL_APPMOUSEFOCUS: return event.active.gain ? windowMouseEnter() : windowMouseLeave();
-      case SDL_APPINPUTFOCUS: return event.active.gain ? windowFocusGained() : windowFocusLost();
+      case SDL_APPACTIVE: return event.active.gain ? on_window_restored() : on_window_minimized();
+      case SDL_APPMOUSEFOCUS: return event.active.gain ? on_window_mouse_enter() : on_window_mouse_leave();
+      case SDL_APPINPUTFOCUS: return event.active.gain ? on_window_focus_gained() : on_window_focus_lost();
       default: break;
       }
       break;
-    case SDL_KEYDOWN: return keyboardKeyDown(event.key);
-    case SDL_KEYUP: return keyboardKeyUp(event.key);
-    case SDL_MOUSEMOTION: return mouseMotion(event.motion);
-    case SDL_MOUSEBUTTONDOWN: return mouseButtonDown(event.button);
-    case SDL_MOUSEBUTTONUP: return mouseButtonUp(event.button);
-    case SDL_JOYAXISMOTION: return joystickAxisMotion(event.jaxis);
-    case SDL_JOYBALLMOTION: return joystickBallMotion(event.jball);
-    case SDL_JOYHATMOTION: return joystickHatMotion(event.jhat);
-    case SDL_JOYBUTTONDOWN: return joystickButtonDown(event.jbutton);
-    case SDL_JOYBUTTONUP: return joystickButtonUp(event.jbutton);
-    case SDL_QUIT: return quitEvent(event.quit);
-    case SDL_SYSWMEVENT: return sysWmEvent(event.syswm);
-    case SDL_VIDEORESIZE: return windowResized(event.resize.w, event.resize.h);
-    case SDL_VIDEOEXPOSE: return windowExposed();
-    case SDL_USEREVENT: return userEvent(event.user);
-    default: return unrecognizedEvent(event);
+    case SDL_KEYDOWN: return on_keyboard_key_down(event.key);
+    case SDL_KEYUP: return on_keyboard_key_up(event.key);
+    case SDL_MOUSEMOTION: return on_mouse_motion(event.motion);
+    case SDL_MOUSEBUTTONDOWN: return on_mouse_button_down(event.button);
+    case SDL_MOUSEBUTTONUP: return on_mouse_button_up(event.button);
+    case SDL_JOYAXISMOTION: return on_joystick_axis_motion(event.jaxis);
+    case SDL_JOYBALLMOTION: return on_joystick_ball_motion(event.jball);
+    case SDL_JOYHATMOTION: return on_joystick_hat_motion(event.jhat);
+    case SDL_JOYBUTTONDOWN: return on_joystick_button_down(event.jbutton);
+    case SDL_JOYBUTTONUP: return on_joystick_button_up(event.jbutton);
+    case SDL_QUIT: return on_quit(event.quit);
+    case SDL_SYSWMEVENT: return on_sys_wm(event.syswm);
+    case SDL_VIDEORESIZE: return on_window_resized(event.resize.w, event.resize.h);
+    case SDL_VIDEOEXPOSE: return on_window_exposed();
+    case SDL_USEREVENT: return on_user_event(event.user);
+    default: break;
   }
-  return unrecognizedEvent(event);
+  return on_unrecognized_event(event);
 }
 #elif IS_USING_SDL_2
 ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
