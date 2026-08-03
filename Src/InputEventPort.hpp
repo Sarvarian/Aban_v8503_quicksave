@@ -31,16 +31,6 @@ private:
   bool sdlEventFilter(SDL_Event& event);
 #endif
 
-
-
-
-  /* SDL1, SDL2, SDL3 Common Events Begin */
-  ESysStatus userEvent(const SDL_UserEvent& event); /**< "User" Custom Event */
-  /* SDL1, SDL2, SDL3 Common Events End */
-
-
-
-
 };
 
 

@@ -432,6 +432,8 @@ private:
    ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
 */
 
+  ESysStatus on_user_event(const SDL_UserEvent& event); /**< "User" Custom Event */
+
 };
 
 

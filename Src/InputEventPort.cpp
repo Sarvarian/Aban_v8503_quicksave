@@ -16,17 +16,6 @@ bool EventReceiver::sdlEventFilter(void* self, SDL_Event* event) {
 }
 #endif
 
-
-
-
-
-ESysStatus EventReceiver::userEvent(const SDL_UserEvent& event) {
-  return E_SYS_CONTINUE;
-}
-
-
-
-
 #if IS_USING_SDL_1
 ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
   switch (event.type) {
