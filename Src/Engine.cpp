@@ -980,18 +980,18 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   return on_unrecognized_event(event);
 }
 #elif IS_USING_SDL_2
-ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
+ESysStatus Engine::eventSdl(const SDL_Event& event) {
   switch (event.type) {
   /* Application events */
-  case SDL_QUIT: return quitEvent(event.quit);
+  case SDL_QUIT: return on_quit(event.quit);
   /* These application events have special meaning on iOS, see SDL2 README-ios.md for details */
-  case SDL_APP_TERMINATING: return terminating(event.common);
-  case SDL_APP_LOWMEMORY: return lowMemory(event.common);
-  case SDL_APP_WILLENTERBACKGROUND: return willEnterBackground(event.common);
-  case SDL_APP_DIDENTERBACKGROUND: return didEnterBackground(event.common);
-  case SDL_APP_WILLENTERFOREGROUND: return willEnterForeground(event.common);
-  case SDL_APP_DIDENTERFOREGROUND: return didEnterForeground(event.common);
-  case SDL_LOCALECHANGED: return localeChanged(event.common);
+  case SDL_APP_TERMINATING: return on_terminating(event.common);
+  case SDL_APP_LOWMEMORY: return on_low_memory(event.common);
+  case SDL_APP_WILLENTERBACKGROUND: return on_will_enter_background(event.common);
+  case SDL_APP_DIDENTERBACKGROUND: return on_did_enter_background(event.common);
+  case SDL_APP_WILLENTERFOREGROUND: return on_will_enter_foreground(event.common);
+  case SDL_APP_DIDENTERFOREGROUND: return on_did_enter_foreground(event.common);
+  case SDL_LOCALECHANGED: return on_locale_changed(event.common);
   /* Display events */
   case SDL_DISPLAYEVENT:
     switch (event.display.event) {
@@ -1072,9 +1072,9 @@ ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
   case SDL_CONTROLLERTOUCHPADUP:
   case SDL_CONTROLLERSENSORUPDATE:
   case SDL_CONTROLLERSTEAMHANDLEUPDATED:
-  default: return unrecognizedEvent(event);
+  default: break;
   }
-  return unrecognizedEvent(event);
+  return on_unrecognized_event(event);
 }
 
 bool EventReceiver::sdlEventFilter(SDL_Event& event) {
