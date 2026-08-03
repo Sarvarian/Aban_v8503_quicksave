@@ -1,7 +1,6 @@
 #include "Engine.hpp"
 
 #include "Journal.hpp"
-#include "InputEventPort.hpp"
 
 struct Step {
 public:
@@ -64,7 +63,7 @@ staticAssert(sizeof(Bootstrapper) == sizeof(Block0), BOOTSTRAPPER_FIT_INTO_ONE_B
 
 ESysStatus Engine::initEngine(int, char**) {
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-  SDL_SetEventFilter(EventReceiver::sdlEventFilter, null);
+  SDL_SetEventFilter(sdlEventFilter, null);
 #endif
 
   // 1. Building the first memory data structure.
@@ -1099,7 +1098,7 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   return on_unrecognized_event(event);
 }
 
-bool EventReceiver::sdlEventFilter(SDL_Event& event) {
+bool Engine::sdlEventFilter(SDL_Event& event) {
   return true;
 }
 #elif IS_USING_SDL_3
@@ -1242,8 +1241,17 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   return on_unrecognized_event(event);
 }
 
-bool EventReceiver::sdlEventFilter(SDL_Event& event) {
+bool Engine::sdlEventFilter(SDL_Event& event) {
   return true;
 }
 #endif
 
+#if IS_USING_SDL_2
+int Engine::sdlEventFilter(void* self, SDL_Event* event) {
+  return static_cast<Engine*>(self)->sdlEventFilter(*event) ? 1 : 0;
+}
+#elif IS_USING_SDL_3
+bool Engine::sdlEventFilter(void* self, SDL_Event* event) {
+  return static_cast<Engine*>(self)->sdlEventFilter(*event);
+}
+#endif

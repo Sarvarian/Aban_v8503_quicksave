@@ -50,8 +50,6 @@ add_executable(Aban
   Src/Concur.cpp
   Src/Engine.cpp
   Src/Engine.hpp
-  Src/InputEventPort.cpp
-  Src/InputEventPort.hpp
   Src/Journal.cpp
   Src/Journal.hpp
   Src/Main.hpp

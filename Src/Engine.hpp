@@ -7,6 +7,14 @@
 #include "Memory.hpp"
 #include "Sdl.hpp"
 
+#if IS_USING_SDL_3
+  #include <SDL3/SDL_events.h>
+#elif IS_USING_SDL_2
+  #include <SDL2/SDL_events.h>
+#elif IS_USING_SDL_1
+  #include <SDL/SDL_events.h>
+#endif
+
 class Engine {
 public:
   static Engine def();
@@ -48,6 +56,16 @@ private:
   ███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   ███████║
   ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
 */
+
+#if IS_USING_SDL_2
+  static int sdlEventFilter(void* self, SDL_Event* event);
+#elif IS_USING_SDL_3
+  static bool sdlEventFilter(void* self, SDL_Event* event);
+#endif
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  bool sdlEventFilter(SDL_Event& event);
+#endif
 
   ESysStatus on_unrecognized_event(const SDL_Event& event); /* Unrecognized SDL Event */
 
