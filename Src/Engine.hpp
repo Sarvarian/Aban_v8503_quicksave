@@ -364,6 +364,10 @@ private:
   ╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
 */
 
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  ESysStatus on_sensor_update(const SDL_SensorEvent& sensor);
+#endif
+
 /*
   ██████╗ ███████╗███╗   ██╗
   ██╔══██╗██╔════╝████╗  ██║
@@ -372,6 +376,17 @@ private:
   ██║     ███████╗██║ ╚████║
   ╚═╝     ╚══════╝╚═╝  ╚═══╝
 */
+
+#if IS_USING_SDL_3
+  ESysStatus on_pen_proximity_in(const SDL_PenProximityEvent& pproximity);
+  ESysStatus on_pen_proximity_out(const SDL_PenProximityEvent& pproximity);
+  ESysStatus on_pen_down(const SDL_PenTouchEvent& ptouch);
+  ESysStatus on_pen_up(const SDL_PenTouchEvent& ptouch);
+  ESysStatus on_pen_button_down(const SDL_PenButtonEvent& pbutton);
+  ESysStatus on_pen_button_up(const SDL_PenButtonEvent& pbutton);
+  ESysStatus on_pen_motion(const SDL_PenMotionEvent& pmotion);
+  ESysStatus on_pen_axis(const SDL_PenAxisEvent& paxis);
+#endif
 
 /*
    ██████╗ █████╗ ███╗   ███╗███████╗██████╗  █████╗
