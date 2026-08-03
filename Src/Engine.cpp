@@ -1052,26 +1052,26 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   case SDL_MOUSEBUTTONUP: return on_mouse_button_up(event.button);
   case SDL_MOUSEWHEEL: return on_mouse_wheel(event.wheel);
   /* Joystick events */
-  case SDL_JOYAXISMOTION:
-  case SDL_JOYBALLMOTION:
-  case SDL_JOYHATMOTION:
-  case SDL_JOYBUTTONDOWN:
-  case SDL_JOYBUTTONUP:
-  case SDL_JOYDEVICEADDED:
-  case SDL_JOYDEVICEREMOVED:
-  case SDL_JOYBATTERYUPDATED:
+  case SDL_JOYAXISMOTION: return on_joystick_axis_motion(event.jaxis);
+  case SDL_JOYBALLMOTION: return on_joystick_ball_motion(event.jball);
+  case SDL_JOYHATMOTION: return on_joystick_hat_motion(event.jhat);
+  case SDL_JOYBUTTONDOWN: return on_joystick_button_down(event.jbutton);
+  case SDL_JOYBUTTONUP: return on_joystick_button_up(event.jbutton);
+  case SDL_JOYDEVICEADDED: return on_joystick_added(event.jdevice);
+  case SDL_JOYDEVICEREMOVED: return on_joystick_removed(event.jdevice);
+  case SDL_JOYBATTERYUPDATED: return on_joystick_battery_updated(event.jbattery);
   /* Game controller events */
-  case SDL_CONTROLLERAXISMOTION:
-  case SDL_CONTROLLERBUTTONDOWN:
-  case SDL_CONTROLLERBUTTONUP:
-  case SDL_CONTROLLERDEVICEADDED:
-  case SDL_CONTROLLERDEVICEREMOVED:
-  case SDL_CONTROLLERDEVICEREMAPPED:
-  case SDL_CONTROLLERTOUCHPADDOWN:
-  case SDL_CONTROLLERTOUCHPADMOTION:
-  case SDL_CONTROLLERTOUCHPADUP:
-  case SDL_CONTROLLERSENSORUPDATE:
-  case SDL_CONTROLLERSTEAMHANDLEUPDATED:
+  case SDL_CONTROLLERAXISMOTION: return on_gamepad_axis_motion(event.caxis);
+  case SDL_CONTROLLERBUTTONDOWN: return on_gamepad_button_down(event.cbutton);
+  case SDL_CONTROLLERBUTTONUP: return on_gamepad_button_up(event.cbutton);
+  case SDL_CONTROLLERDEVICEADDED: return on_gamepad_added(event.cdevice);
+  case SDL_CONTROLLERDEVICEREMOVED: return on_gamepad_removed(event.cdevice);
+  case SDL_CONTROLLERDEVICEREMAPPED: return on_gamepad_remapped(event.cdevice);
+  case SDL_CONTROLLERTOUCHPADDOWN: return on_gamepad_touchpad_down(event.ctouchpad);
+  case SDL_CONTROLLERTOUCHPADMOTION: return on_gamepad_touchpad_motion(event.ctouchpad);
+  case SDL_CONTROLLERTOUCHPADUP: return on_gamepad_touchpad_up(event.ctouchpad);
+  case SDL_CONTROLLERSENSORUPDATE: return on_gamepad_sensor_update(event.csensor);
+  case SDL_CONTROLLERSTEAMHANDLEUPDATED: return on_gamepad_steam_handle_updated(event.cdevice);
   default: break;
   }
   return on_unrecognized_event(event);
