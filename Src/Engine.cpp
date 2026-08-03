@@ -1086,7 +1086,7 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   switch (event.type) {
   /* Application events */
   case SDL_EVENT_QUIT: return on_quit(event.quit);
-  /* These application events have special meaning on iOS and Android, see README-ios.md and README-android.md for details */
+  /* These application events have special meaning on iOS and Android, see SDL3 README-ios.md and SDL3 README-android.md for details */
   case SDL_EVENT_TERMINATING: return on_terminating(event.common);
   case SDL_EVENT_LOW_MEMORY: return on_low_memory(event.common);
   case SDL_EVENT_WILL_ENTER_BACKGROUND: return on_will_enter_background(event.common);
