@@ -997,17 +997,17 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
     switch (event.display.event) {
     case SDL_DISPLAYEVENT_ORIENTATION:
       switch (event.display.data1) {
-      case SDL_ORIENTATION_UNKNOWN: return orientationUnknown(event.display);
-      case SDL_ORIENTATION_LANDSCAPE: return orientationLandscape(event.display);
-      case SDL_ORIENTATION_LANDSCAPE_FLIPPED: return orientationLandscapeFlipped(event.display);
-      case SDL_ORIENTATION_PORTRAIT: return orientationPortrait(event.display);
-      case SDL_ORIENTATION_PORTRAIT_FLIPPED: return orientationPortraitFlipped(event.display);
+      case SDL_ORIENTATION_UNKNOWN: return on_orientation_unknown(event.display);
+      case SDL_ORIENTATION_LANDSCAPE: return on_orientation_landscape(event.display);
+      case SDL_ORIENTATION_LANDSCAPE_FLIPPED: return on_orientation_landscape_flipped(event.display);
+      case SDL_ORIENTATION_PORTRAIT: return on_orientation_portrait(event.display);
+      case SDL_ORIENTATION_PORTRAIT_FLIPPED: return on_orientation_portrait_flipped(event.display);
       default: break;
       }
       break;
-    case SDL_DISPLAYEVENT_CONNECTED: return displayAdded(event.display);
-    case SDL_DISPLAYEVENT_DISCONNECTED: return displayRemoved(event.display);
-    case SDL_DISPLAYEVENT_MOVED: return displayMoved(event.display);
+    case SDL_DISPLAYEVENT_CONNECTED: return on_display_added(event.display);
+    case SDL_DISPLAYEVENT_DISCONNECTED: return on_display_removed(event.display);
+    case SDL_DISPLAYEVENT_MOVED: return on_display_moved(event.display);
     default: break;
     }
     break;
