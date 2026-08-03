@@ -397,6 +397,13 @@ private:
    ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 */
 
+#if IS_USING_SDL_3
+  ESysStatus on_camera_device_added(const SDL_CameraDeviceEvent& cdevice);
+  ESysStatus on_camera_device_removed(const SDL_CameraDeviceEvent& cdevice);
+  ESysStatus on_camera_device_approved(const SDL_CameraDeviceEvent& cdevice);
+  ESysStatus on_camera_device_denied(const SDL_CameraDeviceEvent& cdevice);
+#endif
+
 /*
   ██████╗ ███████╗███╗   ██╗██████╗ ███████╗██████╗
   ██╔══██╗██╔════╝████╗  ██║██╔══██╗██╔════╝██╔══██╗
@@ -405,6 +412,16 @@ private:
   ██║  ██║███████╗██║ ╚████║██████╔╝███████╗██║  ██║
   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 */
+
+#if IS_USING_SDL_2
+  typedef SDL_CommonEvent SDL_RenderEvent;
+#endif
+
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  ESysStatus on_render_targets_reset(const SDL_RenderEvent& render);
+  ESysStatus on_render_device_reset(const SDL_RenderEvent& render);
+  ESysStatus on_render_device_lost(const SDL_RenderEvent& render);
+#endif
 
 /*
   ██╗   ██╗███████╗███████╗██████╗
