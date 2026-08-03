@@ -1069,7 +1069,16 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   return on_unrecognized_event(event);
 }
 
-bool Engine::sdlEventFilter(SDL_Event& event) {
+bool Engine::sdlEventFilter(const SDL_Event& event) {
+  /* Application events */
+  /* These application events have special meaning on iOS, see SDL2 README-ios.md for details */
+  switch (event.type) {
+  case SDL_APP_TERMINATING: on_terminating(event.common); return false;
+  case SDL_APP_LOWMEMORY: on_low_memory(event.common); return false;
+  case SDL_APP_WILLENTERBACKGROUND: on_will_enter_background(event.common); return false;
+  case SDL_APP_DIDENTERBACKGROUND: on_did_enter_background(event.common); return false;
+  default: break;
+  }
   return true;
 }
 #elif IS_USING_SDL_3
@@ -1212,7 +1221,7 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   return on_unrecognized_event(event);
 }
 
-bool Engine::sdlEventFilter(SDL_Event& event) {
+bool Engine::sdlEventFilter(const SDL_Event& event) {
   return true;
 }
 #endif

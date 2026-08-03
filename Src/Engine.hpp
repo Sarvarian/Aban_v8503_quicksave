@@ -64,7 +64,7 @@ private:
 #endif
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-  bool sdlEventFilter(SDL_Event& event);
+  bool sdlEventFilter(const SDL_Event& event);
 #endif
 
   ESysStatus on_unrecognized_event(const SDL_Event& event); /* Unrecognized SDL Event */
