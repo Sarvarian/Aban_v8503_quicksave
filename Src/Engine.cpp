@@ -1082,6 +1082,21 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   case SDL_MULTIGESTURE: return on_multi_gesture(event.mgesture);
   /* Clipboard events */
   case SDL_CLIPBOARDUPDATE: return on_clipboard_update(event.common);
+  /* Drag and drop events */
+  case SDL_DROPFILE: return on_drop_file(event.drop);
+  case SDL_DROPTEXT: return on_drop_text(event.drop);
+  case SDL_DROPBEGIN: return on_drop_begin(event.drop);
+  case SDL_DROPCOMPLETE: return on_drop_complete(event.drop);
+  /* Audio hotplug events */
+  case SDL_AUDIODEVICEADDED: return on_audio_device_added(event.adevice);
+  case SDL_AUDIODEVICEREMOVED: return on_audio_device_removed(event.adevice);
+  /* Sensor events */
+  case SDL_SENSORUPDATE: return on_sensor_update(event.sensor);
+  /* Render events */
+  case SDL_RENDER_TARGETS_RESET: return on_render_targets_reset(event.common);
+  case SDL_RENDER_DEVICE_RESET: return on_render_device_reset(event.common);
+  /* User events */
+  case SDL_USEREVENT: return on_user_event(event.user);
   default: break;
   }
   return on_unrecognized_event(event);
