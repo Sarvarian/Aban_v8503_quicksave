@@ -53,7 +53,7 @@ Sdl& Sdl::haptic() {
   return *this;
 }
 
-Sdl& Sdl::gameController() {
+Sdl& Sdl::gamepad() {
   /* No Such Init For SDL1 */
   return *this;
 }
@@ -64,6 +64,11 @@ Sdl& Sdl::events() {
 }
 
 Sdl& Sdl::sensor() {
+  /* No Such Init For SDL1 */
+  return *this;
+}
+
+Sdl& Sdl::camera() {
   /* No Such Init For SDL1 */
   return *this;
 }
@@ -156,7 +161,7 @@ Sdl& Sdl::haptic() {
   return *this;
 }
 
-Sdl& Sdl::gameController() {
+Sdl& Sdl::gamepad() {
   subsystem_flags_ |= SDL_INIT_GAMECONTROLLER;
   return *this;
 }
@@ -168,6 +173,11 @@ Sdl& Sdl::events() {
 
 Sdl & Sdl::sensor() {
   subsystem_flags_ |= SDL_INIT_SENSOR;
+  return *this;
+}
+
+Sdl & Sdl::camera() {
+  /* No Such Init For SDL2 */
   return *this;
 }
 
@@ -228,6 +238,10 @@ Sdl::Sdl() {
   subsystem_flags_ = 0;
 }
 
+Sdl Sdl::def() {
+  return Sdl();
+}
+
 Sdl::Status Sdl::init() {
   atexit(SDL_Quit);
   const bool res = SDL_Init(subsystem_flags_);
@@ -238,13 +252,62 @@ void Sdl::quit() {
   SDL_Quit();
 }
 
+Sdl& Sdl::timer() {
+  /* No Such Init For SDL3 */
+  return *this;
+}
+
+Sdl& Sdl::audio() {
+  subsystem_flags_ |= SDL_INIT_AUDIO;
+  return *this;
+}
+
 Sdl& Sdl::video() {
   subsystem_flags_ |= SDL_INIT_VIDEO;
   return *this;
 }
 
+Sdl& Sdl::joystick() {
+  subsystem_flags_ |= SDL_INIT_JOYSTICK;
+  return *this;
+}
+
+Sdl& Sdl::haptic() {
+  subsystem_flags_ |= SDL_INIT_HAPTIC;
+  return *this;
+}
+
+Sdl& Sdl::gamepad() {
+  subsystem_flags_ |= SDL_INIT_GAMEPAD;
+  return *this;
+}
+
+Sdl& Sdl::events() {
+  subsystem_flags_ |= SDL_INIT_EVENTS;
+  return *this;
+}
+
+Sdl& Sdl::sensor() {
+  subsystem_flags_ |= SDL_INIT_SENSOR;
+  return *this;
+}
+
+Sdl & Sdl::camera() {
+  subsystem_flags_ |= SDL_INIT_CAMERA;
+  return *this;
+}
+
+Sdl& Sdl::eventThread() {
+  /* SDL1 Feature Only. */
+  return *this;
+}
+
 SdlWindow::SdlWindow() {
   handle_ = null;
+}
+
+SdlWindow SdlWindow::def() {
+  return SdlWindow();
 }
 
 SdlWindow::Status SdlWindow::create() {
