@@ -953,7 +953,7 @@ ESysStatus Engine::on_user_event(const SDL_UserEvent& event) {
 ESysStatus Engine::eventSdl(const SDL_Event& event) {
   switch (event.type) {
     case SDL_ACTIVEEVENT:
-      switch (event.active.type) {
+      switch (event.active.state) {
       case SDL_APPACTIVE: return event.active.gain ? on_window_restored() : on_window_minimized();
       case SDL_APPMOUSEFOCUS: return event.active.gain ? on_window_mouse_enter() : on_window_mouse_leave();
       case SDL_APPINPUTFOCUS: return event.active.gain ? on_window_focus_gained() : on_window_focus_lost();
@@ -1220,6 +1220,20 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   case SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED: return on_audio_device_format_changed(event.adevice);
   /* Sensor events */
   case SDL_EVENT_SENSOR_UPDATE: return on_sensor_update(event.sensor);
+  /* Pressure-sensitive pen events */
+  case SDL_EVENT_PEN_PROXIMITY_IN: return on_pen_proximity_in(event.pproximity);
+  case SDL_EVENT_PEN_PROXIMITY_OUT: return on_pen_proximity_out(event.pproximity);
+  case SDL_EVENT_PEN_DOWN: return on_pen_down(event.ptouch);
+  case SDL_EVENT_PEN_UP: return on_pen_up(event.ptouch);
+  case SDL_EVENT_PEN_BUTTON_DOWN: return on_pen_button_down(event.pbutton);
+  case SDL_EVENT_PEN_BUTTON_UP: return on_pen_button_up(event.pbutton);
+  case SDL_EVENT_PEN_MOTION: return on_pen_motion(event.pmotion);
+  case SDL_EVENT_PEN_AXIS: return on_pen_axis(event.paxis);
+  /* Camera hotplug events */
+  case SDL_EVENT_CAMERA_DEVICE_ADDED: return on_camera_device_added(event.cdevice);
+  case SDL_EVENT_CAMERA_DEVICE_REMOVED: return on_camera_device_removed(event.cdevice);
+  case SDL_EVENT_CAMERA_DEVICE_APPROVED: return on_camera_device_approved(event.cdevice);
+  case SDL_EVENT_CAMERA_DEVICE_DENIED: return on_camera_device_denied(event.cdevice);
   /* Render events */
   case SDL_EVENT_RENDER_TARGETS_RESET: return on_render_targets_reset(event.render);
   case SDL_EVENT_RENDER_DEVICE_RESET: return on_render_device_reset(event.render);
