@@ -5,6 +5,7 @@
 
 class Journal {
 public:
+  static void sdlInitFailed();
   static void firstPoolAllocationFailed();
 };
 
