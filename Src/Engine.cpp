@@ -1106,14 +1106,14 @@ bool EventReceiver::sdlEventFilter(SDL_Event& event) {
   return true;
 }
 #elif IS_USING_SDL_3
-ESysStatus EventReceiver::receiveSdlInputEvent(const SDL_Event& event) {
+ESysStatus Engine::eventSdl(const SDL_Event& event) {
   switch (event.type) {
     /* Application events */
-    case SDL_EVENT_QUIT: return quitEvent(event.quit);
+    case SDL_EVENT_QUIT: return on_quit(event.quit);
     /* These application events have special meaning on iOS and Android, see README-ios.md and README-android.md for details */
-    default: return unrecognizedEvent(event);
+    default: break;
   }
-  return unrecognizedEvent(event);
+  return on_unrecognized_event(event);
 }
 
 bool EventReceiver::sdlEventFilter(SDL_Event& event) {
