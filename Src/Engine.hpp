@@ -28,7 +28,7 @@ public:
   ESysStatus preSdlInit(int, char**);
   ESysStatus initSdl(int, char**);
   ESysStatus initEngine(int, char**);
-  ESysStatus eventSdl(const SDL_Event*);
+  ESysStatus eventSdl(const SDL_Event&);
   ESysStatus stepEngine();
   void       shutEngine();
   void       shutSdl();
