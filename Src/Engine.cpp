@@ -210,7 +210,7 @@ ESysStatus Engine::on_unrecognized_event(const SDL_Event& event) {
   /* I don't think `default` should be reachable. */
   /* I put a debugBreak so if it ever happened,   */
   /*     I get a change to investigate it.        */
-  debugBreak;
+  // debugBreak;
   return E_SYS_CONTINUE;
 }
 
