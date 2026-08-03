@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
   while (true) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
-      CHECK(engine.eventSdl(&event));
+      CHECK(engine.eventSdl(event));
     }
 repeat_step:
     switch (engine.stepEngine()) {
