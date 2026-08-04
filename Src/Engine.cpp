@@ -481,15 +481,11 @@ ESysStatus Engine::on_sys_wm(const SDL_SysWMEvent& syswm) {
 */
 
 ESysStatus Engine::on_keyboard_key_down(const SDL_KeyboardEvent& key) {
-#if IS_USING_SDL_1 || IS_USING_SDL_2
-  switch (key.keysym.sym) {
-#elif IS_USING_SDL_3
-  switch (key.key) {
-#endif
-  case SDLK_0: target_delta_ms = 0; break;
-  case SDLK_1: target_delta_ms = (MSPS / 30); break;
-  case SDLK_2: target_delta_ms = (MSPS / 60); break;
-  case SDLK_3: target_delta_ms = (MSPS / 120); break;
+  switch (Sdl::checkKey(key)) {
+  case Sdl::NUM_0: target_delta_ms = 0; break;
+  case Sdl::NUM_1: target_delta_ms = (MSPS / 30); break;
+  case Sdl::NUM_2: target_delta_ms = (MSPS / 60); break;
+  case Sdl::NUM_3: target_delta_ms = (MSPS / 120); break;
   default: break;
   }
   return E_SYS_CONTINUE;
