@@ -22,8 +22,12 @@ ESysStatus Engine::preSdlInit(int, char**) {
 
 ESysStatus Engine::initSdl(int, char**) {
   const Sdl::Status res = Sdl::def().timer().video().events().eventThread().init();
-  if (res != Sdl::INIT_SUCCEED) { Journal::sdlInitFailed(); }
-  return E_SYS_CONTINUE;
+  if (res != Sdl::INIT_SUCCEED) {
+    Journal::sdlInitFailed();
+    return E_SYS_FATALITY;
+  } else {
+    return E_SYS_CONTINUE;
+  }
 }
 
 struct SdlWindowBuffer { SdlWindow buffer[sizeof(Buffer0) / sizeof(SdlWindow)]; };
