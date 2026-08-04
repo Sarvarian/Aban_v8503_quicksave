@@ -280,6 +280,13 @@ public:
 #endif
   };
 
+  /** - On SDL1 returns `key.keysym.sym`
+   *  - On SDL2 returns `key.keysym.scancode`
+   *  - On SDL2 returns `key.scancode`
+   *  - Check the return against `Sdl::Key` enum constants.
+   */
+  static unsigned int checkKey(const SDL_KeyboardEvent& key);
+
 };
 
 /** SDL Window Handle Manager */

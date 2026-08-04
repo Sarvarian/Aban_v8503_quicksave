@@ -333,3 +333,15 @@ const char * SdlWindow::getCurrentVideoDriverName() {
 #else
   #error "Failed to detect SDL version."
 #endif
+
+unsigned int Sdl::checkKey(const SDL_KeyboardEvent& key) {
+#if IS_USING_SDL_1
+  return key.keysym.sym;
+#elif IS_USING_SDL_2
+  return key.keysym.scancode;
+#elif IS_USING_SDL_3
+  return key.scancode;
+#endif
+}
+
+
