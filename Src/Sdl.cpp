@@ -98,10 +98,6 @@ void SdlWindow::destroy() {
   handle_ = null;
 }
 
-bool SdlWindow::isMultiWindowSupported() {
-  return false;
-}
-
 int SdlWindow::getVideoDriverCount() {
   return -1;
 }
@@ -215,12 +211,6 @@ void SdlWindow::destroy() {
   handle_ = null;
 }
 
-bool SdlWindow::isMultiWindowSupported() {
-#if IS_OS_LINUX
-  return true;
-#endif
-}
-
 int SdlWindow::getVideoDriverCount() {
   return SDL_GetNumVideoDrivers();
 }
@@ -326,12 +316,6 @@ void SdlWindow::destroy() {
     SDL_DestroyWindow(static_cast<SDL_Window*>(handle_));
   }
   handle_ = null;
-}
-
-bool SdlWindow::isMultiWindowSupported() {
-#if IS_OS_LINUX
-  return true;
-#endif
 }
 
 int SdlWindow::getVideoDriverCount() {

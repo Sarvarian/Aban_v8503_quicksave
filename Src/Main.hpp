@@ -338,6 +338,21 @@
   #define IS_USING_SDL_1 0
 #endif
 
+/** Can the window subsystem handle and
+ *    provide multiple windows simultaneously.
+ *  Or the system only works with one main
+ *    window alone?
+ */
+#if defined(IS_MULTI_WINDOW_SUPPORTED)
+  /* Empty */
+#elif IS_USING_SDL_1
+  #define IS_MULTI_WINDOW_SUPPORTED 0
+#elif IS_OS_LINUX || IS_OS_WINDOWS
+  #define IS_MULTI_WINDOW_SUPPORTED 1
+#else
+  #define IS_MULTI_WINDOW_SUPPORTED 0
+#endif
+
 
 
 

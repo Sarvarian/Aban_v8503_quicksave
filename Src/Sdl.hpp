@@ -56,13 +56,6 @@ public:
   Status create();
   void destroy();
 
-  /** Can the window subsystem handle and
-   *    provide multiple windows simultaneously.
-   *  Or the system only works with one main
-   *    window alone?
-   */
-  static bool isMultiWindowSupported();
-
   /** Wrapper around `SDL_GetNumVideoDrivers`
    *  - SDL1: Will always return -1
    *  - Thread Safety: This function should only be called on the main thread.
