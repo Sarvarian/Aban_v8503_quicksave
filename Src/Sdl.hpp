@@ -43,7 +43,9 @@ private:
   unsigned int subsystem_flags_;
 
 public:
-  /** For SDL1 these will be equivalent to SDLKey. */
+  /** For SDL1 these will be equivalent to SDLKey.
+   *  For SDL2 and SDL3 these will be equivalent to SDL_Scancode.
+   */
   enum Key {
 #if IS_USING_SDL_1
     BACKSPACE = SDLK_BACKSPACE,
