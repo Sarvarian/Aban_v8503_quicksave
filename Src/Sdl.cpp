@@ -19,7 +19,9 @@ Sdl Sdl::def() {
 }
 
 Sdl::Status Sdl::init() {
+#if !AB_SANITIZE
   atexit(SDL_Quit);
+#endif
   const int res = SDL_Init(subsystem_flags_);
   return res == 0 ? INIT_SUCCEED : INIT_FAILED;
 }
@@ -127,7 +129,9 @@ Sdl Sdl::def() {
 }
 
 Sdl::Status Sdl::init() {
+#if !AB_SANITIZE
   atexit(SDL_Quit);
+#endif
   const int res = SDL_Init(subsystem_flags_);
   return res == 0 ? INIT_SUCCEED : INIT_FAILED;
 }
@@ -243,7 +247,9 @@ Sdl Sdl::def() {
 }
 
 Sdl::Status Sdl::init() {
+#if !AB_SANITIZE
   atexit(SDL_Quit);
+#endif
   const bool res = SDL_Init(subsystem_flags_);
   return res == true ? INIT_SUCCEED : INIT_FAILED;
 }

@@ -715,8 +715,16 @@ typedef size_t usize;
 ██████╔╝███████╗██████╔╝╚██████╔╝╚██████╔╝
 */
 
-#ifndef DEBUG
-  #define DEBUG 0
+#ifndef AB_OPTIMIZE
+#define AB_OPTIMIZE 0
+#endif
+
+#ifndef AB_SANITIZE
+#define AB_SANITIZE 0
+#endif
+
+#ifndef AB_DEBUG
+#define AB_DEBUG 0
 #endif
 
 #if IS_COMPILER_MSVC || IS_OS_WINDOWS
@@ -731,10 +739,10 @@ typedef size_t usize;
   #define _ab_print__ SDL_Log
 #endif
 
-#if !defined(NDEBUG) || DEBUG
+#if AB_DEBUG
   #define debugBreak _ab_debugBreak__
   #define print _ab_print__
-#else /* !defined(NDEBUG) */
+#else
   #ifndef assert
     #define assert(CONDITION)
   #endif /* assert */
@@ -745,7 +753,7 @@ typedef size_t usize;
     #undef assert
   #endif
   #define assert(...)
-#endif /* !defined(NDEBUG) */
+#endif
 
 /** Like debugBreak but should work on release as well. */
 #define hardBreak _ab_debugBreak__

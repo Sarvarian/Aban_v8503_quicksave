@@ -45,7 +45,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Build The Aban Binary
-add_executable(Aban
+add_executable(ab
   Src/Concur.hpp
   Src/Concur.cpp
   Src/Engine.cpp
@@ -63,10 +63,10 @@ add_executable(Aban
 include(CMake/SDL_Link.cmake)
 
 if (NOT CMAKE_VERSION VERSION_LESS 3.16)
-  target_precompile_headers(Aban PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
+  target_precompile_headers(ab PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
 endif ()
 
-target_compile_options(Aban PUBLIC
+target_compile_options(ab PUBLIC
   -Wall -Wextra -Wformat -Wshadow -Wundef -Wdeprecated
   -Wmaybe-uninitialized -Wstrict-overflow=5 -Wdouble-promotion
   # -Walloc-zero -Walloca -Wuse-after-free=3
@@ -77,24 +77,23 @@ target_compile_options(Aban PUBLIC
 )
 
 if(AB_SANITIZE)
-  target_compile_options(Aban PUBLIC
+  target_compile_options(ab PUBLIC
     -fsanitize=address,leak,bounds,object-size,alignment,undefined
   )
-  target_link_options(Aban PUBLIC -fsanitize=address,leak,bounds,object-size,alignment,undefined)
-  target_compile_definitions(Aban PUBLIC SANITIZE=1)
+  target_link_options(ab PUBLIC -fsanitize=address,leak,bounds,object-size,alignment,undefined)
 endif()
 
 if(AB_OPTIMIZE)
   if ( (NOT CMAKE_VERSION VERSION_LESS 3.16) AND (NOT AB_OS STREQUAL "win32") )
     set(CMAKE_UNITY_BUILD ON)
-    set_target_properties(Aban PROPERTIES UNITY_BUILD ON)
+    set_target_properties(ab PROPERTIES UNITY_BUILD ON)
   endif ()
   if (NOT CMAKE_VERSION VERSION_LESS 3.9)
     include(CheckIPOSupported)
     check_ipo_supported(RESULT supported OUTPUT error)
-    set_property(TARGET Aban PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+    set_property(TARGET ab PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
   endif ()
-  target_compile_options(Aban PUBLIC
+  target_compile_options(ab PUBLIC
     -ffast-math -flto -Ofast
   )
   set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -flto")
@@ -102,7 +101,7 @@ if(AB_OPTIMIZE)
   set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
   set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -flto")
 else()
-  target_compile_options(Aban PUBLIC
+  target_compile_options(ab PUBLIC
     -O0 -ffast-math
   )
 endif()
@@ -110,16 +109,30 @@ endif()
 
 
 
-# target_compile_definitions(Aban PUBLIC AB_OS=${AB_OS})
-# target_compile_definitions(Aban PUBLIC AB_OPTIMIZE=${AB_OPTIMIZE})
-# target_compile_definitions(Aban PUBLIC AB_SANITIZ=${AB_SANITIZE})
-# target_compile_definitions(Aban PUBLIC AB_DEBUG=${AB_DEBUG})
-# target_compile_definitions(Aban PUBLIC AB_CONCUR=${AB_CONCUR})
+target_compile_definitions(ab PUBLIC AB_OS=${AB_OS})
+
+if (AB_OPTIMIZE)
+  target_compile_definitions(ab PUBLIC AB_OPTIMIZE=1)
+else ()
+  target_compile_definitions(ab PUBLIC AB_OPTIMIZE=1)
+endif ()
+
+if (AB_SANITIZE)
+  target_compile_definitions(ab PUBLIC AB_SANITIZE=1)
+else ()
+  target_compile_definitions(ab PUBLIC AB_SANITIZE=1)
+endif ()
+
+if (AB_DEBUG)
+  target_compile_definitions(ab PUBLIC AB_DEBUG=1)
+else ()
+  target_compile_definitions(ab PUBLIC AB_DEBUG=1)
+endif ()
 
 if (AB_CONCUR)
-  target_compile_definitions(Aban PUBLIC AB_CONCUR=1)
+  target_compile_definitions(ab PUBLIC AB_CONCUR=1)
 else ()
-  target_compile_definitions(Aban PUBLIC AB_CONCUR=0)
+  target_compile_definitions(ab PUBLIC AB_CONCUR=0)
 endif ()
 
 

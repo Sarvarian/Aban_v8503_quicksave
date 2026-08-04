@@ -173,7 +173,7 @@ void Engine::shutEngine() {
 }
 
 void Engine::shutSdl() {
-#ifndef SANITIZE
+#if !AB_SANITIZE
   Sdl::quit();
 #endif
 }
