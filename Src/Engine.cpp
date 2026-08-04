@@ -111,12 +111,8 @@ void Engine::calculateDeltaTime(DebugData& db) {
     const double fps = castDouble(MSPS) / delta;
     db.past = now;
     // print("delta: %f\tfps: %f\n", delta, fps);
-    Text::FormatDouble82 delta_s = {0};
-    delta_s.format(delta);
-    Text::FormatDouble82 fps_s = {0};
-    fps_s.format(fps);
     char title[128] = {0};
-    snprintf(title, sizeof(title), "delta: %s\tfps: %s", delta_s.buffer, fps_s.buffer);
+    snprintf(title, sizeof(title), "delta: %.2f fps: %.2f", delta, fps);
     window_.setTitle(title);
   } /* End { Print Frame Time } */
 }
