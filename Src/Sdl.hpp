@@ -321,6 +321,18 @@ public:
    */
   static const char* getCurrentVideoDriverName();
 
+  /**
+   * Set the title of a window.
+   *
+   * This string is expected to be in UTF-8 encoding.
+   *
+   * \param title the desired window title in UTF-8 format.
+   * \returns true on success or false on failure; call SDL_GetError() for more
+   *          information.
+   *
+   * \threadsafety This function should only be called on the main thread.
+   */
+  bool setTitle(const char* title);
 
 private:
   SdlWindow();

@@ -330,8 +330,10 @@ const char * SdlWindow::getCurrentVideoDriverName() {
   return SDL_GetCurrentVideoDriver();
 }
 
-#else
-  #error "Failed to detect SDL version."
+bool SdlWindow::setTitle(const char* title) {
+  return SDL_SetWindowTitle(static_cast<SDL_Window*>(handle_), title);
+}
+
 #endif
 
 unsigned int Sdl::checkKey(const SDL_KeyboardEvent& key) {

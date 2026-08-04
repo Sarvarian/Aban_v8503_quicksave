@@ -47,6 +47,7 @@ private:
   struct Bootstrapper* boot_;
   struct Step* current_;
   struct Step* next_;
+  void calculateDeltaTime(DebugData& db);
 
 /*
   ███████╗██╗   ██╗███████╗███╗   ██╗████████╗███████╗

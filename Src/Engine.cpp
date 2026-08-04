@@ -1,6 +1,7 @@
 #include "Engine.hpp"
 
 #include "Journal.hpp"
+#include "Text.hpp"
 
 struct Step {
 public:
@@ -103,13 +104,20 @@ public:
   DebugData* undef() const { delete this; return null; }
 };
 
-void calculateDeltaTime(DebugData& db) {
+void Engine::calculateDeltaTime(DebugData& db) {
   /* Begin { Print Frame Time } */ {
     const u64 now = clockU64();
     const double delta = castDouble(now - db.past) / castDouble(db.frequency);
     const double fps = castDouble(MSPS) / delta;
     db.past = now;
-    print("delta: %f\tfps: %f\n", delta, fps);
+    // print("delta: %f\tfps: %f\n", delta, fps);
+    Text::FormatDouble82 delta_s = {0};
+    delta_s.format(delta);
+    Text::FormatDouble82 fps_s = {0};
+    fps_s.format(fps);
+    char title[128] = {0};
+    snprintf(title, sizeof(title), "delta: %s\tfps: %s", delta_s.buffer, fps_s.buffer);
+    window_.setTitle(title);
   } /* End { Print Frame Time } */
 }
 
@@ -183,7 +191,7 @@ Engine::Engine()
 {
   /* FFF: F&^k Fixed Frequency */
   /* target_delta_ms = 0;      */
-  target_delta_ms = (MSPS / 60);
+  target_delta_ms = (MSPS / 10);
   exit_code = EXIT_SUCCESS;
   db_ = DebugData::def();
   boot_ = null;
