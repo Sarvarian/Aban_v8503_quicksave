@@ -52,8 +52,6 @@ add_executable(ab
   Src/Main.cpp
   Src/Memory.cpp
   Src/Memory.hpp
-  Src/Sdl.cpp
-  Src/Sdl.hpp
 )
 
 include(CMake/SDL_Link.cmake)
