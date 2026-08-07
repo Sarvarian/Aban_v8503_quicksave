@@ -16,13 +16,27 @@
       <w>jbutton</w>
       <w>jdevice</w>
       <w>kdevice</w>
+      <w>lalt</w>
+      <w>lctrl</w>
+      <w>leftbracket</w>
+      <w>lgui</w>
       <w>mdevice</w>
       <w>mgesture</w>
+      <w>nsps</w>
+      <w>numlockclear</w>
       <w>pbutton</w>
       <w>pmotion</w>
       <w>pproximity</w>
+      <w>printscreen</w>
+      <w>ralt</w>
+      <w>rctrl</w>
+      <w>rgui</w>
+      <w>rightbracket</w>
+      <w>scrolllock</w>
+      <w>sysreq</w>
       <w>syswm</w>
       <w>tfinger</w>
+      <w>turboc</w>
     </words>
   </dictionary>
 </component>

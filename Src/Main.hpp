@@ -9,7 +9,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <csignal>
+// ReSharper disable once CppUnusedIncludeDirective
 #include <cassert>
+// ReSharper disable once CppUnusedIncludeDirective
 #include <cstring>
 
 #if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__)
@@ -751,7 +753,7 @@ typedef enum EMutexResult {
 /** @return May return null.
  *  Use SDL_GetError() for diagnosis.
  */
-Mutex* mutexCreate(void);
+Mutex* mutexCreate(void); /* NOLINT(*-redundant-void-arg) */
 
 /** @return Always return null.
  */
@@ -857,7 +859,9 @@ EMutexResult semaphoreSignal(Semaphore*);
   ╚══════╝╚═════╝ ╚══════╝    ╚══════╝ ╚═════╝  ╚═════╝
 */
 #if IS_USING_SDL_3
+  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL3/SDL_log.h>
+  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL3/SDL_messagebox.h>
 #elif IS_USING_SDL_2
   #include <SDL2/SDL_log.h>
@@ -916,6 +920,7 @@ EMutexResult semaphoreSignal(Semaphore*);
 */
 
 #if IS_USING_SDL_3
+  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL3/SDL_timer.h>
 #elif IS_USING_SDL_2
   #include <SDL2/SDL_timer.h>
