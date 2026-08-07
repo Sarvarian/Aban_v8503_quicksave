@@ -289,22 +289,22 @@ public:
 
 };
 
-#if IS_USING_SDL_1
-  typedef SDL_Surface WindowHandle;
-#elif IS_USING_SDL_2 || IS_USING_SDL_3
-  typedef SDL_Window WindowHandle;
-#endif
-
 /** SDL Window Handle Manager */
 class SdlWindow {
 public:
 
   static SdlWindow def();
 
+#if IS_USING_SDL_1
+  typedef SDL_Surface Handle;
+#elif IS_USING_SDL_2 || IS_USING_SDL_3
+  typedef SDL_Window Handle;
+#endif
+
   /** Returns null in case of failure. Call SDL_GetError() for more information. */
-  WindowHandle* create();
+  Handle* create();
   /** Always returns null.*/
-  WindowHandle* destroy();
+  Handle* destroy();
 
   /** Wrapper around `SDL_GetNumVideoDrivers`
    *  - SDL1: Will always return -1
@@ -330,7 +330,7 @@ private:
 
   /** On SDL1 this will be `SDL_Surface`
    *  while in SDl2 and SDL3 this will be `SDL_Window` */
-  WindowHandle* handle_;
+  Handle* handle_;
 };
 
 #endif /* AB_SDL_INIT_HPP */
