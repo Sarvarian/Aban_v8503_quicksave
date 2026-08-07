@@ -2125,6 +2125,8 @@ EMutexResult semaphoreSignal(Semaphore* semaphore) {
 
 #endif
 
+#endif /* AB_CONCUR */
+
 
 
 
@@ -2330,7 +2332,3 @@ bool SdlWindow::setTitle(const char* title) {
 #endif
 }
 
-
-
-
-#endif /* AB_CONCUR */
