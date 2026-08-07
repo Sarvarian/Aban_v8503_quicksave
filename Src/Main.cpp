@@ -572,7 +572,6 @@ ESysStatus Engine::initEngine(int, char**) {
     print("Video driver %d: %s\n", i, name);
   }
 #endif
-  print("Current video driver: %s\n", SdlWindow::getCurrentVideoDriverName());
 
   return E_SYS_CONTINUE;
 }
