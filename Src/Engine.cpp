@@ -1,7 +1,17 @@
 #include "Engine.hpp"
 
 #include "Journal.hpp"
-#include "Text.hpp"
+#include "Memory.hpp"
+
+
+/*
+  ███████╗████████╗██████╗ ██╗   ██╗ ██████╗████████╗
+  ██╔════╝╚══██╔══╝██╔══██╗██║   ██║██╔════╝╚══██╔══╝
+  ███████╗   ██║   ██████╔╝██║   ██║██║        ██║
+  ╚════██║   ██║   ██╔══██╗██║   ██║██║        ██║
+  ███████║   ██║   ██║  ██║╚██████╔╝╚██████╗   ██║
+  ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝  ╚═════╝   ╚═╝
+*/
 
 struct Step {
 public:
@@ -16,6 +26,44 @@ public:
   u8 _pad00_[mmBufferSize(0) - 1];
 };
 staticAssert(sizeof(Step) == sizeof(Buffer0), Step_FIT_INTO_ONE_Buffer0)
+
+struct SdlWindowBuffer {
+  SdlWindow buffer[sizeof(Buffer0) / sizeof(SdlWindow)];
+};
+staticAssert(sizeof(SdlWindowBuffer) == sizeof(Buffer0), SDL_WINDOW_BUFFER_FIT_INTO_ONE_BUFFER0)
+
+struct NullField {
+  u64 sdl_window;
+  u64 _pad_[63];
+};
+staticAssert(sizeof(NullField) == sizeof(Buffer0), NULL_FIELD_FIT_INTO_ONE_BUFFER0)
+
+struct Bootstrapper {
+  Pool4* pools_[sizeof(Buffer0) / sizeof(Pool4*)];
+  NullField null_field;
+  Step step_a;
+  Step step_b;
+  Buffer0 _pad_[124];
+  Bootstrapper() : pools_(), null_field(), step_a(), step_b() {}
+  Bootstrapper* undef() {
+    for (int i = 1; pools_[i] != null; i++) {
+      pools_[i] = pools_[i]->undef();
+    }
+    pools_[0]->undef();
+    return null;
+  }
+};
+staticAssert(sizeof(Bootstrapper) == sizeof(Block0), BOOTSTRAPPER_FIT_INTO_ONE_BLOCK0)
+
+
+/*
+  ███████╗███╗   ██╗ ██████╗ ██╗███╗   ██╗███████╗
+  ██╔════╝████╗  ██║██╔════╝ ██║████╗  ██║██╔════╝
+  █████╗  ██╔██╗ ██║██║  ███╗██║██╔██╗ ██║█████╗
+  ██╔══╝  ██║╚██╗██║██║   ██║██║██║╚██╗██║██╔══╝
+  ███████╗██║ ╚████║╚██████╔╝██║██║ ╚████║███████╗
+  ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝╚══════╝
+*/
 
 ESysStatus Engine::preSdlInit(int, char**) {
   return E_SYS_CONTINUE;
@@ -32,35 +80,6 @@ ESysStatus Engine::initSdl(int, char**) {
     return E_SYS_CONTINUE;
   }
 }
-
-struct SdlWindowBuffer { SdlWindow buffer[sizeof(Buffer0) / sizeof(SdlWindow)]; };
-staticAssert(sizeof(SdlWindowBuffer) == sizeof(Buffer0), SDL_WINDOW_BUFFER_FIT_INTO_ONE_BUFFER0)
-
-struct NullField {
-  u64 sdl_window;
-  u64 _pad_[63];
-};
-staticAssert(sizeof(NullField) == sizeof(Buffer0), NULL_FIELD_FIT_INTO_ONE_BUFFER0)
-
-struct Bootstrapper {
-  Pool4* pools_[sizeof(Buffer0) / sizeof(Pool4*)];
-  NullField null_field;
-  Step step_a;
-  Step step_b;
-  Buffer0 _pad_[124];
-  Bootstrapper()
-    : pools_(), null_field(), step_a(), step_b()
-  {}
-  Bootstrapper* undef() {
-    for (int i = 1; pools_[i] != null; i++) {
-      pools_[i] = pools_[i]->undef();
-    }
-    pools_[0]->undef();
-    return null;
-  }
-};
-staticAssert(sizeof(Bootstrapper) == sizeof(Block0), BOOTSTRAPPER_FIT_INTO_ONE_BLOCK0)
-
 
 ESysStatus Engine::initEngine(int, char**) {
 #if IS_USING_SDL_2 || IS_USING_SDL_3
@@ -102,8 +121,7 @@ struct DebugData {
   u64 frequency;
   u64 past;
 private:
-  DebugData() :
-    frequency(clockFrequencyU64() / MSPS), past(clockU64()) {}
+  DebugData() : frequency(clockFrequencyU64() / MSPS), past(clockU64()) {}
 public:
   static DebugData* def() { return new DebugData(); }
   DebugData* undef() const { delete this; return null; }
