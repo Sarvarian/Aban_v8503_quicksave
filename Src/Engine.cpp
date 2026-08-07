@@ -25,6 +25,8 @@ ESysStatus Engine::initSdl(int, char**) {
   const Sdl::Status res = Sdl::def().timer().video().events().eventThread().init();
   if (res != Sdl::INIT_SUCCEED) {
     Journal::sdlInitFailed();
+    exit_code = EXIT_FAILURE;
+    debugBreak;
     return E_SYS_FATALITY;
   } else {
     return E_SYS_CONTINUE;
@@ -76,6 +78,7 @@ ESysStatus Engine::initEngine(int, char**) {
   if (initial_pool == null) {
     Journal::firstPoolAllocationFailed();
     exit_code = EXIT_FAILURE;
+    debugBreak;
     return E_SYS_FATALITY;
   }
   const BlockIndex fi = BlockIndex(0);
@@ -87,7 +90,9 @@ ESysStatus Engine::initEngine(int, char**) {
   next_ = &(boot_->step_b);
   next_->calculate_delta_time = true;
 
-  if (window_.create() != SdlWindow::CREATION_SUCCEED) {
+  if (window_.create() == null) {
+    exit_code = EXIT_FAILURE;
+    debugBreak;
     return E_SYS_FATALITY;
   }
   return E_SYS_CONTINUE;

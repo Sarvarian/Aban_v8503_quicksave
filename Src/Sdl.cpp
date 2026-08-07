@@ -23,7 +23,7 @@ Sdl::Status Sdl::init() {
 #if !AB_SANITIZE
   atexit(SDL_Quit);
 #endif
-#if IS_USING_SDL_1 || IS_USING_SDL_3
+#if IS_USING_SDL_1 || IS_USING_SDL_2
   const int res = SDL_Init(subsystem_flags_);
   return res == 0 ? INIT_SUCCEED : INIT_FAILED;
 #elif IS_USING_SDL_3
