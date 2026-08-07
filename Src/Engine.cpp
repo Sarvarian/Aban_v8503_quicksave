@@ -27,24 +27,12 @@ public:
 };
 staticAssert(sizeof(Step) == sizeof(Buffer0), Step_FIT_INTO_ONE_Buffer0)
 
-struct SdlWindowBuffer {
-  SdlWindow buffer[sizeof(Buffer0) / sizeof(SdlWindow)];
-};
-staticAssert(sizeof(SdlWindowBuffer) == sizeof(Buffer0), SDL_WINDOW_BUFFER_FIT_INTO_ONE_BUFFER0)
-
-struct NullField {
-  u64 sdl_window;
-  u64 _pad_[63];
-};
-staticAssert(sizeof(NullField) == sizeof(Buffer0), NULL_FIELD_FIT_INTO_ONE_BUFFER0)
-
 struct Bootstrapper {
   Pool4* pools_[sizeof(Buffer0) / sizeof(Pool4*)];
-  NullField null_field;
   Step step_a;
   Step step_b;
-  Buffer0 _pad_[124];
-  Bootstrapper() : pools_(), null_field(), step_a(), step_b() {}
+  Buffer0 _pad_[125];
+  Bootstrapper() : pools_(), step_a(), step_b() {}
   Bootstrapper* undef() {
     for (int i = 1; pools_[i] != null; i++) {
       pools_[i] = pools_[i]->undef();
