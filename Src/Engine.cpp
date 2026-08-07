@@ -112,19 +112,18 @@ ESysStatus Engine::initEngine(int, char**) {
     return E_SYS_FATALITY;
   }
 
-#if !IS_USING_SDL_1
-  {
-    const int video_count = SdlWindow::getVideoDriverCount();
-    if (video_count < 1) {
-      exit_code = EXIT_FAILURE;
-      debugBreak;
-      return E_SYS_FATALITY;
-    }
-    print("Found %d video drivers.\n", video_count);
-    for (int i = 0; i < video_count; i++) {
-      const char* name = SdlWindow::getVideoDriverName(i);
-      print("Video driver %d: %s\n", i, name);
-    }
+  print("Current video driver: %s\n", SdlWindow::getCurrentVideoDriverName());
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  const int video_count = SdlWindow::getVideoDriverCount();
+  if (video_count < 1) {
+    exit_code = EXIT_FAILURE;
+    debugBreak;
+    return E_SYS_FATALITY;
+  }
+  print("Found %d video drivers.\n", video_count);
+  for (int i = 0; i < video_count; i++) {
+    const char* name = SdlWindow::getVideoDriverName(i);
+    print("Video driver %d: %s\n", i, name);
   }
 #endif
   print("Current video driver: %s\n", SdlWindow::getCurrentVideoDriverName());
