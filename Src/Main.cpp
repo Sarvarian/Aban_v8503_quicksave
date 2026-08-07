@@ -1,3 +1,4 @@
+// ReSharper disable CppMemberFunctionMayBeStatic
 #include "Main.hpp"
 
 #if IS_USING_SDL_3
@@ -382,7 +383,7 @@ private:
   ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝╚══════╝
 */
 
-ESysStatus Engine::preSdlInit(int, char**) {
+ESysStatus Engine::preSdlInit(int, char**) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
@@ -402,6 +403,8 @@ ESysStatus Engine::initEngine(int, char**) {
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   SDL_SetEventFilter(sdlEventFilter, null);
 #endif
+
+  db_ = DebugData::def();
 
   // 1. Building the first memory data structure.
   // 2. Running the system.
@@ -446,7 +449,6 @@ ESysStatus Engine::initEngine(int, char**) {
     print("Video driver %d: %s\n", i, name);
   }
 #endif
-  print("Current video driver: %s\n", SdlWindow::getCurrentVideoDriverName());
 
   return E_SYS_CONTINUE;
 }
@@ -457,7 +459,7 @@ void Engine::calculateDeltaTime(DebugData& db) {
     const double delta = castDouble(now - db.past) / castDouble(db.frequency);
     const double fps = castDouble(MSPS) / delta;
     db.past = now;
-    // print("delta: %f\tfps: %f\n", delta, fps);
+    // print("delta: %f\t fps: %f\n", delta, fps);
     char title[128] = {0};
     snprintf(title, sizeof(title), "delta: %.2f fps: %.2f", delta, fps);
     window_.setTitle(title);
@@ -517,13 +519,13 @@ ESysStatus Engine::stepEngine() {
 
 void Engine::shutEngine() {
   window_.destroy();
-  db_ = db_->undef();
+  db_ = db_ ? db_->undef() : null;
   next_ = null;
   current_ = null;
   boot_ = boot_->undef();
 }
 
-void Engine::shutSdl() {
+void Engine::shutSdl() { // NOLINT(*-convert-member-functions-to-static)
 #if !AB_SANITIZE
   Sdl::quit();
 #endif
@@ -536,7 +538,7 @@ Engine::Engine()
   /* target_delta_ms = 0;      */
   target_delta_ms = (MSPS / 10);
   exit_code = EXIT_SUCCESS;
-  db_ = DebugData::def();
+  db_ = null;
   boot_ = null;
   current_ = null;
   next_ = null;
@@ -555,7 +557,7 @@ Engine Engine::def() {
   ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
 */
 
-ESysStatus Engine::on_unrecognized_event(const SDL_Event& event) {
+ESysStatus Engine::on_unrecognized_event(const SDL_Event& event) { // NOLINT(*-convert-member-functions-to-static)
   /* I don't think `default` should be reachable. */
   /* I put a debugBreak so if it ever happened,   */
   /*     I get a change to investigate it.        */
@@ -572,40 +574,40 @@ ESysStatus Engine::on_unrecognized_event(const SDL_Event& event) {
   ╚═╝  ╚═╝╚═╝     ╚═╝
 */
 
-ESysStatus Engine::on_quit(const SDL_QuitEvent& quit) {
+ESysStatus Engine::on_quit(const SDL_QuitEvent& quit) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_QUIT;
 }
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_terminating(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_terminating(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_low_memory(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_low_memory(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_will_enter_background(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_will_enter_background(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_did_enter_background(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_did_enter_background(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_will_enter_foreground(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_will_enter_foreground(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_did_enter_foreground(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_did_enter_foreground(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_locale_changed(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_locale_changed(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_system_theme_changed(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_system_theme_changed(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -620,47 +622,47 @@ ESysStatus Engine::on_system_theme_changed(const SDL_CommonEvent& common) {
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_orientation_unknown(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_orientation_unknown(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_orientation_landscape(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_orientation_landscape(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_orientation_landscape_flipped(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_orientation_landscape_flipped(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_orientation_portrait(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_orientation_portrait(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_orientation_portrait_flipped(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_orientation_portrait_flipped(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_display_added(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_display_added(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_display_removed(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_display_removed(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_display_moved(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_display_moved(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_display_desktop_mode_changed(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_display_desktop_mode_changed(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_display_current_mode_changed(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_display_current_mode_changed(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_display_content_scale_changed(const SDL_DisplayEvent& display) {
+ESysStatus Engine::on_display_content_scale_changed(const SDL_DisplayEvent& display) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -677,7 +679,7 @@ ESysStatus Engine::on_display_content_scale_changed(const SDL_DisplayEvent& disp
 #if IS_USING_SDL_1
 ESysStatus Engine::on_window_exposed() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_exposed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_exposed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
 #endif
   return E_SYS_CONTINUE;
 }
@@ -685,7 +687,7 @@ ESysStatus Engine::on_window_exposed(const SDL_WindowEvent& window) {
 #if IS_USING_SDL_1
 ESysStatus Engine::on_window_resized(const int w, const int h) {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_resized(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_resized(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
 #endif
   return E_SYS_CONTINUE;
 }
@@ -693,7 +695,7 @@ ESysStatus Engine::on_window_resized(const SDL_WindowEvent& window) {
 #if IS_USING_SDL_1
 ESysStatus Engine::on_window_minimized() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_minimized(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_minimized(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
 #endif
   return E_SYS_CONTINUE;
 }
@@ -701,7 +703,7 @@ ESysStatus Engine::on_window_minimized(const SDL_WindowEvent& window) {
 #if IS_USING_SDL_1
 ESysStatus Engine::on_window_restored() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_restored(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_restored(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
 #endif
   return E_SYS_CONTINUE;
 }
@@ -709,7 +711,7 @@ ESysStatus Engine::on_window_restored(const SDL_WindowEvent& window) {
 #if IS_USING_SDL_1
 ESysStatus Engine::on_window_mouse_enter() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_mouse_enter(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_mouse_enter(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
 #endif
   return E_SYS_CONTINUE;
 }
@@ -717,7 +719,7 @@ ESysStatus Engine::on_window_mouse_enter(const SDL_WindowEvent& window) {
 #if IS_USING_SDL_1
 ESysStatus Engine::on_window_mouse_leave() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_mouse_leave(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_mouse_leave(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
 #endif
   return E_SYS_CONTINUE;
 }
@@ -725,7 +727,7 @@ ESysStatus Engine::on_window_mouse_leave(const SDL_WindowEvent& window) {
 #if IS_USING_SDL_1
 ESysStatus Engine::on_window_focus_gained() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_focus_gained(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_focus_gained(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
 #endif
   return E_SYS_CONTINUE;
 }
@@ -733,91 +735,91 @@ ESysStatus Engine::on_window_focus_gained(const SDL_WindowEvent& window) {
 #if IS_USING_SDL_1
 ESysStatus Engine::on_window_focus_lost() {
 #elif IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_focus_lost(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_focus_lost(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
 #endif
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_window_shown(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_shown(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_hidden(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_hidden(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_moved(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_moved(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_pixel_size_changed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_pixel_size_changed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_metal_view_resized(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_metal_view_resized(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_size_changed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_size_changed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_maximized(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_maximized(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_close_request(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_close_request(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_take_focus(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_take_focus(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_hit_test(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_hit_test(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_icc_changed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_icc_changed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_display_changed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_display_changed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_display_scale_changed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_display_scale_changed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_safe_area_changed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_safe_area_changed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_occluded(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_occluded(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_enter_fullscreen(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_enter_fullscreen(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_leave_fullscreen(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_leave_fullscreen(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_destroyed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_destroyed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_window_hdr_state_changed(const SDL_WindowEvent& window) {
+ESysStatus Engine::on_window_hdr_state_changed(const SDL_WindowEvent& window) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
 
 #if IS_USING_SDL_1 || IS_USING_SDL_2
-ESysStatus Engine::on_sys_wm(const SDL_SysWMEvent& syswm) {
+ESysStatus Engine::on_sys_wm(const SDL_SysWMEvent& syswm) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -842,40 +844,40 @@ ESysStatus Engine::on_keyboard_key_down(const SDL_KeyboardEvent& key) {
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_keyboard_key_up(const SDL_KeyboardEvent& key) {
+ESysStatus Engine::on_keyboard_key_up(const SDL_KeyboardEvent& key) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_text_editing(const SDL_TextEditingEvent& edit) {
+ESysStatus Engine::on_text_editing(const SDL_TextEditingEvent& edit) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_text_input(const SDL_TextInputEvent& text) {
+ESysStatus Engine::on_text_input(const SDL_TextInputEvent& text) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_keyboard_keymap_changed(const SDL_CommonEvent& common) {
+ESysStatus Engine::on_keyboard_keymap_changed(const SDL_CommonEvent& common) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
 
 #if IS_USING_SDL_2
-ESysStatus Engine::on_text_editing_ext(const SDL_TextEditingExtEvent& editExt) {
+ESysStatus Engine::on_text_editing_ext(const SDL_TextEditingExtEvent& editExt) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
 
 #if IS_USING_SDL_3
-ESysStatus Engine::on_keyboard_added(const SDL_KeyboardDeviceEvent& kdevice) {
+ESysStatus Engine::on_keyboard_added(const SDL_KeyboardDeviceEvent& kdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_keyboard_removed(const SDL_KeyboardDeviceEvent& kdevice) {
+ESysStatus Engine::on_keyboard_removed(const SDL_KeyboardDeviceEvent& kdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_text_editing_candidates(const SDL_TextEditingCandidatesEvent& edit_candidates) {
+ESysStatus Engine::on_text_editing_candidates(const SDL_TextEditingCandidatesEvent& edit_candidates) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -889,30 +891,30 @@ ESysStatus Engine::on_text_editing_candidates(const SDL_TextEditingCandidatesEve
   ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
 */
 
-ESysStatus Engine::on_mouse_motion(const SDL_MouseMotionEvent& motion) {
+ESysStatus Engine::on_mouse_motion(const SDL_MouseMotionEvent& motion) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_mouse_button_down(const SDL_MouseButtonEvent& button) {
+ESysStatus Engine::on_mouse_button_down(const SDL_MouseButtonEvent& button) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_mouse_button_up(const SDL_MouseButtonEvent& button) {
+ESysStatus Engine::on_mouse_button_up(const SDL_MouseButtonEvent& button) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_mouse_wheel(const SDL_MouseWheelEvent& wheel) {
+ESysStatus Engine::on_mouse_wheel(const SDL_MouseWheelEvent& wheel) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
 
 #if IS_USING_SDL_3
-ESysStatus Engine::on_mouse_added(const SDL_MouseDeviceEvent& mdevice) {
+ESysStatus Engine::on_mouse_added(const SDL_MouseDeviceEvent& mdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_mouse_removed(const SDL_MouseDeviceEvent& mdevice) {
+ESysStatus Engine::on_mouse_removed(const SDL_MouseDeviceEvent& mdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -926,40 +928,40 @@ ESysStatus Engine::on_mouse_removed(const SDL_MouseDeviceEvent& mdevice) {
    ╚════╝  ╚═════╝    ╚═╝   ╚══════╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝
 */
 
-ESysStatus Engine::on_joystick_axis_motion(const SDL_JoyAxisEvent& jaxis) {
+ESysStatus Engine::on_joystick_axis_motion(const SDL_JoyAxisEvent& jaxis) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_joystick_ball_motion(const SDL_JoyBallEvent& jball) {
+ESysStatus Engine::on_joystick_ball_motion(const SDL_JoyBallEvent& jball) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_joystick_hat_motion(const SDL_JoyHatEvent& jhat) {
+ESysStatus Engine::on_joystick_hat_motion(const SDL_JoyHatEvent& jhat) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_joystick_button_down(const SDL_JoyButtonEvent& jbutton) {
+ESysStatus Engine::on_joystick_button_down(const SDL_JoyButtonEvent& jbutton) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_joystick_button_up(const SDL_JoyButtonEvent& jbutton) {
+ESysStatus Engine::on_joystick_button_up(const SDL_JoyButtonEvent& jbutton) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_joystick_added(const SDL_JoyDeviceEvent& jdevice) {
+ESysStatus Engine::on_joystick_added(const SDL_JoyDeviceEvent& jdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_joystick_removed(const SDL_JoyDeviceEvent& jdevice) {
+ESysStatus Engine::on_joystick_removed(const SDL_JoyDeviceEvent& jdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_joystick_battery_updated(const SDL_JoyBatteryEvent& jbattery) {
+ESysStatus Engine::on_joystick_battery_updated(const SDL_JoyBatteryEvent& jbattery) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_joystick_update_complete(const SDL_JoyDeviceEvent& jdevice) {
+ESysStatus Engine::on_joystick_update_complete(const SDL_JoyDeviceEvent& jdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -974,51 +976,51 @@ ESysStatus Engine::on_joystick_update_complete(const SDL_JoyDeviceEvent& jdevice
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_gamepad_axis_motion(const SDL_GamepadAxisEvent& gaxis) {
+ESysStatus Engine::on_gamepad_axis_motion(const SDL_GamepadAxisEvent& gaxis) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_button_down(const SDL_GamepadButtonEvent& gbutton) {
+ESysStatus Engine::on_gamepad_button_down(const SDL_GamepadButtonEvent& gbutton) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_button_up(const SDL_GamepadButtonEvent& gbutton) {
+ESysStatus Engine::on_gamepad_button_up(const SDL_GamepadButtonEvent& gbutton) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_added(const SDL_GamepadDeviceEvent& gdevice) {
+ESysStatus Engine::on_gamepad_added(const SDL_GamepadDeviceEvent& gdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_removed(const SDL_GamepadDeviceEvent& gdevice) {
+ESysStatus Engine::on_gamepad_removed(const SDL_GamepadDeviceEvent& gdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_remapped(const SDL_GamepadDeviceEvent& gdevice) {
+ESysStatus Engine::on_gamepad_remapped(const SDL_GamepadDeviceEvent& gdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_touchpad_down(const SDL_GamepadTouchpadEvent& gtouchpad) {
+ESysStatus Engine::on_gamepad_touchpad_down(const SDL_GamepadTouchpadEvent& gtouchpad) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_touchpad_motion(const SDL_GamepadTouchpadEvent& gtouchpad) {
+ESysStatus Engine::on_gamepad_touchpad_motion(const SDL_GamepadTouchpadEvent& gtouchpad) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_touchpad_up(const SDL_GamepadTouchpadEvent& gtouchpad) {
+ESysStatus Engine::on_gamepad_touchpad_up(const SDL_GamepadTouchpadEvent& gtouchpad) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_sensor_update(const SDL_GamepadSensorEvent& gsensor) {
+ESysStatus Engine::on_gamepad_sensor_update(const SDL_GamepadSensorEvent& gsensor) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_update_complete(const SDL_GamepadDeviceEvent& gdevice) {
+ESysStatus Engine::on_gamepad_update_complete(const SDL_GamepadDeviceEvent& gdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent& gdevice) {
+ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent& gdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1033,19 +1035,19 @@ ESysStatus Engine::on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent&
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_finger_down(const SDL_TouchFingerEvent& tfinger) {
+ESysStatus Engine::on_finger_down(const SDL_TouchFingerEvent& tfinger) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_finger_up(const SDL_TouchFingerEvent& tfinger) {
+ESysStatus Engine::on_finger_up(const SDL_TouchFingerEvent& tfinger) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_finger_motion(const SDL_TouchFingerEvent& tfinger) {
+ESysStatus Engine::on_finger_motion(const SDL_TouchFingerEvent& tfinger) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_finger_canceled(const SDL_TouchFingerEvent& tfinger) {
+ESysStatus Engine::on_finger_canceled(const SDL_TouchFingerEvent& tfinger) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1060,15 +1062,15 @@ ESysStatus Engine::on_finger_canceled(const SDL_TouchFingerEvent& tfinger) {
 */
 
 #if IS_USING_SDL_2
-ESysStatus Engine::on_dollar_gesture(const SDL_DollarGestureEvent& dgesture) {
+ESysStatus Engine::on_dollar_gesture(const SDL_DollarGestureEvent& dgesture) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_dollar_record(const SDL_DollarGestureEvent& dgesture) {
+ESysStatus Engine::on_dollar_record(const SDL_DollarGestureEvent& dgesture) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_multi_gesture(const SDL_MultiGestureEvent& mgesture) {
+ESysStatus Engine::on_multi_gesture(const SDL_MultiGestureEvent& mgesture) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1083,7 +1085,7 @@ ESysStatus Engine::on_multi_gesture(const SDL_MultiGestureEvent& mgesture) {
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_clipboard_update(const SDL_ClipboardEvent& clipboard) {
+ESysStatus Engine::on_clipboard_update(const SDL_ClipboardEvent& clipboard) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1098,23 +1100,23 @@ ESysStatus Engine::on_clipboard_update(const SDL_ClipboardEvent& clipboard) {
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_drop_file(const SDL_DropEvent& drop) {
+ESysStatus Engine::on_drop_file(const SDL_DropEvent& drop) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_drop_text(const SDL_DropEvent& drop) {
+ESysStatus Engine::on_drop_text(const SDL_DropEvent& drop) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_drop_begin(const SDL_DropEvent& drop) {
+ESysStatus Engine::on_drop_begin(const SDL_DropEvent& drop) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_drop_complete(const SDL_DropEvent& drop) {
+ESysStatus Engine::on_drop_complete(const SDL_DropEvent& drop) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_drop_position(const SDL_DropEvent& drop) {
+ESysStatus Engine::on_drop_position(const SDL_DropEvent& drop) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1129,15 +1131,15 @@ ESysStatus Engine::on_drop_position(const SDL_DropEvent& drop) {
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_audio_device_added(const SDL_AudioDeviceEvent& adevice) {
+ESysStatus Engine::on_audio_device_added(const SDL_AudioDeviceEvent& adevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_audio_device_removed(const SDL_AudioDeviceEvent& adevice) {
+ESysStatus Engine::on_audio_device_removed(const SDL_AudioDeviceEvent& adevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_audio_device_format_changed(const SDL_AudioDeviceEvent& adevice) {
+ESysStatus Engine::on_audio_device_format_changed(const SDL_AudioDeviceEvent& adevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1152,7 +1154,7 @@ ESysStatus Engine::on_audio_device_format_changed(const SDL_AudioDeviceEvent& ad
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_sensor_update(const SDL_SensorEvent& sensor) {
+ESysStatus Engine::on_sensor_update(const SDL_SensorEvent& sensor) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1167,35 +1169,35 @@ ESysStatus Engine::on_sensor_update(const SDL_SensorEvent& sensor) {
 */
 
 #if IS_USING_SDL_3
-ESysStatus Engine::on_pen_proximity_in(const SDL_PenProximityEvent& pproximity) {
+ESysStatus Engine::on_pen_proximity_in(const SDL_PenProximityEvent& pproximity) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_pen_proximity_out(const SDL_PenProximityEvent& pproximity) {
+ESysStatus Engine::on_pen_proximity_out(const SDL_PenProximityEvent& pproximity) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_pen_down(const SDL_PenTouchEvent& ptouch) {
+ESysStatus Engine::on_pen_down(const SDL_PenTouchEvent& ptouch) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_pen_up(const SDL_PenTouchEvent& ptouch) {
+ESysStatus Engine::on_pen_up(const SDL_PenTouchEvent& ptouch) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_pen_button_down(const SDL_PenButtonEvent& pbutton) {
+ESysStatus Engine::on_pen_button_down(const SDL_PenButtonEvent& pbutton) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_pen_button_up(const SDL_PenButtonEvent& pbutton) {
+ESysStatus Engine::on_pen_button_up(const SDL_PenButtonEvent& pbutton) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_pen_motion(const SDL_PenMotionEvent& pmotion) {
+ESysStatus Engine::on_pen_motion(const SDL_PenMotionEvent& pmotion) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_pen_axis(const SDL_PenAxisEvent& paxis) {
+ESysStatus Engine::on_pen_axis(const SDL_PenAxisEvent& paxis) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1210,19 +1212,19 @@ ESysStatus Engine::on_pen_axis(const SDL_PenAxisEvent& paxis) {
 */
 
 #if IS_USING_SDL_3
-ESysStatus Engine::on_camera_device_added(const SDL_CameraDeviceEvent& cdevice) {
+ESysStatus Engine::on_camera_device_added(const SDL_CameraDeviceEvent& cdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_camera_device_removed(const SDL_CameraDeviceEvent& cdevice) {
+ESysStatus Engine::on_camera_device_removed(const SDL_CameraDeviceEvent& cdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_camera_device_approved(const SDL_CameraDeviceEvent& cdevice) {
+ESysStatus Engine::on_camera_device_approved(const SDL_CameraDeviceEvent& cdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_camera_device_denied(const SDL_CameraDeviceEvent& cdevice) {
+ESysStatus Engine::on_camera_device_denied(const SDL_CameraDeviceEvent& cdevice) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1237,15 +1239,15 @@ ESysStatus Engine::on_camera_device_denied(const SDL_CameraDeviceEvent& cdevice)
 */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
-ESysStatus Engine::on_render_targets_reset(const SDL_RenderEvent& render) {
+ESysStatus Engine::on_render_targets_reset(const SDL_RenderEvent& render) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_render_device_reset(const SDL_RenderEvent& render) {
+ESysStatus Engine::on_render_device_reset(const SDL_RenderEvent& render) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
-ESysStatus Engine::on_render_device_lost(const SDL_RenderEvent& render) {
+ESysStatus Engine::on_render_device_lost(const SDL_RenderEvent& render) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 #endif
@@ -1259,7 +1261,7 @@ ESysStatus Engine::on_render_device_lost(const SDL_RenderEvent& render) {
    ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
 */
 
-ESysStatus Engine::on_user_event(const SDL_UserEvent& event) {
+ESysStatus Engine::on_user_event(const SDL_UserEvent& event) { // NOLINT(*-convert-member-functions-to-static)
   return E_SYS_CONTINUE;
 }
 
@@ -1566,16 +1568,26 @@ ESysStatus Engine::eventSdl(const SDL_Event& event) {
   return on_unrecognized_event(event);
 }
 
-bool Engine::sdlEventFilter(const SDL_Event& event) {
+bool Engine::sdlEventFilter(const SDL_Event& event) { // NOLINT(*-convert-member-functions-to-static)
+  switch (event.type) {
+  /* These application events have special meaning on iOS and Android, see SDL3 README-ios.md and SDL3 README-android.md for details */
+  case SDL_EVENT_TERMINATING: on_terminating(event.common); return false;
+  case SDL_EVENT_LOW_MEMORY: on_low_memory(event.common); return false;
+  case SDL_EVENT_WILL_ENTER_BACKGROUND: on_will_enter_background(event.common); return false;
+  case SDL_EVENT_DID_ENTER_BACKGROUND: on_did_enter_background(event.common); return false;
+  default: break;
+  }
   return true;
 }
 #endif
 
 #if IS_USING_SDL_2
+// ReSharper disable once CppParameterMayBeConstPtrOrRef
 int Engine::sdlEventFilter(void* self, SDL_Event* event) {
   return static_cast<Engine*>(self)->sdlEventFilter(*event) ? 1 : 0;
 }
 #elif IS_USING_SDL_3
+// ReSharper disable once CppParameterMayBeConstPtrOrRef
 bool Engine::sdlEventFilter(void* self, SDL_Event* event) {
   return static_cast<Engine*>(self)->sdlEventFilter(*event);
 }
@@ -1639,13 +1651,11 @@ int main(int argc, char** argv) {
     while (SDL_PollEvent(&event)) {
       CHECK(engine.eventSdl(event));
     }
-repeat_step:
     switch (engine.stepEngine()) {
-      case E_SYS_REPEAT: goto repeat_step;
-      case E_SYS_CONTINUE: break;
+      case E_SYS_CONTINUE: timing.frameEnd(engine.target_delta_ms); break;
+      case E_SYS_REPEAT: break;
       default: return shutdown(engine);
     }
-    timing.frameEnd(engine.target_delta_ms);
   }
   /* ReSharper disable once CppDFAUnreachableCode */
   return shutdown(engine);
@@ -1802,7 +1812,7 @@ EMutexResult semaphoreSignal(Semaphore* semaphore) {
 
 #elif IS_USING_SDL_2
 
-Mutex* mutexCreate(void) {
+Mutex* mutexCreate(void) { /* NOLINT(*-redundant-void-arg) */
   return SDL_CreateMutex();
 }
 
@@ -1831,7 +1841,7 @@ EMutexResult mutexUnlock(Mutex* mutex) {
     : E_MUTEX_FAILED;
 }
 
-Condvar* condvarCreate(void) {
+Condvar* condvarCreate(void) { /* NOLINT(*-redundant-void-arg) */
   return SDL_CreateCond();
 }
 
@@ -1910,7 +1920,7 @@ EMutexResult semaphoreSignal(Semaphore* semaphore) {
 
 #elif IS_USING_SDL_3
 
-Mutex* mutexCreate(void) {
+Mutex* mutexCreate(void) { /* NOLINT(*-redundant-void-arg) */
   return SDL_CreateMutex();
 }
 
@@ -1934,7 +1944,7 @@ EMutexResult mutexUnlock(Mutex* mutex) {
   return E_MUTEX_SUCCEEDED;
 }
 
-Condvar* condvarCreate(void) {
+Condvar* condvarCreate(void) { /* NOLINT(*-redundant-void-arg) */
   return SDL_CreateCondition();
 }
 
@@ -2021,7 +2031,8 @@ Sdl Sdl::def() {
   return Sdl();
 }
 
-Sdl::Status Sdl::init() {
+// ReSharper disable once CppMemberFunctionMayBeConst
+Sdl::Status Sdl::init() { // NOLINT(*-make-member-function-const)
 #if !AB_SANITIZE
   atexit(SDL_Quit);
 #endif
@@ -2154,6 +2165,7 @@ SdlWindow::Handle* SdlWindow::create() {
   return handle_;
 }
 
+// ReSharper disable once CppDFAConstantFunctionResult
 SdlWindow::Handle* SdlWindow::destroy() {
 #if IS_USING_SDL_1
   handle_ = null;
