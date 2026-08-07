@@ -135,7 +135,7 @@ SdlWindow SdlWindow::def() {
   return SdlWindow();
 }
 
-SdlWindow::Handle* SdlWindow::create() {
+WindowHandle* SdlWindow::create() {
 #if IS_USING_SDL_1
   handle_ = SDL_SetVideoMode(640, 480, 0, 0);
   SDL_WM_SetCaption("Aban", null);
@@ -152,7 +152,7 @@ SdlWindow::Handle* SdlWindow::create() {
   return handle_;
 }
 
-SdlWindow::Handle* SdlWindow::destroy() {
+WindowHandle* SdlWindow::destroy() {
 #if IS_USING_SDL_1
   handle_ = null;
 #elif  IS_USING_SDL_2 || IS_USING_SDL_3
