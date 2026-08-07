@@ -3,15 +3,18 @@
 
 #if IS_USING_SDL_3
   #include <SDL3/SDL.h>
+  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL3/SDL_main.h>
   #include <SDL3/SDL_init.h>
   #include <SDL3/SDL_events.h>
 #elif IS_USING_SDL_2
   #include <SDL2/SDL.h>
+  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL2/SDL_main.h>
   #include <SDL2/SDL_events.h>
 #elif IS_USING_SDL_1
   #include <SDL/SDL.h>
+  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL/SDL_main.h>
   #include <SDL/SDL_events.h>
 #endif
@@ -38,9 +41,13 @@ public:
   u8 window_check : 1;
   u8 window_undef : 1;
   u8 window_def : 1;
+  // ReSharper disable once CppDeclaratorNeverUsed
   u8 _pad03_ : 1;
+  // ReSharper disable once CppDeclaratorNeverUsed
   u8 _pad02_ : 1;
+  // ReSharper disable once CppDeclaratorNeverUsed
   u8 _pad01_ : 1;
+  // ReSharper disable once CppDeclaratorNeverUsed
   u8 _pad00_[mmBufferSize(0) - 1];
 };
 staticAssert(sizeof(Step) == sizeof(Buffer0), Step_FIT_INTO_ONE_Buffer0)
@@ -49,6 +56,7 @@ struct Bootstrapper {
   Pool4* pools_[sizeof(Buffer0) / sizeof(Pool4*)];
   Step step_a;
   Step step_b;
+  // ReSharper disable once CppDeclaratorNeverUsed
   Buffer0 _pad_[125];
   Bootstrapper() : pools_(), step_a(), step_b() {}
   Bootstrapper* undef() {
@@ -522,7 +530,7 @@ void Engine::shutEngine() {
   db_ = db_ ? db_->undef() : null;
   next_ = null;
   current_ = null;
-  boot_ = boot_->undef();
+  boot_ = boot_ ? boot_->undef() : null;
 }
 
 void Engine::shutSdl() { // NOLINT(*-convert-member-functions-to-static)
