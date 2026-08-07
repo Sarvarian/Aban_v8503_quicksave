@@ -43,6 +43,15 @@ struct Bootstrapper {
 };
 staticAssert(sizeof(Bootstrapper) == sizeof(Block0), BOOTSTRAPPER_FIT_INTO_ONE_BLOCK0)
 
+struct DebugData {
+  u64 frequency;
+  u64 past;
+private:
+  DebugData() : frequency(clockFrequencyU64() / MSPS), past(clockU64()) {}
+public:
+  static DebugData* def() { return new DebugData(); }
+  DebugData* undef() const { delete this; return null; }
+};
 
 /*
   ███████╗███╗   ██╗ ██████╗ ██╗███╗   ██╗███████╗
@@ -102,18 +111,26 @@ ESysStatus Engine::initEngine(int, char**) {
     debugBreak;
     return E_SYS_FATALITY;
   }
+
+#if !IS_USING_SDL_1
+  {
+    const int video_count = SdlWindow::getVideoDriverCount();
+    if (video_count < 1) {
+      exit_code = EXIT_FAILURE;
+      debugBreak;
+      return E_SYS_FATALITY;
+    }
+    print("Found %d video drivers.\n", video_count);
+    for (int i = 0; i < video_count; i++) {
+      const char* name = SdlWindow::getVideoDriverName(i);
+      print("Video driver %d: %s\n", i, name);
+    }
+  }
+#endif
+  print("Current video driver: %s\n", SdlWindow::getCurrentVideoDriverName());
+
   return E_SYS_CONTINUE;
 }
-
-struct DebugData {
-  u64 frequency;
-  u64 past;
-private:
-  DebugData() : frequency(clockFrequencyU64() / MSPS), past(clockU64()) {}
-public:
-  static DebugData* def() { return new DebugData(); }
-  DebugData* undef() const { delete this; return null; }
-};
 
 void Engine::calculateDeltaTime(DebugData& db) {
   /* Begin { Print Frame Time } */ {
