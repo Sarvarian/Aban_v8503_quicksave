@@ -332,5 +332,6 @@ private:
    *  while in SDl2 and SDL3 this will be `SDL_Window` */
   Handle* handle_;
 };
+staticAssert(sizeof(SdlWindow) == sizeof(void*), SdlWindow_IS_JUST_A_CONTAINER_FOR_ITS_HANDLE)
 
 #endif /* AB_SDL_INIT_HPP */
