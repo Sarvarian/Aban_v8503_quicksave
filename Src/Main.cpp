@@ -104,14 +104,7 @@ private:
   Step* next_;
   void calculateDeltaTime(DebugData& db);
 
-/*
-  ███████╗██╗   ██╗███████╗███╗   ██╗████████╗███████╗
-  ██╔════╝██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔════╝
-  █████╗  ██║   ██║█████╗  ██╔██╗ ██║   ██║   ███████╗
-  ██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ╚════██║
-  ███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   ███████║
-  ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
-*/
+/* SDL Events */
 
 #if IS_USING_SDL_2
   static int sdlEventFilter(void* self, SDL_Event* event);
@@ -125,14 +118,7 @@ private:
 
   ESysStatus on_unrecognized_event(const SDL_Event& event); /* Unrecognized SDL Event */
 
-/*
-   █████╗ ██████╗ ██████╗
-  ██╔══██╗██╔══██╗██╔══██╗
-  ███████║██████╔╝██████╔╝
-  ██╔══██║██╔═══╝ ██╔═══╝
-  ██║  ██║██║     ██║
-  ╚═╝  ╚═╝╚═╝     ╚═╝
-*/
+/* Application Events */
 
   ESysStatus on_quit(const SDL_QuitEvent& quit);
 
@@ -147,14 +133,7 @@ private:
   ESysStatus on_system_theme_changed(const SDL_CommonEvent& common); /**< System Theme Changed */
 #endif
 
-/*
-  ██████╗ ██╗███████╗██████╗ ██╗      █████╗ ██╗   ██╗
-  ██╔══██╗██║██╔════╝██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝
-  ██║  ██║██║███████╗██████╔╝██║     ███████║ ╚████╔╝
-  ██║  ██║██║╚════██║██╔═══╝ ██║     ██╔══██║  ╚██╔╝
-  ██████╔╝██║███████║██║     ███████╗██║  ██║   ██║
-  ╚═════╝ ╚═╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝
-*/
+/* Display Events */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_orientation_unknown(const SDL_DisplayEvent& display); /**< Display Orientation Changed, Unknown */
@@ -170,14 +149,7 @@ private:
   ESysStatus on_display_content_scale_changed(const SDL_DisplayEvent& display);
 #endif
 
-/*
-  ██╗    ██╗██╗███╗   ██╗██████╗  ██████╗ ██╗    ██╗
-  ██║    ██║██║████╗  ██║██╔══██╗██╔═══██╗██║    ██║
-  ██║ █╗ ██║██║██╔██╗ ██║██║  ██║██║   ██║██║ █╗ ██║
-  ██║███╗██║██║██║╚██╗██║██║  ██║██║   ██║██║███╗██║
-  ╚███╔███╔╝██║██║ ╚████║██████╔╝╚██████╔╝╚███╔███╔╝
-   ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝  ╚══╝╚══╝
-*/
+/* Window Events */
 
 #if IS_USING_SDL_1
   ESysStatus on_window_exposed(); /**< Window Exposed, Need Redraw */
@@ -226,14 +198,7 @@ private:
   ESysStatus on_sys_wm(const SDL_SysWMEvent& syswm);
 #endif
 
-/*
-  ██╗  ██╗███████╗██╗   ██╗██████╗  ██████╗  █████╗ ██████╗ ██████╗
-  ██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔══██╗
-  █████╔╝ █████╗   ╚████╔╝ ██████╔╝██║   ██║███████║██████╔╝██║  ██║
-  ██╔═██╗ ██╔══╝    ╚██╔╝  ██╔══██╗██║   ██║██╔══██║██╔══██╗██║  ██║
-  ██║  ██╗███████╗   ██║   ██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
-  ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
-*/
+/* Keyboard Events */
 
   ESysStatus on_keyboard_key_down(const SDL_KeyboardEvent& key); /**< Keyboard Key Down */
   ESysStatus on_keyboard_key_up(const SDL_KeyboardEvent& key); /**< Keyboard Key Up */
@@ -258,14 +223,7 @@ private:
   ESysStatus on_text_editing_candidates(const SDL_TextEditingCandidatesEvent& edit_candidates);
 #endif
 
-/*
-  ███╗   ███╗ ██████╗ ██╗   ██╗███████╗███████╗
-  ████╗ ████║██╔═══██╗██║   ██║██╔════╝██╔════╝
-  ██╔████╔██║██║   ██║██║   ██║███████╗█████╗
-  ██║╚██╔╝██║██║   ██║██║   ██║╚════██║██╔══╝
-  ██║ ╚═╝ ██║╚██████╔╝╚██████╔╝███████║███████╗
-  ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
-*/
+/* Mouse Events */
 
   ESysStatus on_mouse_motion(const SDL_MouseMotionEvent& motion); /**< Mouse Motion */
   ESysStatus on_mouse_button_down(const SDL_MouseButtonEvent& button); /**< Mouse Button Down */
@@ -280,14 +238,7 @@ private:
   ESysStatus on_mouse_removed(const SDL_MouseDeviceEvent& mdevice);
 #endif
 
-/*
-       ██╗ ██████╗ ██╗   ██╗███████╗████████╗██╗ ██████╗██╗  ██╗
-       ██║██╔═══██╗╚██╗ ██╔╝██╔════╝╚══██╔══╝██║██╔════╝██║ ██╔╝
-       ██║██║   ██║ ╚████╔╝ ███████╗   ██║   ██║██║     █████╔╝
-  ██   ██║██║   ██║  ╚██╔╝  ╚════██║   ██║   ██║██║     ██╔═██╗
-  ╚█████╔╝╚██████╔╝   ██║   ███████║   ██║   ██║╚██████╗██║  ██╗
-   ╚════╝  ╚═════╝    ╚═╝   ╚══════╝   ╚═╝   ╚═╝ ╚═════╝╚═╝  ╚═╝
-*/
+/* Joystick Events */
 
   ESysStatus on_joystick_axis_motion(const SDL_JoyAxisEvent& jaxis); /**< Joystick Axis Motion */
   ESysStatus on_joystick_ball_motion(const SDL_JoyBallEvent& jball); /**< Joystick Ball Motion */
@@ -302,14 +253,7 @@ private:
   ESysStatus on_joystick_update_complete(const SDL_JoyDeviceEvent& jdevice);
 #endif
 
-/*
-   ██████╗  █████╗ ███╗   ███╗███████╗██████╗  █████╗ ██████╗
-  ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██╔══██╗██╔══██╗██╔══██╗
-  ██║  ███╗███████║██╔████╔██║█████╗  ██████╔╝███████║██║  ██║
-  ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ██╔═══╝ ██╔══██║██║  ██║
-  ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██║     ██║  ██║██████╔╝
-   ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝╚═════╝
-*/
+/* Gamepad Events */
 
 #if IS_USING_SDL_2
   typedef SDL_ControllerAxisEvent SDL_GamepadAxisEvent;
@@ -334,14 +278,7 @@ private:
   ESysStatus on_gamepad_steam_handle_updated(const SDL_GamepadDeviceEvent& gdevice);
 #endif
 
-/*
-  ████████╗ ██████╗ ██╗   ██╗ ██████╗██╗  ██╗
-  ╚══██╔══╝██╔═══██╗██║   ██║██╔════╝██║  ██║
-     ██║   ██║   ██║██║   ██║██║     ███████║
-     ██║   ██║   ██║██║   ██║██║     ██╔══██║
-     ██║   ╚██████╔╝╚██████╔╝╚██████╗██║  ██║
-     ╚═╝    ╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝
-*/
+/* Touch Events */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_finger_down(const SDL_TouchFingerEvent& tfinger);
@@ -350,14 +287,7 @@ private:
   ESysStatus on_finger_canceled(const SDL_TouchFingerEvent& tfinger);
 #endif
 
-/*
-   ██████╗ ███████╗███████╗████████╗██╗   ██╗██████╗ ███████╗
-  ██╔════╝ ██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗██╔════╝
-  ██║  ███╗█████╗  ███████╗   ██║   ██║   ██║██████╔╝█████╗
-  ██║   ██║██╔══╝  ╚════██║   ██║   ██║   ██║██╔══██╗██╔══╝
-  ╚██████╔╝███████╗███████║   ██║   ╚██████╔╝██║  ██║███████╗
-   ╚═════╝ ╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
-*/
+/* SDL2 Gesture Events */
 
 #if IS_USING_SDL_2
   ESysStatus on_dollar_gesture(const SDL_DollarGestureEvent& dgesture);
@@ -366,14 +296,7 @@ private:
 #endif
 
 
-/*
-   ██████╗██╗     ██╗██████╗ ██████╗  ██████╗  █████╗ ██████╗ ██████╗
-  ██╔════╝██║     ██║██╔══██╗██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔══██╗
-  ██║     ██║     ██║██████╔╝██████╔╝██║   ██║███████║██████╔╝██║  ██║
-  ██║     ██║     ██║██╔═══╝ ██╔══██╗██║   ██║██╔══██║██╔══██╗██║  ██║
-  ╚██████╗███████╗██║██║     ██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
-   ╚═════╝╚══════╝╚═╝╚═╝     ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝
-*/
+/* Clipboard Events */
 
 #if IS_USING_SDL_2
   typedef SDL_CommonEvent SDL_ClipboardEvent;
@@ -383,14 +306,7 @@ private:
   ESysStatus on_clipboard_update(const SDL_ClipboardEvent& clipboard);
 #endif
 
-/*
-  ██████╗ ██████╗  ██████╗ ██████╗
-  ██╔══██╗██╔══██╗██╔═══██╗██╔══██╗
-  ██║  ██║██████╔╝██║   ██║██████╔╝
-  ██║  ██║██╔══██╗██║   ██║██╔═══╝
-  ██████╔╝██║  ██║╚██████╔╝██║
-  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝
-*/
+/* Drag and Drop Events */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_drop_file(const SDL_DropEvent& drop);
@@ -400,14 +316,7 @@ private:
   ESysStatus on_drop_position(const SDL_DropEvent& drop);
 #endif
 
-/*
-   █████╗ ██╗   ██╗██████╗ ██╗ ██████╗
-  ██╔══██╗██║   ██║██╔══██╗██║██╔═══██╗
-  ███████║██║   ██║██║  ██║██║██║   ██║
-  ██╔══██║██║   ██║██║  ██║██║██║   ██║
-  ██║  ██║╚██████╔╝██████╔╝██║╚██████╔╝
-  ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝ ╚═════╝
-*/
+/* Audio Events */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_audio_device_added(const SDL_AudioDeviceEvent& adevice);
@@ -415,27 +324,13 @@ private:
   ESysStatus on_audio_device_format_changed(const SDL_AudioDeviceEvent& adevice);
 #endif
 
-/*
-  ███████╗███████╗███╗   ██╗███████╗ ██████╗ ██████╗
-  ██╔════╝██╔════╝████╗  ██║██╔════╝██╔═══██╗██╔══██╗
-  ███████╗█████╗  ██╔██╗ ██║███████╗██║   ██║██████╔╝
-  ╚════██║██╔══╝  ██║╚██╗██║╚════██║██║   ██║██╔══██╗
-  ███████║███████╗██║ ╚████║███████║╚██████╔╝██║  ██║
-  ╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
-*/
+/* Sensor Events */
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   ESysStatus on_sensor_update(const SDL_SensorEvent& sensor);
 #endif
 
-/*
-  ██████╗ ███████╗███╗   ██╗
-  ██╔══██╗██╔════╝████╗  ██║
-  ██████╔╝█████╗  ██╔██╗ ██║
-  ██╔═══╝ ██╔══╝  ██║╚██╗██║
-  ██║     ███████╗██║ ╚████║
-  ╚═╝     ╚══════╝╚═╝  ╚═══╝
-*/
+/* Pen Events */
 
 #if IS_USING_SDL_3
   ESysStatus on_pen_proximity_in(const SDL_PenProximityEvent& pproximity);
@@ -448,14 +343,7 @@ private:
   ESysStatus on_pen_axis(const SDL_PenAxisEvent& paxis);
 #endif
 
-/*
-   ██████╗ █████╗ ███╗   ███╗███████╗██████╗  █████╗
-  ██╔════╝██╔══██╗████╗ ████║██╔════╝██╔══██╗██╔══██╗
-  ██║     ███████║██╔████╔██║█████╗  ██████╔╝███████║
-  ██║     ██╔══██║██║╚██╔╝██║██╔══╝  ██╔══██╗██╔══██║
-  ╚██████╗██║  ██║██║ ╚═╝ ██║███████╗██║  ██║██║  ██║
-   ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
-*/
+/* Camera Events */
 
 #if IS_USING_SDL_3
   ESysStatus on_camera_device_added(const SDL_CameraDeviceEvent& cdevice);
@@ -464,14 +352,7 @@ private:
   ESysStatus on_camera_device_denied(const SDL_CameraDeviceEvent& cdevice);
 #endif
 
-/*
-  ██████╗ ███████╗███╗   ██╗██████╗ ███████╗██████╗
-  ██╔══██╗██╔════╝████╗  ██║██╔══██╗██╔════╝██╔══██╗
-  ██████╔╝█████╗  ██╔██╗ ██║██║  ██║█████╗  ██████╔╝
-  ██╔══██╗██╔══╝  ██║╚██╗██║██║  ██║██╔══╝  ██╔══██╗
-  ██║  ██║███████╗██║ ╚████║██████╔╝███████╗██║  ██║
-  ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
-*/
+/* Render Events */
 
 #if IS_USING_SDL_2
   typedef SDL_CommonEvent SDL_RenderEvent;
@@ -483,14 +364,7 @@ private:
   ESysStatus on_render_device_lost(const SDL_RenderEvent& render);
 #endif
 
-/*
-  ██╗   ██╗███████╗███████╗██████╗
-  ██║   ██║██╔════╝██╔════╝██╔══██╗
-  ██║   ██║███████╗█████╗  ██████╔╝
-  ██║   ██║╚════██║██╔══╝  ██╔══██╗
-  ╚██████╔╝███████║███████╗██║  ██║
-   ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
-*/
+/* User Events */
 
   ESysStatus on_user_event(const SDL_UserEvent& event); /**< "User" Custom Event */
 
