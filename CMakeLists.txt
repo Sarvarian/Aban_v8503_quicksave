@@ -153,6 +153,3 @@ if (AB_VULKAN)
 else ()
   target_compile_definitions(ab PUBLIC AB_VULKAN=0)
 endif ()
-
-target_link_libraries(ab PRIVATE vulkan)
-

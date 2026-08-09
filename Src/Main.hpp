@@ -1757,7 +1757,7 @@ private:
 staticAssert(sizeof(SdlWindow) == sizeof(void*), SdlWindow_IS_JUST_A_CONTAINER_FOR_ITS_HANDLE)
 
 #if AB_VULKAN
-#include <vulkan/vulkan.h>
+#include <volk.h>
 class VulkanAppInfo : private VkApplicationInfo {
 public:
   static VulkanAppInfo def();
