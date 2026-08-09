@@ -1762,13 +1762,13 @@ class VulkanAppInfo : private VkApplicationInfo {
 public:
   static VulkanAppInfo def();
   VkApplicationInfo castVkApplicationInfo() const;
-  void setApplicationName(const char* c_str);
-  void setApplicationVersion(const u8 major, const u8 minor, const u8 patch);
-  void setApiVersionTo1Point0();
-  void setApiVersionTo1Point1();
-  void setApiVersionTo1Point2();
-  void setApiVersionTo1Point3();
-  void setApiVersionTo1Point4();
+  VulkanAppInfo& setApplicationName(const char* c_str);
+  VulkanAppInfo& setApplicationVersion(const u8 major, const u8 minor, const u8 patch);
+  VulkanAppInfo& setApiVersionTo1Point0();
+  VulkanAppInfo& setApiVersionTo1Point1();
+  VulkanAppInfo& setApiVersionTo1Point2();
+  VulkanAppInfo& setApiVersionTo1Point3();
+  VulkanAppInfo& setApiVersionTo1Point4();
 private:
   VulkanAppInfo();
 };

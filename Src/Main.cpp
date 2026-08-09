@@ -2266,26 +2266,33 @@ VulkanAppInfo VulkanAppInfo::def() {
 VkApplicationInfo VulkanAppInfo::castVkApplicationInfo() const {
   return *this;
 }
-void VulkanAppInfo::setApplicationName(const char* c_str) {
+VulkanAppInfo& VulkanAppInfo::setApplicationName(const char* c_str) {
   pApplicationName = c_str;
+  return *this;
 }
-void VulkanAppInfo::setApplicationVersion(const u8 major, const u8 minor, const u8 patch) {
+VulkanAppInfo& VulkanAppInfo::setApplicationVersion(const u8 major, const u8 minor, const u8 patch) {
   applicationVersion = VK_MAKE_VERSION(major, minor, patch);
+  return *this;
 }
-void VulkanAppInfo::setApiVersionTo1Point0() {
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point0() {
   apiVersion = VK_API_VERSION_1_0;
+  return *this;
 }
-void VulkanAppInfo::setApiVersionTo1Point1() {
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point1() {
   apiVersion = VK_API_VERSION_1_1;
+  return *this;
 }
-void VulkanAppInfo::setApiVersionTo1Point2() {
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point2() {
   apiVersion = VK_API_VERSION_1_2;
+  return *this;
 }
-void VulkanAppInfo::setApiVersionTo1Point3() {
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point3() {
   apiVersion = VK_API_VERSION_1_3;
+  return *this;
 }
-void VulkanAppInfo::setApiVersionTo1Point4() {
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point4() {
   apiVersion = VK_API_VERSION_1_4;
+  return *this;
 }
 #endif /* AB_VULKAN */
 
