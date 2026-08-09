@@ -32,7 +32,7 @@ option(AB_SDL_STATIC  "Link to SDL-static:" OFF)
 option(AB_CONCUR  "Enable concurrency and threading modules." ON)
 option(AB_VULKAN  "Include Vulkan Backend" ON)
 
-include(CMake/SDL_Found.cmake)
+include(SDL_Found.cmake)
 message(STATUS "Detected SDL version: ${AB_SDL}")
 
 # Set Fixed C Standard
@@ -55,7 +55,7 @@ add_executable(ab
   Src/Memory.hpp
 )
 
-include(CMake/SDL_Link.cmake)
+include(SDL_Link.cmake)
 
 if (NOT CMAKE_VERSION VERSION_LESS 3.16)
   target_precompile_headers(ab PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)

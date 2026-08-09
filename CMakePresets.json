@@ -41,7 +41,7 @@
     "name": "win32",
     "displayName": "Win32",
     "description": "Build for Windows",
-    "toolchainFile": "toolchain-win32.cmake",
+    "toolchainFile": "Toolchain_win32.cmake",
     "cacheVariables": {
       "AB_OS": "win32",
       "AB_OPTIMIZE": "ON",
