@@ -355,6 +355,54 @@
   #define IS_MULTI_WINDOW_SUPPORTED 0
 #endif
 
+#if defined(AB_UUID)
+  /* Empty */
+#else
+  #define AB_UUID "2c76398e-612f-4bb0-ada6-d2ef8fa68246"
+#endif
+
+#if defined(AB_VERSION_DATE)
+  /* Empty */
+#else
+  #define AB_VERSION_DATE 8503
+#endif
+
+#if defined(AB_VERSION_EDITION)
+  /* Empty */
+#else
+  #define AB_VERSION_EDITION 1
+#endif
+
+#if defined(AB_VERSION_MAJOR)
+  /* Empty */
+#else
+  #define AB_VERSION_DATE 0
+#endif
+
+#if defined(AB_VERSION_MINOR)
+  /* Empty */
+#else
+  #define AB_VERSION_MINOR 1
+#endif
+
+#if defined(AB_VERSION_PATCH)
+  /* Empty */
+#else
+  #define AB_VERSION_PATCH 0
+#endif
+
+#if defined(AB_VULKAN)
+  /* Empty */
+#else
+  #define AB_VULKAN 0
+#endif
+
+#if defined(AB_CONCUR)
+  /* Empty */
+#else
+  #define AB_CONCUR 0
+#endif
+
 
 
 

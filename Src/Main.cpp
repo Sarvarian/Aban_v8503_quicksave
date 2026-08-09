@@ -2257,7 +2257,7 @@ VulkanAppInfo::VulkanAppInfo() : VkApplicationInfo() {
   pApplicationName = "Aban Editor";
   applicationVersion = VK_MAKE_VERSION(0, 1, 0);
   pEngineName = "Aban Engine";
-  engineVersion = VK_MAKE_VERSION(0, 1, 0);
+  engineVersion = VK_MAKE_VERSION(AB_VERSION_MAJOR, AB_VERSION_MINOR, AB_VERSION_PATCH);
   apiVersion = VK_API_VERSION_1_0;
 }
 VulkanAppInfo VulkanAppInfo::def() {

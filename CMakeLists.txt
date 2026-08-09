@@ -5,15 +5,26 @@ project(Aban)
 enable_language(C)
 enable_language(CXX)
 
+set(AB_UUID "2c76398e-612f-4bb0-ada6-d2ef8fa68246")  # Project UUID
+set(AB_VERSION_DATE 8503)  # v8503e1 Date Version
+set(AB_VERSION_EDITION 1)
+set(AB_VERSION_MAJOR 0)     # 0.1.0 Semantic Version
+set(AB_VERSION_MINOR 1)
+set(AB_VERSION_PATCH 0)
+
+add_compile_definitions(
+  AB_UUID="${AB_UUID}"
+  AB_VERSION_DATE=${AB_VERSION_DATE}
+  AB_VERSION_EDITION=${AB_VERSION_EDITION}
+  AB_VERSION_MAJOR=${AB_VERSION_MAJOR}
+  AB_VERSION_MINOR=${AB_VERSION_MINOR}
+  AB_VERSION_PATCH=${AB_VERSION_PATCH}
+)
+
 # Optimization Options
 option( AB_OPTIMIZE  "Optimization Enable."                  ON  )
 option( AB_SANITIZE  "Sanitizer Enable."                     OFF )
 option( AB_DEBUG     "Debug Enable."                         OFF )
-
-# Target OS Selector
-set(AB_OS_ENUM "linux" "win32")
-set(AB_OS "linux" CACHE STRING "Runtime Host Operating System: ${AB_OS_ENUM}")
-set_property(CACHE AB_OS PROPERTY STRINGS ${AB_OS_ENUM})
 
 # SDL Version Selector
 set(AB_SDL_ENUM "1" "2" "3" "auto")
@@ -100,11 +111,6 @@ else()
     -O0 -ffast-math
   )
 endif()
-
-
-
-
-target_compile_definitions(ab PUBLIC AB_OS=${AB_OS})
 
 if (AB_OPTIMIZE)
   target_compile_definitions(ab PUBLIC AB_OPTIMIZE=1)
