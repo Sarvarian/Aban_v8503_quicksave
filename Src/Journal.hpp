@@ -7,6 +7,7 @@ class Journal {
 public:
   static void sdlInitFailed();
   static void firstPoolAllocationFailed();
+  static void vulkanEnumerateInstanceExtensionPropertiesCountFailed();
 };
 
 #endif /* AB_JOURNAL_HPP */

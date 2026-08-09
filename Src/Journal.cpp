@@ -15,3 +15,7 @@ void Journal::firstPoolAllocationFailed() {
 #endif
   perror(message);
 }
+
+void Journal::vulkanEnumerateInstanceExtensionPropertiesCountFailed() {
+  fprintf(stderr, "Failed at vkEnumerateInstanceExtensionProperties for getting count.");
+}
