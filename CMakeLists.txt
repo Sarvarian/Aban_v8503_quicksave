@@ -46,6 +46,12 @@ option(AB_VULKAN  "Include Vulkan Backend" ON)
 include(SDL_Found.cmake)
 message(STATUS "Detected SDL version: ${AB_SDL}")
 
+add_subdirectory(Lib/glad)
+
+if (AB_VULKAN)
+  add_subdirectory(Lib/volk)
+endif()
+
 # Set Fixed C Standard
 set(CMAKE_C_STANDARD 90)
 set(CMAKE_C_STANDARD_REQUIRED)
@@ -67,6 +73,12 @@ add_executable(ab
 )
 
 include(SDL_Link.cmake)
+
+target_link_libraries(ab PRIVATE glad)
+
+if (AB_VULKAN)
+  target_link_libraries(ab PRIVATE volk)
+endif()
 
 if (NOT CMAKE_VERSION VERSION_LESS 3.16)
   target_precompile_headers(ab PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
