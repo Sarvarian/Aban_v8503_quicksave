@@ -1761,6 +1761,7 @@ staticAssert(sizeof(SdlWindow) == sizeof(void*), SdlWindow_IS_JUST_A_CONTAINER_F
 class VulkanAppInfo : private VkApplicationInfo {
 public:
   static VulkanAppInfo def();
+  VkApplicationInfo castVkApplicationInfo() const;
   void setApplicationName(const char* c_str);
   void setApplicationVersion(const u8 major, const u8 minor, const u8 patch);
   void setApiVersionTo1Point0();

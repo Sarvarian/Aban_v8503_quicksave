@@ -2263,6 +2263,9 @@ VulkanAppInfo::VulkanAppInfo() : VkApplicationInfo() {
 VulkanAppInfo VulkanAppInfo::def() {
   return VulkanAppInfo();
 }
+VkApplicationInfo VulkanAppInfo::castVkApplicationInfo() const {
+  return *this;
+}
 void VulkanAppInfo::setApplicationName(const char* c_str) {
   pApplicationName = c_str;
 }
