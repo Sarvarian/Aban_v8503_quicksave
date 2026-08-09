@@ -1,5 +1,4 @@
 
-
 if (AB_SDL STREQUAL "1")
   target_include_directories(ab  PRIVATE ${SDL_INCLUDE_DIR})
   target_include_directories(ab  PRIVATE ${SDL_INCLUDE_DIRS})
@@ -59,4 +58,3 @@ elseif (AB_SDL STREQUAL "3")
   target_compile_options(ab  PRIVATE ${SDL3_CFLAGS_OTHER})
   target_compile_definitions(ab PRIVATE USE_SDL=3)
 endif ()
-

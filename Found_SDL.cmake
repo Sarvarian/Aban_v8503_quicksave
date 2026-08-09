@@ -1,6 +1,4 @@
 
-find_package(PkgConfig REQUIRED)
-
 # Find SDL Package
 if (AB_SDL_LIB_DIRECTORY)
   add_subdirectory(${AB_SDL_LIB_DIRECTORY})

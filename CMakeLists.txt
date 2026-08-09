@@ -7,6 +7,8 @@ enable_language(CXX)
 
 include(Set_Options.cmake)
 
+find_package(PkgConfig REQUIRED)
+
 include(Found_SDL.cmake)
 message(STATUS "Detected SDL version: ${AB_SDL}")
 
