@@ -30,6 +30,7 @@ set(AB_SDL_LIB_DIRECTORY ""
 
 option(AB_SDL_STATIC  "Link to SDL-static:" OFF)
 option(AB_CONCUR  "Enable concurrency and threading modules." ON)
+option(AB_VULKAN  "Include Vulkan Backend" ON)
 
 include(CMake/SDL_Found.cmake)
 message(STATUS "Detected SDL version: ${AB_SDL}")
@@ -129,5 +130,11 @@ else ()
   target_compile_definitions(ab PUBLIC AB_CONCUR=0)
 endif ()
 
+if (AB_VULKAN)
+  target_compile_definitions(ab PUBLIC AB_VULKAN=1)
+else ()
+  target_compile_definitions(ab PUBLIC AB_VULKAN=0)
+endif ()
 
+target_link_libraries(ab PRIVATE vulkan)
 

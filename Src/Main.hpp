@@ -1708,7 +1708,21 @@ private:
 };
 staticAssert(sizeof(SdlWindow) == sizeof(void*), SdlWindow_IS_JUST_A_CONTAINER_FOR_ITS_HANDLE)
 
-
-
+#if AB_VULKAN
+#include <vulkan/vulkan.h>
+class VulkanAppInfo : private VkApplicationInfo {
+public:
+  static VulkanAppInfo def();
+  void setApplicationName(const char* c_str);
+  void setApplicationVersion(const u8 major, const u8 minor, const u8 patch);
+  void setApiVersionTo1Point0();
+  void setApiVersionTo1Point1();
+  void setApiVersionTo1Point2();
+  void setApiVersionTo1Point3();
+  void setApiVersionTo1Point4();
+private:
+  VulkanAppInfo();
+};
+#endif /* AB_VULKAN */
 
 #endif /* AB_MAIN_HPP */

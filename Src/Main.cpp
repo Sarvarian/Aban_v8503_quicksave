@@ -458,6 +458,30 @@ ESysStatus Engine::initEngine(int, char**) {
   }
 #endif
 
+  {
+    u32 version = 0;
+    VkResult res = vkEnumerateInstanceVersion(&version);
+    if (res == 0) {
+      print("Vulkan Instance Version Variant: %d", VK_API_VERSION_VARIANT(version));
+      print("Vulkan Instance Version Major: %d", VK_API_VERSION_MAJOR(version));
+      print("Vulkan Instance Version Minor: %d", VK_API_VERSION_MINOR(version));
+      print("Vulkan Instance Version Patch: %d", VK_API_VERSION_PATCH(version));
+    } else {
+      print("Failed to get Vulkan instance version. res: %d", res);
+    }
+    VkExtensionProperties properties[5] = {};
+    u32 count = sizeof(properties) / sizeof(VkExtensionProperties);
+    res = vkEnumerateInstanceExtensionProperties(null, &count, properties);
+    if (res == 0) {
+      print("Vulkan Extension Count: %u", count);
+      for (u32 i = 0; i < count; i++) {
+        print("Extension %d: %s", i, properties[i].extensionName);
+      }
+    } else {
+      print("Failed to get Vulkan extension count. res: %d", res);
+    }
+  }
+
   return E_SYS_CONTINUE;
 }
 
@@ -2225,4 +2249,40 @@ bool SdlWindow::setTitle(const char* title) {
   return SDL_SetWindowTitle(handle_, title);
 #endif
 }
+
+#if AB_VULKAN
+VulkanAppInfo::VulkanAppInfo() : VkApplicationInfo() {
+  sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+  pNext = null;
+  pApplicationName = "Aban Editor";
+  applicationVersion = VK_MAKE_VERSION(0, 1, 0);
+  pEngineName = "Aban Engine";
+  engineVersion = VK_MAKE_VERSION(0, 1, 0);
+  apiVersion = VK_API_VERSION_1_0;
+}
+VulkanAppInfo VulkanAppInfo::def() {
+  return VulkanAppInfo();
+}
+void VulkanAppInfo::setApplicationName(const char* c_str) {
+  pApplicationName = c_str;
+}
+void VulkanAppInfo::setApplicationVersion(const u8 major, const u8 minor, const u8 patch) {
+  applicationVersion = VK_MAKE_VERSION(major, minor, patch);
+}
+void VulkanAppInfo::setApiVersionTo1Point0() {
+  apiVersion = VK_API_VERSION_1_0;
+}
+void VulkanAppInfo::setApiVersionTo1Point1() {
+  apiVersion = VK_API_VERSION_1_1;
+}
+void VulkanAppInfo::setApiVersionTo1Point2() {
+  apiVersion = VK_API_VERSION_1_2;
+}
+void VulkanAppInfo::setApiVersionTo1Point3() {
+  apiVersion = VK_API_VERSION_1_3;
+}
+void VulkanAppInfo::setApiVersionTo1Point4() {
+  apiVersion = VK_API_VERSION_1_4;
+}
+#endif /* AB_VULKAN */
 
