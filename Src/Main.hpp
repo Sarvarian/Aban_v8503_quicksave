@@ -1772,7 +1772,7 @@ public:
 private:
   VulkanAppInfo();
 };
-staticAssert(sizeof(VulkanAppInfo) == sizeof(VkApplicationInfo), VulkanAppInfor_IS_JUST_A_THIN_WRAPPER_FOR_VkApplicationInfo)
+staticAssert(sizeof(VulkanAppInfo) == sizeof(VkApplicationInfo), VulkanAppInfor_IS_JUST_A_THIN_WRAPPER_OVER_VkApplicationInfo)
 #endif /* AB_VULKAN */
 
 #endif /* AB_MAIN_HPP */
