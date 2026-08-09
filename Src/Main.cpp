@@ -461,7 +461,7 @@ ESysStatus Engine::initEngine(int, char**) {
   {
     u32 version = 0;
     VkResult res = vkEnumerateInstanceVersion(&version);
-    if (res == 0) {
+    if (res == VK_SUCCESS) {
       print("Vulkan Instance Version Variant: %d", VK_API_VERSION_VARIANT(version));
       print("Vulkan Instance Version Major: %d", VK_API_VERSION_MAJOR(version));
       print("Vulkan Instance Version Minor: %d", VK_API_VERSION_MINOR(version));
@@ -469,10 +469,10 @@ ESysStatus Engine::initEngine(int, char**) {
     } else {
       print("Failed to get Vulkan instance version. res: %d", res);
     }
-    VkExtensionProperties properties[5] = {};
+    VkExtensionProperties properties[32] = {};
     u32 count = sizeof(properties) / sizeof(VkExtensionProperties);
     res = vkEnumerateInstanceExtensionProperties(null, &count, properties);
-    if (res == 0) {
+    if (res == VK_SUCCESS) {
       print("Vulkan Extension Count: %u", count);
       for (u32 i = 0; i < count; i++) {
         print("Extension %d: %s", i, properties[i].extensionName);
