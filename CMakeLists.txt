@@ -14,9 +14,7 @@ message(STATUS "Detected SDL version: ${AB_SDL}")
 
 add_subdirectory(Lib/glad)
 
-if (AB_VULKAN)
-  add_subdirectory(Lib/volk)
-endif()
+include(Found_Vulkan.cmake)
 
 # Set Fixed C Standard
 set(CMAKE_C_STANDARD 90)
