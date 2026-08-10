@@ -36,6 +36,8 @@ add_executable(ab
   Src/Asr.hpp
   Src/Ass.cpp
   Src/Ass.hpp
+  Src/Engine.cpp
+  Src/Engine.hpp
   Src/Journal.cpp
   Src/Journal.hpp
   Src/Main.hpp
