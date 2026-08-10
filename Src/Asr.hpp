@@ -1,7 +1,24 @@
+#pragma once
+
 #ifndef AB_ASR_HPP
 #define AB_ASR_HPP
 
 #include "Main.hpp"
+
+/*
+ * Render Backends:
+ *   - Software
+ *   - OpenGL
+ *   - Vulkan
+ *   - DirectX
+ *   - SDL Renderer
+ *
+ * Video Output:
+ *   - SDL Window
+ *   - Memory
+ *   - Network
+ *
+ */
 
 /** Aban Strong Renderer */
 class Asr {
