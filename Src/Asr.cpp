@@ -9,8 +9,7 @@ Asr* Asr::def() {
   return null;
 }
 
-// ReSharper disable once CppMemberFunctionMayBeStatic
-Asr* Asr::undef() { // NOLINT(*-convert-member-functions-to-static)
+Asr* Asr::undef() {
   return null;
 }
 
