@@ -2039,6 +2039,13 @@ EMutexResult semaphoreSignal(Semaphore* semaphore) {
   return E_MUTEX_SUCCEEDED;
 }
 
+ThreadID getCurrentThreadID(void) { /* NOLINT(*-redundant-void-arg) */
+  return SDL_GetCurrentThreadID();
+}
+
+ThreadID getThreadID(Thread* thread) {
+  return SDL_GetThreadID(thread);
+}
 
 #endif
 

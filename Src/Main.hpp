@@ -831,7 +831,7 @@ EMutexResult mutexUnlock(Mutex*);
 /** @return May return null.
  *  Use SDL_GetError() for diagnosis.
  */
-Condvar* condvarCreate(void);
+Condvar* condvarCreate(void); /* NOLINT(*-redundant-void-arg) */
 
 /** @return Always return null.
  */
@@ -847,7 +847,7 @@ EMutexResult condvarWait(Condvar*, Mutex*);
  *          `E_MUTEX_TIMED_OUT` on timeout,
  *          `E_MUTEX_FAILED` on failure.
  */
-EMutexResult condvarWaitTimeout(Condvar*, Mutex*, const i32 timeoutMS);
+EMutexResult condvarWaitTimeout(Condvar*, Mutex*, const i32 timeoutMS); /* NOLINT(*-avoid-const-params-in-decls) */
 
 /** @return `E_MUTEX_SUCCEEDED` on success,
  *          `E_MUTEX_FAILED` on failure.
@@ -862,7 +862,7 @@ EMutexResult condvarBroadcast(Condvar*);
 /** @return May return null.
  *  Use SDL_GetError() for diagnosis.
  */
-Semaphore* semaphoreCreate(const u32 initial_value);
+Semaphore* semaphoreCreate(const u32 initial_value); /* NOLINT(*-avoid-const-params-in-decls) */
 
 /** @return Always return null.
  */
@@ -880,7 +880,7 @@ EMutexResult semaphoreWait(Semaphore*);
  *          `E_MUTEX_TIMED_OUT` on timeout,
  *          `E_MUTEX_FAILED` on failure.
  */
-EMutexResult semaphoreWaitTimeout(Semaphore*, const i32 timeoutMS);
+EMutexResult semaphoreWaitTimeout(Semaphore*, const i32 timeoutMS); /* NOLINT(*-avoid-const-params-in-decls) */
 
 /** @return `E_MUTEX_SUCCEEDED` on success,
  *          `E_MUTEX_TIMED_OUT` on timeout,
@@ -892,6 +892,10 @@ EMutexResult semaphoreTryWait(Semaphore*);
  *          `E_MUTEX_FAILED` on failure.
  */
 EMutexResult semaphoreSignal(Semaphore*);
+
+ThreadID getCurrentThreadID(void); /* NOLINT(*-redundant-void-arg) */
+
+ThreadID getThreadID(Thread*);
 
 #endif /* AB_CONCUR */
 
