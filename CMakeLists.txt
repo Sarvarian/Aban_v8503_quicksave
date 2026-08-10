@@ -38,6 +38,8 @@ add_executable(ab
   Src/Main.cpp
   Src/Memory.cpp
   Src/Memory.hpp
+  Src/Video.cpp
+  Src/Video.hpp
 )
 
 include(Link_SDL.cmake)
