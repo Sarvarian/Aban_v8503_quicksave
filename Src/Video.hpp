@@ -56,6 +56,25 @@ private:
 };
 staticAssert(sizeof(SdlWindow) == sizeof(void*), SdlWindow_IS_JUST_A_CONTAINER_FOR_ITS_HANDLE)
 
+#if AB_VULKAN
+#include <volk.h>
+class VulkanAppInfo : private VkApplicationInfo {
+public:
+  static VulkanAppInfo def();
+  VkApplicationInfo castVkApplicationInfo() const;
+  VulkanAppInfo& setApplicationName(const char* c_str);
+  VulkanAppInfo& setApplicationVersion(const u8 major, const u8 minor, const u8 patch);
+  VulkanAppInfo& setApiVersionTo1Point0();
+  VulkanAppInfo& setApiVersionTo1Point1();
+  VulkanAppInfo& setApiVersionTo1Point2();
+  VulkanAppInfo& setApiVersionTo1Point3();
+  VulkanAppInfo& setApiVersionTo1Point4();
+private:
+  VulkanAppInfo();
+};
+staticAssert(sizeof(VulkanAppInfo) == sizeof(VkApplicationInfo), VulkanAppInfor_IS_JUST_A_THIN_WRAPPER_OVER_VkApplicationInfo)
+#endif /* AB_VULKAN */
+
 class Video {
 public:
   static Video* def();

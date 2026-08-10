@@ -78,6 +78,52 @@ bool SdlWindow::setTitle(const char* title) {
 #endif
 }
 
+#if AB_VULKAN
+VulkanAppInfo::VulkanAppInfo() : VkApplicationInfo() {
+  sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+  pNext = null;
+  pApplicationName = "Aban Editor";
+  applicationVersion = VK_MAKE_VERSION(0, 1, 0);
+  pEngineName = "Aban Engine";
+  engineVersion = VK_MAKE_VERSION(AB_VERSION_MAJOR, AB_VERSION_MINOR, AB_VERSION_PATCH);
+  apiVersion = VK_API_VERSION_1_0;
+}
+VulkanAppInfo VulkanAppInfo::def() {
+  return VulkanAppInfo();
+}
+VkApplicationInfo VulkanAppInfo::castVkApplicationInfo() const {
+  return *this;
+}
+VulkanAppInfo& VulkanAppInfo::setApplicationName(const char* c_str) {
+  pApplicationName = c_str;
+  return *this;
+}
+VulkanAppInfo& VulkanAppInfo::setApplicationVersion(const u8 major, const u8 minor, const u8 patch) {
+  applicationVersion = VK_MAKE_VERSION(major, minor, patch);
+  return *this;
+}
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point0() {
+  apiVersion = VK_API_VERSION_1_0;
+  return *this;
+}
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point1() {
+  apiVersion = VK_API_VERSION_1_1;
+  return *this;
+}
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point2() {
+  apiVersion = VK_API_VERSION_1_2;
+  return *this;
+}
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point3() {
+  apiVersion = VK_API_VERSION_1_3;
+  return *this;
+}
+VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point4() {
+  apiVersion = VK_API_VERSION_1_4;
+  return *this;
+}
+#endif /* AB_VULKAN */
+
 Video::Video() {
 }
 
