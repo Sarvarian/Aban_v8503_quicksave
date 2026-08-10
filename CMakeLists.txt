@@ -40,8 +40,8 @@ add_executable(ab
   Src/Journal.hpp
   Src/Main.hpp
   Src/Main.cpp
-  Src/Memory.cpp
-  Src/Memory.hpp
+  Src/Memory.0.cpp
+  Src/Memory.0.hpp
   Src/Video.cpp
   Src/Video.hpp
 )

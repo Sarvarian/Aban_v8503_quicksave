@@ -19,7 +19,7 @@
   #include <SDL/SDL_events.h>
 #endif
 
-#include "Memory.hpp"
+#include "Memory.0.hpp"
 #include "Journal.hpp"
 #include "Video.hpp"
 
