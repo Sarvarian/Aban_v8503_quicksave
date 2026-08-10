@@ -28,6 +28,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Build The Aban Binary
 add_executable(ab
+  Src/Ace.cpp
+  Src/Ace.hpp
+  Src/Arm.cpp
+  Src/Arm.hpp
   Src/Asr.cpp
   Src/Asr.hpp
   Src/Ass.cpp

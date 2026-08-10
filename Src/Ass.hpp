@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef AB_ASS_HPP
 #define AB_ASS_HPP
 
