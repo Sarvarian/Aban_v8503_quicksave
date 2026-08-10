@@ -1,5 +1,6 @@
 #include "Asr.hpp"
 
+#include "Video.hpp"
 #include "Journal.hpp"
 
 Asr::Asr() {
