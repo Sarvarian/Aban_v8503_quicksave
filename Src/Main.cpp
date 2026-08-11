@@ -32,11 +32,11 @@ public:
   void frameEnd(const u32 target_delta_ms) {
     const u64 now = clockU64();
     const u64 delta = (now - post_) / frequency_;
-    const u64 mark = post_ + delta;
+    const u64 mark = post_ + target_delta_ms;
     delay_ = target_delta_ms > delta ? target_delta_ms - delta : 0 ;
-    // delay_ = delay_ > 1 ? delay_ - 1 : 0;
+    delay_ = delay_ > 1 ? delay_ - 1 : 0;
     SDL_Delay(delay_);
-    // while (clockU64() < mark) { /* Waste Processor Clock */ }
+    while (clockU64() < mark) { /* Waste Processor Clock */ }
     post_ = clockU64();
   }
   static Timing def() {
