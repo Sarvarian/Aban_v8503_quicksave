@@ -185,7 +185,7 @@ void Engine::calculateDeltaTime(DebugData& db) {
     const double delta = castDouble(now - db.past) / castDouble(db.frequency);
     const double fps = castDouble(MSPS) / delta;
     db.past = now;
-    // print("delta: %f\t fps: %f\n", delta, fps);
+    print("delta: %f\t fps: %f\n", delta, fps);
     char title[128] = {0};
     snprintf(title, sizeof(title), "delta: %.2f fps: %.2f", delta, fps);
     window_.setTitle(title);
