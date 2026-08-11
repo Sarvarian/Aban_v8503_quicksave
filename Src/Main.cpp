@@ -31,7 +31,7 @@ public:
     const u64 now = clockU64();
     if (now < next_) {
       u32 delay = (next_ - now) / frequency_;
-      delay = delay > 1 ? delay - 1 : 0;
+      delay = delay > 1 ? (delay - 1) : 0;
       SDL_Delay(delay);
     }
     while (clockU64() < next_) { /* Waste Clock */ }
