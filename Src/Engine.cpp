@@ -1,3 +1,4 @@
+/* ReSharper disable CppMemberFunctionMayBeStatic */
 #include "Engine.hpp"
 
 #if IS_USING_SDL_3
