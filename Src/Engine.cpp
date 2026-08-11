@@ -145,6 +145,14 @@ ESysStatus Engine::initEngine(int, char**) {
 #endif
 
   {
+    const VkResult res = volkInitialize();
+    if (res != VK_SUCCESS) {
+      print("Failed to initialize volk!");
+      return E_SYS_FATALITY;
+    }
+  }
+
+  {
     u32 version = 0;
     VkResult res = vkEnumerateInstanceVersion(&version);
     if (res == VK_SUCCESS) {
