@@ -22,10 +22,7 @@ struct Timing {
 private:
   const u64 frequency_; /* Clock frequency in millisecond. */
   u64 next_; /* Next Step Starts At */
-  Timing()
-  : frequency_(clockFrequencyU64() / MSPS)
-  , next_(0)
-  {}
+  Timing() : frequency_(clockFrequencyU64() / MSPS) , next_(0) {}
 public:
   void frameEnd(const u32 target_delta_ms) {
     const u64 now = clockU64();
