@@ -1,5 +1,19 @@
 
-# Memory
+# Main
+
+## TTT and Binlog
+
+TTTs are macros defined in `Main.hpp` and
+the triple T stand for "2 To The" x.
+
+They are constants or the function that calculate
+the power result of a two's exponent.
+
+Just as Binlog that is doing the reverse.
+
+Binlog calculate a two's exponent from a given power.
+
+## Memory
 
 This is our low-level memory module.
 
@@ -14,7 +28,7 @@ and their respected types:
 - Blocks
 - Pools
 
-## Buffer
+### Buffer
 
 A buffer, is a fixed sized array or just a raw
 memory, that can be used as an array of data,
@@ -41,7 +55,7 @@ Also, there is no buffer size difference between
 32-bit and 64-bit runtime. Both are set to have
 buffers of 512 bytes by default.
 
-## Scale
+### Scale
 
 We store size of buffers and blocks by `Scale`.
 Scales are 2's exponents. Each memory level
@@ -56,7 +70,7 @@ are as follows:
 - Buffer2: Scale 2. 2048 bytes. Exponent 11.
 - Buffer3: Scale 3. 4096 bytes. Exponent 12.
 
-## Block
+### Block
 
 Blocks containers of 128 buffers (by default)
 of the same scale. The buffers are consecutive
@@ -73,7 +87,7 @@ Blocks also came in 4 scales:
 - Block2: 2048 bytes * 128 = 256KB
 - Block3: 4096 bytes * 128 = 512KB
 
-## Pools 
+### Pools 
 
 Pools are large memory spaces, 4MB up to 2GB.
 
@@ -94,7 +108,7 @@ So, to allocate a Block3, it will cost 8 capacity from
 our pool. 16 is `unit` count of Block3. It is how much
 of a Block0 can be fit into a Block3.
 
-## Unit
+### Unit
 
 A unit buffer is Buffer0.
 
@@ -114,15 +128,3 @@ scale number.
 
 A unit is always the unscaled object of that level (Buffer0 or Block0).
 Scale S occupies 1 << S units.
-
-## TTT and Binlog
-
-TTTs are macros defined in `Main.hpp` and
-the triple T stand for "2 To The" x.
-
-They are constants or the function that calculate
-the power result of a two's exponent.
-
-Just as Binlog that is doing the reverse.
-
-Binlog calculate a two's exponent from a given power.

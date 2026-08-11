@@ -9,7 +9,6 @@
   #include <SDL/SDL_events.h>
 #endif
 
-#include "Memory.0.hpp"
 #include "Journal.hpp"
 
 /*
