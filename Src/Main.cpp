@@ -32,7 +32,7 @@ public:
     if (now < next_) {
       u32 delay = (next_ - now) / frequency_;
       delay = delay > 1 ? (delay - 1) : 0;
-      SDL_Delay(delay);
+      if (delay > 0) { SDL_Delay(delay); }
     }
     while (clockU64() < next_) { /* Waste Clock */ }
     next_ = clockU64() + (target_delta_ms * frequency_);
