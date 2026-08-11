@@ -21,23 +21,21 @@
 struct Timing {
 private:
   const u64 frequency_; /* Clock frequency in millisecond. */
-  u64 post_; /* Post delay clock. */
-  u32 delay_; /* Calculated milliseconds of last delay. */
+  u64 next_; /* Next Step Starts At */
   Timing()
   : frequency_(clockFrequencyU64() / MSPS)
-  , post_(clockU64())
-  , delay_(0)
+  , next_(0)
   {}
 public:
   void frameEnd(const u32 target_delta_ms) {
     const u64 now = clockU64();
-    const u64 delta = (now - post_) / frequency_;
-    const u64 mark = (post_ / frequency_) + target_delta_ms;
-    delay_ = target_delta_ms > delta ? target_delta_ms - delta : 0 ;
-    delay_ = delay_ > 1 ? delay_ - 1 : 0;
-    SDL_Delay(delay_);
-    while (clockU64() < mark) { /* Waste Processor Clock */ }
-    post_ = clockU64();
+    if (now < next_) {
+      u32 delay = (next_ - now) / frequency_;
+      delay = delay > 1 ? delay - 1 : 0;
+      SDL_Delay(delay);
+    }
+    while (clockU64() < next_) { /* Waste Processor Clock */ }
+    next_ = clockU64() + (target_delta_ms * frequency_);
   }
   static Timing def() {
     return Timing();
