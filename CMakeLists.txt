@@ -32,6 +32,8 @@ add_executable(ab
   Src/Ace.hpp
   Src/Arm.cpp
   Src/Arm.hpp
+  Src/Art.cpp
+  Src/Art.hpp
   Src/Asr.cpp
   Src/Asr.hpp
   Src/Ass.cpp
