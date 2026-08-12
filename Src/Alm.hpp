@@ -452,7 +452,7 @@ public:
 };
 staticAssert(sizeof(PoolDestructor) <= sizeof(Buffer0), PoolDestructor_CAN_FIT_INTO_A_Buffer0)
 
-class PoolArrayDestructor {
+class PoolDestructorArray {
 public:
   enum { CAPACITY = (sizeof(Buffer0) / sizeof(PoolDestructor::IndexDouble)) };
 protected:
@@ -472,7 +472,7 @@ public:
     }
   }
 };
-staticAssert(sizeof(PoolArrayDestructor) == sizeof(Buffer0), PoolArrayDestructor_CAN_FIT_INTO_A_Buffer0)
+staticAssert(sizeof(PoolDestructorArray) == sizeof(Buffer0), PoolDestructorArray_CAN_FIT_INTO_A_Buffer0)
 
 class PoolArray {
 public:
