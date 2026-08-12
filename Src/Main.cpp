@@ -112,7 +112,7 @@ ESysStatus MainDispatcher::initEngine(int, char**) {
     debugBreak;
     return E_SYS_FATALITY;
   }
-  const IndexBlock fi = IndexBlock::def(0);
+  const Alm::IndexBlock fi = Alm::IndexBlock::def(0);
   Block0* fb = fi.toBlock0(initial_pool);
   assert(static_cast<void*>(initial_pool) == static_cast<void*>(fb));
   boot_ = reinterpret_cast<Bootstrapper*>(fb);

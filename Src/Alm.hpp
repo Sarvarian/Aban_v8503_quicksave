@@ -451,6 +451,22 @@ public:
 };
 staticAssert(sizeof(PoolDestructor) <= sizeof(Buffer0), PoolDestructor_CAN_FIT_INTO_A_Buffer0)
 
+#define POOL_ARRAY_CAPACITY (sizeof(Buffer0) / PTR_SIZE)
+class PoolArray {
+public:
+  Pool* pool[POOL_ARRAY_CAPACITY];
+};
+staticAssert(sizeof(PoolArray) == sizeof(Buffer0), PoolArray_CAN_FIT_INTO_A_Buffer0)
+
+#define ARRAY_BOOK0_CAPACITY ((sizeof(Buffer0) / PTR_SIZE) - 1) /* Calculate Buffer Capacity - Subtract 1 `next` Pointer */
+class PoolArrayBook {
+public:
+  PoolArray* buffer[ARRAY_BOOK0_CAPACITY];
+  PoolArrayBook* next;
+};
+staticAssert(sizeof(PoolArrayBook) == sizeof(Buffer0), PoolArrayBook_CAN_FIT_INTO_A_Buffer0)
+
+
 } /* namespace Alm */
 
 using Alm::Buffer0;
@@ -461,12 +477,6 @@ using Alm::Block0;
 using Alm::Block1;
 using Alm::Block2;
 using Alm::Block3;
-using Alm::IndexItem;
-using Alm::IndexBuffer;
-using Alm::IndexBlock;
-using Alm::Index1;
-using Alm::Index2;
-using Alm::Index3;
 using Alm::Pool4;
 using Alm::Pool8;
 using Alm::Pool16;
