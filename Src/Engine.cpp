@@ -10,7 +10,7 @@
 #endif
 
 #include "Alm.hpp"
-#include "Journal.hpp"
+#include "All.hpp"
 
 /*
   ███████╗████████╗██████╗ ██╗   ██╗ ██████╗████████╗
@@ -84,7 +84,7 @@ ESysStatus Engine::preSdlInit(int, char**) { // NOLINT(*-convert-member-function
 ESysStatus Engine::initSdl(int, char**) {
   const Sdl::Status res = Sdl::def().timer().video().events().eventThread().init();
   if (res != Sdl::INIT_SUCCEED) {
-    Journal::sdlInitFailed();
+    All::sdlInitFailed();
     exit_code = EXIT_FAILURE;
     debugBreak;
     return E_SYS_FATALITY;
@@ -114,7 +114,7 @@ ESysStatus Engine::initEngine(int, char**) {
   // 1. Building the first memory data structure.
   Pool4* initial_pool = Pool4::def();
   if (initial_pool == null) {
-    Journal::firstPoolAllocationFailed();
+    All::firstPoolAllocationFailed();
     exit_code = EXIT_FAILURE;
     debugBreak;
     return E_SYS_FATALITY;

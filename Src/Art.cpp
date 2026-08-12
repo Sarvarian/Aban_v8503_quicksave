@@ -2,7 +2,7 @@
 
 #include "Main.hpp"
 #include "Alm.hpp"
-#include "Journal.hpp"
+#include "All.hpp"
 
 class ArtCore {
 public:
@@ -39,7 +39,7 @@ Art* Art::def() {
   /* Art is and positioned at first block of the first pool. */
   ArtCore* art = reinterpret_cast<ArtCore*>(BlockIndex::def(0).toBlock0(Pool4::def()));
   if (art == null) {
-    Journal::firstPoolAllocationForArtFailed();
+    All::firstPoolAllocationForArtFailed();
     return null;
   }
   return art->def();

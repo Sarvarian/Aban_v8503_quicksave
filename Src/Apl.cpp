@@ -1,7 +1,7 @@
 #include "Apl.hpp"
 
 #include "Ado.hpp"
-#include "Journal.hpp"
+#include "All.hpp"
 
 Apl::Apl() {
 }
@@ -19,7 +19,7 @@ u32 Apl::isVulkanInstanceExtensionsAvailable() {
 #if AB_VULKAN
   const VkResult res = vkEnumerateInstanceExtensionProperties(null, &count, null);
   if (res != VK_SUCCESS) {
-    Journal::vulkanEnumerateInstanceExtensionPropertiesCountFailed();
+    All::vulkanEnumerateInstanceExtensionPropertiesCountFailed();
     debugBreak;
     return 0;
   }

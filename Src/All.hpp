@@ -1,9 +1,10 @@
 #pragma once
 
-#ifndef AB_JOURNAL_HPP
-#define AB_JOURNAL_HPP
+#ifndef AB_ALL_HPP
+#define AB_ALL_HPP
 
-class Journal {
+/** Aban Leagued Ledger */
+class All {
 public:
   static void sdlInitFailed();
   static void firstPoolAllocationFailed();
@@ -11,4 +12,4 @@ public:
   static void firstPoolAllocationForArtFailed();
 };
 
-#endif /* AB_JOURNAL_HPP */
+#endif /* AB_ALL_HPP */

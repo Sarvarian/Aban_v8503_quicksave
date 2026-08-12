@@ -34,6 +34,8 @@ add_executable(ab
   Src/Ado.hpp
   Src/Aid.cpp
   Src/Aid.hpp
+  Src/All.cpp
+  Src/All.hpp
   Src/Alm.cpp
   Src/Alm.hpp
   Src/Apl.cpp
@@ -46,8 +48,6 @@ add_executable(ab
   Src/Ass.hpp
   Src/Engine.cpp
   Src/Engine.hpp
-  Src/Journal.cpp
-  Src/Journal.hpp
   Src/Main.hpp
   Src/Main.cpp
 )
