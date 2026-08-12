@@ -16,9 +16,8 @@ public:
   /** \return Always returns null. */
   Art* undef();
 
-private:
-  Art();
-  class ArtCore* toCore();
+protected:
+  Art() { /* Empty */ };
 
 };
 staticAssert(sizeof(Art) <= PTR_SIZE, Art_IS_JUST_AN_OPAQUE_TYPE)

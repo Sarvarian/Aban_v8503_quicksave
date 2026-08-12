@@ -4,36 +4,26 @@
 #include "Alm.hpp"
 #include "All.hpp"
 
-class ArtCore {
-public:
-  Art* def();
-  Art* undef();
+class ArtCore : public Art {
 private:
-  Block0* toBlock();
-  Pool4* toPool();
+  ArtCore() { /* Empty */ }
+  /* ReSharper disable once CppDeclaratorNeverUsed */
+  Block0* castBlock() { return reinterpret_cast<Block0*>(this); }
+  Pool4* castPool() { return reinterpret_cast<Pool4*>(this); }
+
+public:
+  Art* def() {
+    return this;
+  }
+
+  Art* undef() {
+    castPool()->undef();
+    return null;
+  }
+
 };
 /* Extra Note About Memory Allocation Of ArtCore: ArtCore is and positioned at first block of the first pool. */
 staticAssert(sizeof(ArtCore) <= sizeof(Block0), ArtCore_SHOULD_FIT_INTO_A_Block0)
-
-Art* ArtCore::def() {
-  return reinterpret_cast<Art*>(this);
-}
-
-Art* ArtCore::undef() {
-  toPool()->undef();
-  return null;
-}
-
-Block0* ArtCore::toBlock() {
-  return reinterpret_cast<Block0*>(this);
-}
-
-Pool4* ArtCore::toPool() {
-  return reinterpret_cast<Pool4*>(this);
-}
-
-Art::Art() {
-}
 
 Art* Art::def() {
   /* Art is and positioned at first block of the first pool. */
@@ -47,9 +37,5 @@ Art* Art::def() {
 
 // ReSharper disable once CppDFAConstantFunctionResult
 Art* Art::undef() {
-  return toCore()->undef();
-}
-
-ArtCore* Art::toCore() {
-  return reinterpret_cast<ArtCore*>(this);
+  return static_cast<ArtCore*>(this)->undef(); // NOLINT(*-pro-type-static-cast-downcast)
 }
