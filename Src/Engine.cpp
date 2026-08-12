@@ -199,37 +199,6 @@ void Engine::calculateDeltaTime(DebugData& db) {
 
 ESysStatus Engine::stepEngine() {
 
-  /* Begin { Memory Allocation } * / {
-    Pool2* pool = Pool2::def();
-    assert(pool != null);
-    Pool2::BlockAllocator allocator = pool->defBlockAllocator();
-    BlockIndex index = allocator.pushBlock0();
-    assert(index.isValid());
-    Block0* block = allocator.pushBlock0().toBlock0(pool);
-    assert(block->isValid(pool));
-    Buffer0* buffer = block->operator[](0);
-    printf("pool: %p\n", static_cast<void*>(pool));
-    pool = pool->undef(); } /* End { Memory Allocation } */
-
-  /** /
-  const usize total = Memory::totalRawMemory();
-  const usize safe = (total / 4) * 3; // 1/4 of system memory.
-  printf("total memory: %lu\tsafe memory: %lu\n", total, safe);
-  if (safe > tttUSize(BINLOG_2147483648)) {
-    printf("2G pool allocation.\n");
-  } else if (safe > tttUSize(BINLOG_1073741824)) {
-    printf("1G pool allocation.\n");
-  } else if (safe > tttUSize(BINLOG_536870912)) {
-    printf("512MB pool allocation.\n");
-  } else if (safe > tttUSize(BINLOG_268435456)) {
-    printf("256MB pool allocation.\n");
-  } else if (safe > tttUSize(BINLOG_134217728)) {
-    printf("128MB pool allocation.\n");
-  } else {
-    printf("Not enough memory.\n");
-  }
-  /**/
-
   /* Step Dispatch */
   if (current_->just_continue) {}
   if (current_->calculate_delta_time) {
