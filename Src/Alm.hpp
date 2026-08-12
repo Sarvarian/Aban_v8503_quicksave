@@ -3,6 +3,7 @@
 #ifndef AB_ALM_HPP
 #define AB_ALM_HPP
 
+#include "Main.hpp"
 #include "Ado.hpp"
 
 /** Aban Low-level Memory System */
