@@ -401,17 +401,18 @@ public:
   staticAssert(POOL_DESTRUCTOR_COUNT <= 0x0F, EDestructorIndex_CAN_FIT_INTO_A_NIBBLE)
   staticAssert(INVALID_INDEX <= 0x0F, INVALID_INDEX_CAN_FIT_INTO_A_NIBBLE)
 
-  class DestructorIndexDouble {
+  class IndexDouble {
   protected:
     u8 first_ : 4;
     u8 second_ : 4;
   public:
-    DestructorIndexDouble() : first_(INVALID_INDEX), second_(INVALID_INDEX) {}
+    IndexDouble() : first_(INVALID_INDEX), second_(INVALID_INDEX) {}
     u8 getFirst() const { return first_; }
     u8 getSecond() const { return second_; }
     void setFirst(const u8 nibble) { first_ = nibble & 0x0F; }
     void setSecond(const u8 nibble) { second_ = nibble & 0x0F; }
   };
+  staticAssert(sizeof(IndexDouble) == sizeof(u8), IndexDouble_SHOULD_BE_U8)
 
   typedef Pool* (*DestructorProc)(Pool*);
 
@@ -438,18 +439,40 @@ public:
     return PoolDestructor();
   }
 
-  Pool* destroyFirstNibbleIndex(Pool* pool, const DestructorIndexDouble index) const {
+  Pool* destroyFirstNibbleIndex(Pool* pool, const IndexDouble index) const {
     assert(index.getFirst() < POOL_DESTRUCTOR_COUNT);
     return destructor[index.getFirst()](pool);
   }
 
-  Pool* destroySecondNibbleIndex(Pool* pool, const DestructorIndexDouble index) const {
+  Pool* destroySecondNibbleIndex(Pool* pool, const IndexDouble index) const {
     assert(index.getSecond() < POOL_DESTRUCTOR_COUNT);
     return destructor[index.getSecond()](pool);
   }
 
 };
 staticAssert(sizeof(PoolDestructor) <= sizeof(Buffer0), PoolDestructor_CAN_FIT_INTO_A_Buffer0)
+
+class PoolArrayDestructor {
+public:
+  enum { CAPACITY = (sizeof(Buffer0) / sizeof(PoolDestructor::IndexDouble)) };
+protected:
+  PoolDestructor::IndexDouble indices[CAPACITY];
+public:
+  Pool* destroy(const PoolDestructor& destructor, Pool* pool, const IndexLittle item) const {
+    return isEvenBL(item)
+    ? destructor.destroyFirstNibbleIndex(pool, indices[halfBL(item)])
+    : destructor.destroySecondNibbleIndex(pool, indices[halfBL(item)])
+    ;
+  }
+  void set(const IndexLittle item, const u8 value) {
+    if (isEvenBL(item)) {
+      indices[halfBL(item)].setFirst(value);
+    } else {
+      indices[halfBL(item)].setSecond(value);
+    }
+  }
+};
+staticAssert(sizeof(PoolArrayDestructor) == sizeof(Buffer0), PoolArrayDestructor_CAN_FIT_INTO_A_Buffer0)
 
 #define POOL_ARRAY_CAPACITY (sizeof(Buffer0) / PTR_SIZE)
 class PoolArray {
