@@ -9,6 +9,7 @@
   #include <SDL/SDL_events.h>
 #endif
 
+#include "Alm.hpp"
 #include "Journal.hpp"
 
 /*
