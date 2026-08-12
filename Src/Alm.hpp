@@ -369,6 +369,17 @@ public:
   }
 };
 
+inline Pool* pool4Undef(Pool* pool) { return static_cast<Pool4*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool8Undef(Pool* pool) { return static_cast<Pool8*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool16Undef(Pool* pool) { return static_cast<Pool16*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool32Undef(Pool* pool) { return static_cast<Pool32*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool64Undef(Pool* pool) { return static_cast<Pool64*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool128Undef(Pool* pool) { return static_cast<Pool128*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool256Undef(Pool* pool) { return static_cast<Pool256*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool512Undef(Pool* pool) { return static_cast<Pool512*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool1024Undef(Pool* pool) { return static_cast<Pool1024*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+inline Pool* pool2048Undef(Pool* pool) { return static_cast<Pool2048*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
+
 } /* namespace Alm */
 
 using Alm::Buffer0;
