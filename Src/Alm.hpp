@@ -458,10 +458,10 @@ public:
 };
 staticAssert(sizeof(PoolArray) == sizeof(Buffer0), PoolArray_CAN_FIT_INTO_A_Buffer0)
 
-#define ARRAY_BOOK0_CAPACITY ((sizeof(Buffer0) / PTR_SIZE) - 1) /* Calculate Buffer Capacity - Subtract 1 `next` Pointer */
+#define POOL_ARRAY_BOOK_CAPACITY ((sizeof(Buffer0) / PTR_SIZE) - 1) /* Calculate Buffer Capacity - Subtract 1 `next` Pointer */
 class PoolArrayBook {
 public:
-  PoolArray* buffer[ARRAY_BOOK0_CAPACITY];
+  PoolArray* buffer[POOL_ARRAY_BOOK_CAPACITY];
   PoolArrayBook* next;
 };
 staticAssert(sizeof(PoolArrayBook) == sizeof(Buffer0), PoolArrayBook_CAN_FIT_INTO_A_Buffer0)
