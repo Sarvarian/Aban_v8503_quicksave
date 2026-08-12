@@ -1,10 +1,10 @@
-// ReSharper disable CppMemberFunctionMayBeStatic
 #include "Main.hpp"
 
 #if IS_USING_SDL_3
   #include <SDL3/SDL.h>
   /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL3/SDL_main.h>
+  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL3/SDL_init.h>
 #elif IS_USING_SDL_2
   #include <SDL2/SDL.h>
