@@ -7,7 +7,7 @@
 class PoolDestructor {
 public:
 
-  enum PoolDestructorIndex {
+  enum EDestructorIndex {
     POOL_4_DESTRUCTOR_INDEX = 0,
     POOL_8_DESTRUCTOR_INDEX,
     POOL_16_DESTRUCTOR_INDEX,
@@ -20,8 +20,10 @@ public:
     POOL_2048_DESTRUCTOR_INDEX,
     POOL_DESTRUCTOR_COUNT
   };
-  staticAssert(POOL_DESTRUCTOR_COUNT < U8_MAX, DestructorIndex_CAN_FIT_INTO_AN_u8)
+  staticAssert(POOL_DESTRUCTOR_COUNT < U8_MAX, EDestructorIndex_CAN_FIT_INTO_AN_u8)
+
   typedef u8 DestructorIndex;
+
   typedef Alm::Pool* (*Destructor)(Alm::Pool*);
 
 protected:
