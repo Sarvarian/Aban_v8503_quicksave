@@ -60,6 +60,7 @@ endif()
 
 if (NOT CMAKE_VERSION VERSION_LESS 3.16)
   target_precompile_headers(ab PRIVATE ${PROJECT_SOURCE_DIR}/Src/Main.hpp)
+  target_precompile_headers(ab PRIVATE ${PROJECT_SOURCE_DIR}/Src/Alm.hpp)
 endif ()
 
 target_compile_options(ab PUBLIC
