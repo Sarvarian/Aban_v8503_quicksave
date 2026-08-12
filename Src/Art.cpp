@@ -18,11 +18,23 @@ public:
     POOL_512_DESTRUCTOR_INDEX,
     POOL_1024_DESTRUCTOR_INDEX,
     POOL_2048_DESTRUCTOR_INDEX,
-    POOL_DESTRUCTOR_COUNT
+    POOL_DESTRUCTOR_COUNT,
+    INVALID_INDEX = 0x0F
   };
-  staticAssert(POOL_DESTRUCTOR_COUNT < U8_MAX, EDestructorIndex_CAN_FIT_INTO_AN_u8)
+  staticAssert(POOL_DESTRUCTOR_COUNT <= 0x0F, EDestructorIndex_CAN_FIT_INTO_A_NIBBLE)
+  staticAssert(INVALID_INDEX <= 0x0F, INVALID_INDEX_CAN_FIT_INTO_A_NIBBLE)
 
-  typedef u8 DestructorIndex;
+  class DestructorIndexDouble {
+  protected:
+    u8 first_ : 4;
+    u8 second_ : 4;
+  public:
+    DestructorIndexDouble() : first_(INVALID_INDEX), second_(INVALID_INDEX) {}
+    u8 getFirst() const { return first_; }
+    u8 getSecond() const { return second_; }
+    void setFirst(const u8 nibble) { first_ = nibble & 0x0F; }
+    void setSecond(const u8 nibble) { second_ = nibble & 0x0F; }
+  };
 
   typedef Alm::Pool* (*Destructor)(Alm::Pool*);
 
@@ -49,9 +61,16 @@ public:
     return PoolDestructor();
   }
 
-  Alm::Pool* destroy(Alm::Pool* pool, const DestructorIndex destructor_index) const {
-    return destructor[destructor_index](pool);
+  Alm::Pool* destroyFirstNibbleIndex(Alm::Pool* pool, const DestructorIndexDouble index) const {
+    assert(index.getFirst() < POOL_DESTRUCTOR_COUNT);
+    return destructor[index.getFirst()](pool);
   }
+
+  Alm::Pool* destroySecondNibbleIndex(Alm::Pool* pool, const DestructorIndexDouble index) const {
+    assert(index.getSecond() < POOL_DESTRUCTOR_COUNT);
+    return destructor[index.getSecond()](pool);
+  }
+
 };
 staticAssert(sizeof(PoolDestructor) <= sizeof(Buffer0), PoolDestructor_CAN_FIT_INTO_A_Buffer0)
 
