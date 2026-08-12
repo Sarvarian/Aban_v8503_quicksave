@@ -43,20 +43,20 @@ usize totalRawMemory() {
   }
 }
 
-void* allocatePool(const Index capacity) {
+void* allocatePool(const IndexMedium capacity) {
   const usize size = mmBlockSize(0) * capacity;
   void* result = allocateRawMemory(size);
   return result;
 }
 
-void* deallocatePool(void* location, const Index capacity) {
+void* deallocatePool(void* location, const IndexMedium capacity) {
   const usize size = mmBlockSize(0) * capacity;
   deallocateRawMemory(location, size);
   return null;
 }
 
 #if AB_CONCUR
-Index pushBlock(Atomic* used, const Index capacity, const Scale scale) {
+IndexMedium pushBlock(Atomic* used, const IndexMedium capacity, const Scale scale) {
   /* `pool->used_units` should never fall below 1. */
   /* Because, 0 is failure indicator. */
   /* And index 0 is always implicitly allocated. */
@@ -71,12 +71,12 @@ Index pushBlock(Atomic* used, const Index capacity, const Scale scale) {
       return 0;
     } else {
       const bool didWork = atomicCAS(used, current, final);
-      if (didWork) { return static_cast<Index>(current); }
+      if (didWork) { return static_cast<IndexMedium>(current); }
     }
   }
 }
 #else
-Index pushBlock(int* used, const Index capacity, const Scale scale) {
+IndexMedium pushBlock(int* used, const IndexMedium capacity, const Scale scale) {
   /* `pool->used_units` should never fall below 1. */
   /* Because, 0 is failure indicator. */
   /* And index 0 is always implicitly allocated. */
@@ -90,13 +90,13 @@ Index pushBlock(int* used, const Index capacity, const Scale scale) {
     return 0;
   } else {
     *used = final;
-    return static_cast<Index>(current);
+    return static_cast<IndexMedium>(current);
   }
 }
 #endif
 
 #if AB_CONCUR
-Index popBlock(Atomic* used, const Scale scale) {
+IndexMedium popBlock(Atomic* used, const Scale scale) {
   /* `pool->used` should never fall below 1. */
   /* Because, 0 is failure indicator. */
   /* And index 0 is always implicitly allocated. */
@@ -114,7 +114,7 @@ Index popBlock(Atomic* used, const Scale scale) {
   }
 }
 #else
-Index popBlock(int* used, const Scale scale) {
+IndexMedium popBlock(int* used, const Scale scale) {
   /* `pool->used` should never fall below 1. */
   /* Because, 0 is failure indicator. */
   /* And index 0 is always implicitly allocated. */

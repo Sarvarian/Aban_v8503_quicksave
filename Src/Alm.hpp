@@ -10,9 +10,9 @@ namespace Alm {
 
 /** Memory Objects Metadata Begin */
 typedef u8 Scale; /**< Generic type for buffer, block, and pool exponents. */
-typedef u8 LittleIndex; /**< Buffer index inside blocks. */
-typedef u16 Index; /**< Block index inside pools. */
-typedef void* mmPoolIndexType; /**< Pool pointer inside system memory. */
+typedef u8 IndexLittle; /**< Buffer index inside blocks. */
+typedef u16 IndexMedium; /**< Block index inside pools. */
+typedef void* IndexBig; /**< Pool pointer inside system memory. */
 #define MM_BUFFER_UNIT_EXPONENT BINLOG_512 /**< Binlog of minimum buffer size. */
 staticAssert(
   MM_BUFFER_UNIT_EXPONENT >= mul2BL(BINLOG_64, PTR_EXPONENT),
@@ -57,10 +57,10 @@ staticAssert(MM_POOL_CAPACITY_MIN > 0, mmPoolShouldBeBiggerThanBuffers)
 usize totalRawMemory();
 
 /** @return Check return for failure. */
-void* allocatePool(Index capacity);
+void* allocatePool(IndexMedium capacity);
 
 /** @return Always returns null. */
-void* deallocatePool(void* location, Index capacity);
+void* deallocatePool(void* location, IndexMedium capacity);
 
 #if AB_CONCUR
 /** [Multithread Safe]
@@ -69,18 +69,18 @@ void* deallocatePool(void* location, Index capacity);
  *  @param scale Should be less than or
  *               equal to (`MM_EXPONENT_MAX` - 1).
  *  @return Returns 0 in case of failure. */
-Index pushBlock(Atomic* used, Index capacity, Scale scale);
+IndexMedium pushBlock(Atomic* used, IndexMedium capacity, Scale scale);
 #else
-Index pushBlock(int* used, Index capacity, Scale scale);
+IndexMedium pushBlock(int* used, IndexMedium capacity, Scale scale);
 #endif
 
 #if AB_CONCUR
 /** @brief This is NOT intended for multithread use.
  *  @param used Atomic int, head of pool usage.
  *  @param scale Amount of block units to pop. */
-Index popBlock(Atomic* used, Scale scale);
+IndexMedium popBlock(Atomic* used, Scale scale);
 #else
-Index popBlock(int* used, Scale scale);
+IndexMedium popBlock(int* used, Scale scale);
 #endif
 
 class Pool;
@@ -128,7 +128,7 @@ public:
   bool isValid(const Pool* location) const {
     return static_cast<const void*>(location) != static_cast<const void*>(buffer_) ? true : false;
   }
-  BUFFER_TYPE* operator[](const LittleIndex index) {
+  BUFFER_TYPE* operator[](const IndexLittle index) {
     return &(buffer_[index]);
   }
 };
@@ -150,13 +150,13 @@ staticAssert(sizeof(Block3) == mmBlockSize(3), IS_SIZE_OF_CLASS_BLOCK3_CORRECT)
   ██║██║ ╚████║██████╔╝███████╗██╔╝ ██╗
   ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 */
-class BlockIndex {
+class IndexBlock {
 private:
-  Index index_;
-  BlockIndex() : index_(0) {}
-  explicit BlockIndex(const Index index) : index_(index) {}
+  IndexMedium index_;
+  IndexBlock() : index_(0) {}
 public:
-  static BlockIndex def(const Index index) { return BlockIndex(index); }
+  explicit IndexBlock(const IndexMedium index) : index_(index) {}
+  static IndexBlock def(const IndexMedium index) { return IndexBlock(index); }
   bool isValid() const {
     return index_ != 0 ? true : false;
   }
@@ -190,14 +190,14 @@ public:
     BlockAllocator() : used_(1) {}
 #endif
   public:
-    BlockIndex pushBlock0(const Index capacity) { return BlockIndex::def(pushBlock(&used_, capacity, 0)); }
-    BlockIndex pushBlock1(const Index capacity) { return BlockIndex::def(pushBlock(&used_, capacity, 1)); }
-    BlockIndex pushBlock2(const Index capacity) { return BlockIndex::def(pushBlock(&used_, capacity, 2)); }
-    BlockIndex pushBlock3(const Index capacity) { return BlockIndex::def(pushBlock(&used_, capacity, 3)); }
+    IndexBlock pushBlock0(const IndexMedium capacity) { return IndexBlock::def(pushBlock(&used_, capacity, 0)); }
+    IndexBlock pushBlock1(const IndexMedium capacity) { return IndexBlock::def(pushBlock(&used_, capacity, 1)); }
+    IndexBlock pushBlock2(const IndexMedium capacity) { return IndexBlock::def(pushBlock(&used_, capacity, 2)); }
+    IndexBlock pushBlock3(const IndexMedium capacity) { return IndexBlock::def(pushBlock(&used_, capacity, 3)); }
   };
 };
 
-template<Index CAPACITY>
+template<IndexMedium CAPACITY>
 class PoolTemplated : public Pool {
 protected:
   PoolTemplated() {}
@@ -215,10 +215,10 @@ public:
     static BlockAllocator def() {
       return BlockAllocator();
     }
-    BlockIndex pushBlock0() { return pushBlock0(CAPACITY); }
-    BlockIndex pushBlock1() { return pushBlock1(CAPACITY); }
-    BlockIndex pushBlock2() { return pushBlock2(CAPACITY); }
-    BlockIndex pushBlock3() { return pushBlock3(CAPACITY); }
+    IndexBlock pushBlock0() { return pushBlock0(CAPACITY); }
+    IndexBlock pushBlock1() { return pushBlock1(CAPACITY); }
+    IndexBlock pushBlock2() { return pushBlock2(CAPACITY); }
+    IndexBlock pushBlock3() { return pushBlock3(CAPACITY); }
   };
 
   BlockAllocator defBlockAllocator() {
@@ -356,7 +356,7 @@ using Alm::Block0;
 using Alm::Block1;
 using Alm::Block2;
 using Alm::Block3;
-using Alm::BlockIndex;
+using Alm::IndexBlock;
 using Alm::Pool4;
 using Alm::Pool8;
 using Alm::Pool16;

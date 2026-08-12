@@ -27,7 +27,7 @@ staticAssert(sizeof(ArtCore) <= sizeof(Block0), ArtCore_SHOULD_FIT_INTO_A_Block0
 
 Art* Art::def() {
   /* Art is and positioned at first block of the first pool. */
-  ArtCore* art = reinterpret_cast<ArtCore*>(BlockIndex::def(0).toBlock0(Pool4::def()));
+  ArtCore* art = reinterpret_cast<ArtCore*>(IndexBlock::def(0).toBlock0(Pool4::def()));
   if (art == null) {
     All::firstPoolAllocationForArtFailed();
     return null;
