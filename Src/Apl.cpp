@@ -1,20 +1,20 @@
-#include "Asr.hpp"
+#include "Apl.hpp"
 
 #include "Video.hpp"
 #include "Journal.hpp"
 
-Asr::Asr() {
+Apl::Apl() {
 }
 
-Asr* Asr::def() {
+Apl* Apl::def() {
   return null;
 }
 
-Asr* Asr::undef() {
+Apl* Apl::undef() {
   return null;
 }
 
-u32 Asr::isVulkanInstanceExtensionsAvailable() {
+u32 Apl::isVulkanInstanceExtensionsAvailable() {
   u32 count = 0;
 #if AB_VULKAN
   const VkResult res = vkEnumerateInstanceExtensionProperties(null, &count, null);
@@ -27,7 +27,7 @@ u32 Asr::isVulkanInstanceExtensionsAvailable() {
   return count;
 }
 
-bool Asr::isOpenGL4Supported() {
+bool Apl::isOpenGL4Supported() {
   return false;
 }
 

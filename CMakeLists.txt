@@ -30,12 +30,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(ab
   Src/Ace.cpp
   Src/Ace.hpp
+  Src/Apl.cpp
+  Src/Apl.hpp
   Src/Arm.cpp
   Src/Arm.hpp
   Src/Art.cpp
   Src/Art.hpp
-  Src/Asr.cpp
-  Src/Asr.hpp
   Src/Ass.cpp
   Src/Ass.hpp
   Src/Engine.cpp

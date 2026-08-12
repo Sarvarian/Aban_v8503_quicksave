@@ -20,16 +20,16 @@
  *
  */
 
-/** Aban Strong Renderer */
-class Asr {
+/** Aban Presentation Layer */
+class Apl {
 public:
-  static  Asr* def();
+  static  Apl* def();
 
   /** Always Returns null. */
-  Asr* undef();
+  Apl* undef();
 
 private:
-  Asr();
+  Apl();
 
   /** Use this to check if Vulkan is available att all.
    *  Return 0 will indicate no Vulkan support.
