@@ -39,7 +39,7 @@ public:
   }
 };
 
-static int shutdown(Engine& engine) {
+static int shutdown(MainDispatcher& engine) {
   const int exit_code = engine.exit_code;
   engine.shutEngine();
   engine.shutSdl();
@@ -51,7 +51,7 @@ static int shutdown(Engine& engine) {
 
 /* ReSharper disable once CppParameterMayBeConst */
 int main(int argc, char** argv) {
-  Engine engine = Engine::def();
+  MainDispatcher engine = MainDispatcher::def();
   CHECK(engine.preSdlInit(argc, argv))
   CHECK(engine.initSdl(argc, argv));
   CHECK(engine.initEngine(argc, argv));
