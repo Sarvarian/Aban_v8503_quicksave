@@ -4,6 +4,9 @@
 #include "Alm.hpp"
 #include "All.hpp"
 
+
+
+
 class PoolDestructor {
 public:
 
@@ -74,6 +77,9 @@ public:
 };
 staticAssert(sizeof(PoolDestructor) <= sizeof(Buffer0), PoolDestructor_CAN_FIT_INTO_A_Buffer0)
 
+
+
+
 class ArtCore : public Art, public Pool4 {
 protected:
 
@@ -98,6 +104,9 @@ public:
 };
 /* Extra Note About Memory Allocation Of ArtCore: ArtCore is and positioned at first block of the first pool. */
 staticAssert(sizeof(ArtCore) <= sizeof(Block0), ArtCore_SHOULD_FIT_INTO_A_Block0)
+
+
+
 
 Art* Art::def() {
   /* Art is positioned at first block of the first pool. */
