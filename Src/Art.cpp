@@ -80,7 +80,7 @@ staticAssert(sizeof(PoolDestructor) <= sizeof(Buffer0), PoolDestructor_CAN_FIT_I
 
 
 
-class ArtCore : public Art, public Pool4 {
+class ArtCore : public Art, protected Pool4 {
 protected:
 
   PoolDestructor pool_destructor_;
