@@ -10,9 +10,9 @@ namespace Alm {
 
 /** Memory Objects Metadata Begin */
 typedef u8 Scale; /**< Generic type for buffer, block, and pool exponents. */
-typedef u8 IndexLittle; /**< Buffer index inside blocks. */
-typedef u16 IndexMedium; /**< Block index inside pools. */
-typedef void* IndexBig; /**< Pool pointer inside system memory. */
+typedef u8 IndexLittle; /**< Index of buffers inside block. */
+typedef u16 IndexMedium; /**< Index of blocks inside pool. */
+typedef void* IndexBig; /**< Pointer of pools inside system memory. */
 #define MM_BUFFER_UNIT_EXPONENT BINLOG_512 /**< Binlog of minimum buffer size. */
 staticAssert(
   MM_BUFFER_UNIT_EXPONENT >= mul2BL(BINLOG_64, PTR_EXPONENT),
