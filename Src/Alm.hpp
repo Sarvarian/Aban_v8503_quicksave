@@ -474,17 +474,17 @@ public:
 };
 staticAssert(sizeof(PoolArrayDestructor) == sizeof(Buffer0), PoolArrayDestructor_CAN_FIT_INTO_A_Buffer0)
 
-#define POOL_ARRAY_CAPACITY (sizeof(Buffer0) / PTR_SIZE)
 class PoolArray {
 public:
-  Pool* pool[POOL_ARRAY_CAPACITY];
+  enum { CAPACITY = (sizeof(Buffer0) / PTR_SIZE) };
+  Pool* pool[CAPACITY];
 };
 staticAssert(sizeof(PoolArray) == sizeof(Buffer0), PoolArray_CAN_FIT_INTO_A_Buffer0)
 
-#define POOL_ARRAY_BOOK_CAPACITY ((sizeof(Buffer0) / PTR_SIZE) - 1) /* Calculate Buffer Capacity - Subtract 1 `next` Pointer */
 class PoolArrayBook {
+  enum { CAPACITY = ((sizeof(Buffer0) / PTR_SIZE) - 1) /* Calculate Buffer Capacity - Subtract 1 `next` Pointer */ };
 public:
-  PoolArray* buffer[POOL_ARRAY_BOOK_CAPACITY];
+  PoolArray* buffer[CAPACITY];
   PoolArrayBook* next;
 };
 staticAssert(sizeof(PoolArrayBook) == sizeof(Buffer0), PoolArrayBook_CAN_FIT_INTO_A_Buffer0)
