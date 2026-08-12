@@ -1,7 +1,19 @@
 /* ReSharper disable CppMemberFunctionMayBeStatic */
 #include "Aid.hpp"
 
+#if IS_USING_SDL_3
+  #include <SDL3/SDL_events.h>
+#elif IS_USING_SDL_2
+  #include <SDL2/SDL_events.h>
+#elif IS_USING_SDL_1
+  #include <SDL/SDL_events.h>
+#endif
+
+#include "Ado.hpp"
+
+
 SdlEventDispatcher::SdlEventDispatcher() { /* Empty */ }
+
 
 /*
   ███████╗██╗   ██╗███████╗███╗   ██╗████████╗███████╗

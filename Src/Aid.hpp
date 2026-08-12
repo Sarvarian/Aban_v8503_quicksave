@@ -6,7 +6,6 @@
 /* Aban Input Dispatcher */
 
 #include "Main.hpp"
-#include "Engine.hpp"
 
 class SdlEventDispatcher : public MainDispatcher {
 public:
