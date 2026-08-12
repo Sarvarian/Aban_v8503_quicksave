@@ -4,6 +4,7 @@
 #define AB_ENGINE_HPP
 
 #include "Video.hpp"
+#include "Art.hpp"
 
 class Engine {
 public:
@@ -32,6 +33,7 @@ public:
 private:
   Engine();
 
+  Art* art_;
   SdlWindow window_;
   struct DebugData* db_;
   struct Bootstrapper* boot_;

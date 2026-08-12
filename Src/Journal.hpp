@@ -8,6 +8,7 @@ public:
   static void sdlInitFailed();
   static void firstPoolAllocationFailed();
   static void vulkanEnumerateInstanceExtensionPropertiesCountFailed();
+  static void firstPoolAllocationForArtFailed();
 };
 
 #endif /* AB_JOURNAL_HPP */

@@ -94,6 +94,11 @@ ESysStatus Engine::initSdl(int, char**) {
 }
 
 ESysStatus Engine::initEngine(int, char**) {
+  art_ = Art::def();
+  if (art_ == null) {
+    return E_SYS_FATALITY;
+  }
+
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   SDL_SetEventFilter(sdlEventFilter, null);
 #endif
@@ -114,7 +119,7 @@ ESysStatus Engine::initEngine(int, char**) {
     debugBreak;
     return E_SYS_FATALITY;
   }
-  const BlockIndex fi = BlockIndex(0);
+  const BlockIndex fi = BlockIndex::def(0);
   Block0* fb = fi.toBlock0(initial_pool);
   assert(static_cast<void*>(initial_pool) == static_cast<void*>(fb));
   boot_ = reinterpret_cast<Bootstrapper*>(fb);
@@ -249,6 +254,7 @@ void Engine::shutEngine() {
   next_ = null;
   current_ = null;
   boot_ = boot_ ? boot_->undef() : null;
+  art_ = art_ ? art_->undef() : null;
 }
 
 void Engine::shutSdl() { // NOLINT(*-convert-member-functions-to-static)
@@ -264,6 +270,7 @@ Engine::Engine()
   /* target_delta_ms = 0;      */
   target_delta_ms = (MSPS / 10);
   exit_code = EXIT_SUCCESS;
+  art_ = null;
   db_ = null;
   boot_ = null;
   current_ = null;

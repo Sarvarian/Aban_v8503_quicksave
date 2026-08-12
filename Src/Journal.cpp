@@ -19,3 +19,11 @@ void Journal::firstPoolAllocationFailed() {
 void Journal::vulkanEnumerateInstanceExtensionPropertiesCountFailed() {
   fprintf(stderr, "Failed at vkEnumerateInstanceExtensionProperties for getting count.");
 }
+
+void Journal::firstPoolAllocationForArtFailed() {
+  const char* title = "First Pool Allocation For Art Failed! [Engine]";
+  const char* message = "Failed to allocate memory for Art.";
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, message, null);
+#endif
+}

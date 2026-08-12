@@ -152,8 +152,9 @@ class BlockIndex {
 private:
   Index index_;
   BlockIndex() : index_(0) {}
-public:
   explicit BlockIndex(const Index index) : index_(index) {}
+public:
+  static BlockIndex def(const Index index) { return BlockIndex(index); }
   bool isValid() const {
     return index_ != 0 ? true : false;
   }
@@ -187,10 +188,10 @@ public:
     BlockAllocator() : used_(1) {}
 #endif
   public:
-    BlockIndex pushBlock0(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 0)); }
-    BlockIndex pushBlock1(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 1)); }
-    BlockIndex pushBlock2(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 2)); }
-    BlockIndex pushBlock3(const Index capacity) { return BlockIndex(pushBlock(&used_, capacity, 3)); }
+    BlockIndex pushBlock0(const Index capacity) { return BlockIndex::def(pushBlock(&used_, capacity, 0)); }
+    BlockIndex pushBlock1(const Index capacity) { return BlockIndex::def(pushBlock(&used_, capacity, 1)); }
+    BlockIndex pushBlock2(const Index capacity) { return BlockIndex::def(pushBlock(&used_, capacity, 2)); }
+    BlockIndex pushBlock3(const Index capacity) { return BlockIndex::def(pushBlock(&used_, capacity, 3)); }
   };
 };
 
