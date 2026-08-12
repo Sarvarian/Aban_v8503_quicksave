@@ -55,7 +55,7 @@ public:
 };
 staticAssert(sizeof(PoolDestructor) <= sizeof(Buffer0), PoolDestructor_CAN_FIT_INTO_A_Buffer0)
 
-class ArtCore : public Art {
+class ArtCore : public Art, public Pool4 {
 protected:
 
   PoolDestructor pool_destructor_;
@@ -64,18 +64,15 @@ protected:
   : pool_destructor_(PoolDestructor::def())
   { /* Empty */ }
 
-  /* ReSharper disable once CppDeclaratorNeverUsed */
-  Block0* castBlock() { return reinterpret_cast<Block0*>(this); }
-  Pool4* castPool() { return reinterpret_cast<Pool4*>(this); }
-
 public:
-  Art* def() {
-    *this = ArtCore();
-    return this;
+  static Art* def(Pool4* pool) {
+    ArtCore* self = static_cast<ArtCore*>(pool); // NOLINT(*-pro-type-static-cast-downcast)
+    (*self) = ArtCore();
+    return self;
   }
 
   Art* undef() {
-    castPool()->undef();
+    static_cast<Pool4*>(this)->undef();
     return null;
   }
 
@@ -84,13 +81,13 @@ public:
 staticAssert(sizeof(ArtCore) <= sizeof(Block0), ArtCore_SHOULD_FIT_INTO_A_Block0)
 
 Art* Art::def() {
-  /* Art is and positioned at first block of the first pool. */
-  ArtCore* art = reinterpret_cast<ArtCore*>(IndexBlock::def(0).toBlock0(Pool4::def()));
-  if (art == null) {
+  /* Art is positioned at first block of the first pool. */
+  Pool4* pool = Pool4::def();
+  if (pool == null) {
     All::firstPoolAllocationForArtFailed();
     return null;
   }
-  return art->def();
+  return ArtCore::def(pool);
 }
 
 // ReSharper disable once CppDFAConstantFunctionResult
