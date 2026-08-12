@@ -10,11 +10,7 @@
 class ArtCore : public Art, protected Pool4 {
 protected:
 
-  Alm::PoolDestructor pool_destructor_;
-
-  ArtCore()
-  : pool_destructor_(Alm::PoolDestructor::def())
-  { /* Empty */ }
+  ArtCore() { /* Empty */ }
 
 public:
   static Art* def(Pool4* pool) {
