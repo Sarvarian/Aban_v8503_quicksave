@@ -44,10 +44,13 @@ struct Bootstrapper {
   Pool4* pools_[sizeof(Buffer0) / sizeof(Pool4*)];
   Step step_a;
   Step step_b;
+  SdlWindow window;
+  usize _pad1_[63];
   // ReSharper disable once CppDeclaratorNeverUsed
-  Buffer0 _pad_[125];
-  Bootstrapper() : pools_(), step_a(), step_b() {}
+  Buffer0 _pad_[124];
+  Bootstrapper() : pools_(), step_a(), step_b(), window(SdlWindow::def()), _pad1_() {}
   Bootstrapper* undef() {
+    window.destroy();
     for (int i = 1; pools_[i] != null; i++) {
       pools_[i] = pools_[i]->undef();
     }
@@ -130,7 +133,7 @@ ESysStatus MainDispatcher::initEngine(int, char**) {
   next_ = &(boot_->step_b);
   next_->calculate_delta_time = true;
 
-  if (window_.create() == null) {
+  if (boot_->window.create() == null) {
     exit_code = EXIT_FAILURE;
     debugBreak;
     return E_SYS_FATALITY;
@@ -199,7 +202,7 @@ void MainDispatcher::calculateDeltaTime(DebugData& db) {
     /** / print("delta: %f\t fps: %f\n", delta, fps); /**/
     char title[128] = {0};
     snprintf(title, sizeof(title), "delta: %.2f fps: %.2f", delta, fps);
-    window_.setTitle(title);
+    boot_->window.setTitle(title);
   } /* End { Print Frame Time } */
 }
 
@@ -224,7 +227,6 @@ ESysStatus MainDispatcher::stepEngine() {
 }
 
 void MainDispatcher::shutEngine() {
-  window_.destroy();
   db_ = db_ ? db_->undef() : null;
   next_ = null;
   current_ = null;
@@ -240,7 +242,6 @@ void MainDispatcher::shutSdl() { // NOLINT(*-convert-member-functions-to-static)
 }
 
 MainDispatcher::MainDispatcher()
-  : window_(SdlWindow::def())
 {
   /* FFF: F&^k Fixed Frequency */
   /* target_delta_ms = 0;      */

@@ -3,8 +3,6 @@
 #ifndef AB_ENGINE_HPP
 #define AB_ENGINE_HPP
 
-#include "Ado.hpp"
-
 class MainDispatcher {
 public:
   static MainDispatcher def();
@@ -33,7 +31,6 @@ protected:
   MainDispatcher();
 
   class Art* art_;
-  SdlWindow window_;
   struct DebugData* db_;
   struct Bootstrapper* boot_;
   struct Step* current_;
