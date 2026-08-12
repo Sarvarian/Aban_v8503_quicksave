@@ -482,8 +482,8 @@ public:
 staticAssert(sizeof(PoolArray) == sizeof(Buffer0), PoolArray_CAN_FIT_INTO_A_Buffer0)
 
 class PoolArrayBook {
-  enum { CAPACITY = ((sizeof(Buffer0) / PTR_SIZE) - 1) /* Calculate Buffer Capacity - Subtract 1 `next` Pointer */ };
 public:
+  enum { CAPACITY = ((sizeof(Buffer0) / PTR_SIZE) - 1) /* Calculate Buffer Capacity - Subtract 1 `next` Pointer */ };
   PoolArray* buffer[CAPACITY];
   PoolArrayBook* next;
 };
