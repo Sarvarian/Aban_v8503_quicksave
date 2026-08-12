@@ -143,15 +143,28 @@ staticAssert(sizeof(Block2) == mmBlockSize(2), IS_SIZE_OF_CLASS_BLOCK2_CORRECT)
 staticAssert(sizeof(Block3) == mmBlockSize(3), IS_SIZE_OF_CLASS_BLOCK3_CORRECT)
 
 /*
-  ██╗███╗   ██╗██████╗ ███████╗██╗  ██╗
-  ██║████╗  ██║██╔══██╗██╔════╝╚██╗██╔╝
-  ██║██╔██╗ ██║██║  ██║█████╗   ╚███╔╝
-  ██║██║╚██╗██║██║  ██║██╔══╝   ██╔██╗
-  ██║██║ ╚████║██████╔╝███████╗██╔╝ ██╗
-  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+  ██╗███╗   ██╗██████╗ ██╗ ██████╗███████╗███████╗
+  ██║████╗  ██║██╔══██╗██║██╔════╝██╔════╝██╔════╝
+  ██║██╔██╗ ██║██║  ██║██║██║     █████╗  ███████╗
+  ██║██║╚██╗██║██║  ██║██║██║     ██╔══╝  ╚════██║
+  ██║██║ ╚████║██████╔╝██║╚██████╗███████╗███████║
+  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝ ╚═════╝╚══════╝╚══════╝
 */
+
+class IndexItem {
+public:
+  u8 item;
+  IndexItem() : item(0) {}
+};
+
+class IndexBuffer {
+public:
+  IndexLittle buffer;
+  IndexBuffer() : buffer(0) {}
+};
+
 class IndexBlock {
-private:
+protected:
   IndexMedium index_;
   IndexBlock() : index_(0) {}
 public:
@@ -164,6 +177,16 @@ public:
   Block1* toBlock1(Pool* location) const { return reinterpret_cast<Block1*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_)); }
   Block2* toBlock2(Pool* location) const { return reinterpret_cast<Block2*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_)); }
   Block3* toBlock3(Pool* location) const { return reinterpret_cast<Block3*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_)); }
+};
+
+class Index1 : public IndexItem, public IndexBuffer { /* Empty */ };
+
+class Index2 : public Index1, public IndexBlock { /* Empty */ };
+
+class Index3 : public Index2 {
+public:
+  IndexLittle pool;
+  Index3() : pool(0) {}
 };
 
 /*
@@ -356,7 +379,12 @@ using Alm::Block0;
 using Alm::Block1;
 using Alm::Block2;
 using Alm::Block3;
+using Alm::IndexItem;
+using Alm::IndexBuffer;
 using Alm::IndexBlock;
+using Alm::Index1;
+using Alm::Index2;
+using Alm::Index3;
 using Alm::Pool4;
 using Alm::Pool8;
 using Alm::Pool16;
