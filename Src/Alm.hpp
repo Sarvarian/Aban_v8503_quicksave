@@ -381,6 +381,76 @@ inline Pool* pool512Undef(Pool* pool) { return static_cast<Pool512*>(pool)->unde
 inline Pool* pool1024Undef(Pool* pool) { return static_cast<Pool1024*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
 inline Pool* pool2048Undef(Pool* pool) { return static_cast<Pool2048*>(pool)->undef(); } // NOLINT(*-pro-type-static-cast-downcast)
 
+class PoolDestructor {
+public:
+
+  enum EDestructorIndex {
+    POOL_4_DESTRUCTOR_INDEX = 0,
+    POOL_8_DESTRUCTOR_INDEX,
+    POOL_16_DESTRUCTOR_INDEX,
+    POOL_32_DESTRUCTOR_INDEX,
+    POOL_64_DESTRUCTOR_INDEX,
+    POOL_128_DESTRUCTOR_INDEX,
+    POOL_256_DESTRUCTOR_INDEX,
+    POOL_512_DESTRUCTOR_INDEX,
+    POOL_1024_DESTRUCTOR_INDEX,
+    POOL_2048_DESTRUCTOR_INDEX,
+    POOL_DESTRUCTOR_COUNT,
+    INVALID_INDEX = 0x0F
+  };
+  staticAssert(POOL_DESTRUCTOR_COUNT <= 0x0F, EDestructorIndex_CAN_FIT_INTO_A_NIBBLE)
+  staticAssert(INVALID_INDEX <= 0x0F, INVALID_INDEX_CAN_FIT_INTO_A_NIBBLE)
+
+  class DestructorIndexDouble {
+  protected:
+    u8 first_ : 4;
+    u8 second_ : 4;
+  public:
+    DestructorIndexDouble() : first_(INVALID_INDEX), second_(INVALID_INDEX) {}
+    u8 getFirst() const { return first_; }
+    u8 getSecond() const { return second_; }
+    void setFirst(const u8 nibble) { first_ = nibble & 0x0F; }
+    void setSecond(const u8 nibble) { second_ = nibble & 0x0F; }
+  };
+
+  typedef Pool* (*DestructorProc)(Pool*);
+
+protected:
+
+  DestructorProc destructor[POOL_DESTRUCTOR_COUNT];
+
+  PoolDestructor() : destructor() {
+    destructor[POOL_4_DESTRUCTOR_INDEX]    = pool4Undef;
+    destructor[POOL_8_DESTRUCTOR_INDEX]    = pool8Undef;
+    destructor[POOL_16_DESTRUCTOR_INDEX]   = pool16Undef;
+    destructor[POOL_32_DESTRUCTOR_INDEX]   = pool32Undef;
+    destructor[POOL_64_DESTRUCTOR_INDEX]   = pool64Undef;
+    destructor[POOL_128_DESTRUCTOR_INDEX]  = pool128Undef;
+    destructor[POOL_256_DESTRUCTOR_INDEX]  = pool256Undef;
+    destructor[POOL_512_DESTRUCTOR_INDEX]  = pool512Undef;
+    destructor[POOL_1024_DESTRUCTOR_INDEX] = pool1024Undef;
+    destructor[POOL_2048_DESTRUCTOR_INDEX] = pool2048Undef;
+  }
+
+public:
+
+  static PoolDestructor def() {
+    return PoolDestructor();
+  }
+
+  Pool* destroyFirstNibbleIndex(Pool* pool, const DestructorIndexDouble index) const {
+    assert(index.getFirst() < POOL_DESTRUCTOR_COUNT);
+    return destructor[index.getFirst()](pool);
+  }
+
+  Pool* destroySecondNibbleIndex(Pool* pool, const DestructorIndexDouble index) const {
+    assert(index.getSecond() < POOL_DESTRUCTOR_COUNT);
+    return destructor[index.getSecond()](pool);
+  }
+
+};
+staticAssert(sizeof(PoolDestructor) <= sizeof(Buffer0), PoolDestructor_CAN_FIT_INTO_A_Buffer0)
+
 } /* namespace Alm */
 
 using Alm::Buffer0;
