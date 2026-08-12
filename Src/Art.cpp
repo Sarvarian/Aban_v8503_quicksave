@@ -12,7 +12,6 @@ private:
   Block0* toBlock();
   Pool4* toPool();
 };
-
 /* Extra Note About Memory Allocation Of ArtCore: ArtCore is and positioned at first block of the first pool. */
 staticAssert(sizeof(ArtCore) <= sizeof(Block0), ArtCore_SHOULD_FIT_INTO_A_Block0)
 
