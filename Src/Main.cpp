@@ -75,7 +75,7 @@ ESysStatus MainDispatcher::preSdlInit(int, char**) { // NOLINT(*-convert-member-
 }
 
 ESysStatus MainDispatcher::initSdl(int, char**) {
-  const Sdl::Status res = Sdl::def().timer().video().events().eventThread().init();
+  const Sdl::Status res = Sdl::def().timer().video().events().noParachute().eventThread().init();
   if (res != Sdl::INIT_SUCCEED) {
     All::sdlInitFailed();
     exit_code = EXIT_FAILURE;
@@ -154,23 +154,23 @@ ESysStatus MainDispatcher::initEngine(int, char**) {
     u32 version = 0;
     VkResult res = vkEnumerateInstanceVersion(&version);
     if (res == VK_SUCCESS) {
-      print("Vulkan Instance Version Variant: %d", VK_API_VERSION_VARIANT(version));
-      print("Vulkan Instance Version Major: %d", VK_API_VERSION_MAJOR(version));
-      print("Vulkan Instance Version Minor: %d", VK_API_VERSION_MINOR(version));
-      print("Vulkan Instance Version Patch: %d", VK_API_VERSION_PATCH(version));
+      print("Vulkan Instance Version Variant: %d\n", VK_API_VERSION_VARIANT(version));
+      print("Vulkan Instance Version Major: %d\n", VK_API_VERSION_MAJOR(version));
+      print("Vulkan Instance Version Minor: %d\n", VK_API_VERSION_MINOR(version));
+      print("Vulkan Instance Version Patch: %d\n", VK_API_VERSION_PATCH(version));
     } else {
-      print("Failed to get Vulkan instance version. res: %d", res);
+      print("Failed to get Vulkan instance version. res: %d\n", res);
     }
     VkExtensionProperties properties[32] = {};
     u32 count = sizeof(properties) / sizeof(VkExtensionProperties);
     res = vkEnumerateInstanceExtensionProperties(null, &count, properties);
     if (res == VK_SUCCESS) {
-      print("Vulkan Extension Count: %u", count);
+      print("Vulkan Extension Count: %u\n", count);
       for (u32 i = 0; i < count; i++) {
-        print("Extension %d: %s", i, properties[i].extensionName);
+        print("Extension %d: %s\n", i, properties[i].extensionName);
       }
     } else {
-      print("Failed to get Vulkan extension count. res: %d", res);
+      print("Failed to get Vulkan extension count. res: %d\n", res);
     }
   }
 

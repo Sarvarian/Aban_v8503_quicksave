@@ -467,6 +467,15 @@ Sdl& Sdl::camera() {
   return *this;
 }
 
+Sdl& Sdl::noParachute() {
+#if IS_USING_SDL_1
+  subsystem_flags_ |= SDL_INIT_NOPARACHUTE;
+#elif  IS_USING_SDL_2 || IS_USING_SDL_3
+  /* SDL1 Feature Only. */
+#endif
+  return *this;
+}
+
 Sdl& Sdl::eventThread() {
 #if IS_USING_SDL_1
   subsystem_flags_ |= SDL_INIT_EVENTTHREAD;

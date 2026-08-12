@@ -300,6 +300,8 @@ public:
   Sdl& sensor();
   /** Add camera subsystem to init flags. */
   Sdl& camera();
+  /** Add No Parachute to init flags. */
+  Sdl& noParachute();
   /** Add event thread subsystem to init flags. */
   Sdl& eventThread();
 
