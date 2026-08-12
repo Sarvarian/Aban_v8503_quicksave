@@ -30,6 +30,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(ab
   Src/Ace.cpp
   Src/Ace.hpp
+  Src/Ado.cpp
+  Src/Ado.hpp
   Src/Aid.cpp
   Src/Aid.hpp
   Src/Alm.cpp
@@ -48,8 +50,6 @@ add_executable(ab
   Src/Journal.hpp
   Src/Main.hpp
   Src/Main.cpp
-  Src/Video.cpp
-  Src/Video.hpp
 )
 
 include(Link_SDL.cmake)
