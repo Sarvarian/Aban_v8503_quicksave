@@ -57,8 +57,18 @@ public:
     return null;
   }
 
-  void initCmdLine(const int argc, char** argv) {
+  /** Pre-SDL Initialization */
+  // ReSharper disable once CppMemberFunctionMayBeStatic
+  ESysStatus init1(const int argc, char** argv) { // NOLINT(*-convert-member-functions-to-static)
     /* Do something here! */
+    return E_SYS_CONTINUE;
+  }
+
+  /** On-Engine Initialization */
+  // ReSharper disable once CppMemberFunctionMayBeStatic
+  ESysStatus init2(const int argc, char** argv) { // NOLINT(*-convert-member-functions-to-static)
+    /* Do something here! */
+    return E_SYS_CONTINUE;
   }
 
   /** Returns current step, and swap steps. */
@@ -92,6 +102,9 @@ Art* Art::def() {
 ArtCore& Art::castCore() { return *static_cast<ArtCore*>(this); /* NOLINT(*-pro-type-static-cast-downcast) */ }
 /* ReSharper disable once CppDFAConstantFunctionResult */
 Art* Art::undef() { return castCore().undef(); }
-void Art::initCmdLine(const int argc, char** argv) { return castCore().initCmdLine(argc, argv); }
+/* ReSharper disable once CppDFAConstantFunctionResult */
+ESysStatus Art::init1(const int argc, char** argv) { return castCore().init1(argc, argv); }
+/* ReSharper disable once CppDFAConstantFunctionResult */
+ESysStatus Art::init2(const int argc, char** argv) { return castCore().init2(argc, argv); }
 Art::Step& Art::stepForward() { return castCore().stepForward(); }
 Art::Step& Art::stepFuture() { return castCore().stepFuture(); }

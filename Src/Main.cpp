@@ -21,9 +21,10 @@
 #include "All.hpp"
 #include "Aid.hpp"
 
-// ReSharper disable once CppMemberFunctionMayBeStatic
-ESysStatus MainDispatcher::preSdlInit(const int, char**) { // NOLINT(*-convert-member-functions-to-static)
-  return E_SYS_CONTINUE;
+ESysStatus MainDispatcher::preSdlInit(const int argc, char** argv) {
+  art = Art::def();
+  if (art == null) { return E_SYS_FATALITY; }
+  return art->init1(argc, argv);
 }
 
 ESysStatus MainDispatcher::initSdl(const int, char**) {
@@ -39,12 +40,9 @@ ESysStatus MainDispatcher::initSdl(const int, char**) {
 }
 
 ESysStatus MainDispatcher::initEngine(const int argc, char** argv) {
-  art = Art::def();
-  if (art == null) {
+  if (art->init2(argc, argv) != E_SYS_CONTINUE) {
     return E_SYS_FATALITY;
   }
-
-  art->initCmdLine(argc, argv);
 
 #if IS_USING_SDL_2 || IS_USING_SDL_3
   SDL_SetEventFilter(SdlEventDispatcher::sdlEventFilter, this);

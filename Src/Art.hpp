@@ -34,7 +34,10 @@ public:
   /** \return Always returns null. */
   Art* undef();
 
-  void initCmdLine(const int argc, char** argv); // NOLINT(*-avoid-const-params-in-decls)
+  /** Pre-SDL Initialization */
+  ESysStatus init1(const int argc, char** argv); // NOLINT(*-avoid-const-params-in-decls)
+  /** On-Engine Initialization */
+  ESysStatus init2(const int argc, char** argv); // NOLINT(*-avoid-const-params-in-decls)
 
   /** Returns current step, and swap steps. */
   Step& stepForward();
