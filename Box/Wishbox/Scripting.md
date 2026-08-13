@@ -6,5 +6,6 @@
   - Moonscript and/or Yuescript 
   - Fennel langauge (Lisp Family)
   - Hypatia Language (ML Family)
+  - TypeScriptToLua
 - Wren
 - AngelScript (C++ like)
