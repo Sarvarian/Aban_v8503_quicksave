@@ -57,6 +57,10 @@ public:
     return null;
   }
 
+  void initCmdLine(const int argc, char** argv) {
+    /* Do something here! */
+  }
+
   /** Returns current step, and swap steps. */
   Step& stepForward() {
     Step& current = feet[foot];
@@ -88,5 +92,6 @@ Art* Art::def() {
 ArtCore& Art::castCore() { return *static_cast<ArtCore*>(this); /* NOLINT(*-pro-type-static-cast-downcast) */ }
 /* ReSharper disable once CppDFAConstantFunctionResult */
 Art* Art::undef() { return castCore().undef(); }
+void Art::initCmdLine(const int argc, char** argv) { return castCore().initCmdLine(argc, argv); }
 Art::Step& Art::stepForward() { return castCore().stepForward(); }
 Art::Step& Art::stepFuture() { return castCore().stepFuture(); }

@@ -1188,9 +1188,9 @@ class MainDispatcher {
 public:
   static MainDispatcher def();
 
-  ESysStatus preSdlInit(int, char**);
-  ESysStatus initSdl(int, char**);
-  ESysStatus initEngine(int, char**);
+  ESysStatus preSdlInit(const int, char**); // NOLINT(*-avoid-const-params-in-decls)
+  ESysStatus initSdl(const int, char**); // NOLINT(*-avoid-const-params-in-decls)
+  ESysStatus initEngine(const int, char**); // NOLINT(*-avoid-const-params-in-decls)
   ESysStatus eventSdl(const SDL_Event&);
   ESysStatus stepEngine();
   void       shutEngine();

@@ -34,10 +34,12 @@ public:
   /** \return Always returns null. */
   Art* undef();
 
+  void initCmdLine(const int argc, char** argv); // NOLINT(*-avoid-const-params-in-decls)
+
   /** Returns current step, and swap steps. */
   Step& stepForward();
 
-  /** Returns future/next steup. */
+  /** Returns future/next step. */
   Step& stepFuture();
 
 protected:
