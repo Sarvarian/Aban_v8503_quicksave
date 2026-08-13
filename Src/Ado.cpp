@@ -378,16 +378,16 @@ Sdl Sdl::def() {
 }
 
 // ReSharper disable once CppMemberFunctionMayBeConst
-Sdl::Status Sdl::init() { // NOLINT(*-make-member-function-const)
+ESysStatus Sdl::init() { // NOLINT(*-make-member-function-const)
 #if !AB_SANITIZE
   atexit(SDL_Quit);
 #endif
 #if IS_USING_SDL_1 || IS_USING_SDL_2
   const int res = SDL_Init(subsystem_flags_);
-  return res == 0 ? INIT_SUCCEED : INIT_FAILED;
+  return res == 0 ? E_SYS_CONTINUE : E_SYS_FATALITY;
 #elif IS_USING_SDL_3
   const bool res = SDL_Init(subsystem_flags_);
-  return res == true ? INIT_SUCCEED : INIT_FAILED;
+  return res == true ? E_SYS_CONTINUE : E_SYS_FATALITY;
 #endif
 }
 
@@ -598,6 +598,14 @@ bool SdlWindow::setTitle(const char* title) {
 */
 
 #if AB_VULKAN
+
+Volk::Volk() {
+  /* Empty */
+}
+ESysStatus Volk::init() {
+  return volkInitialize() == VK_SUCCESS ? E_SYS_CONTINUE : E_SYS_FATALITY;
+}
+
 VulkanAppInfo::VulkanAppInfo() : VkApplicationInfo() {
   sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
   pNext = null;
@@ -641,4 +649,5 @@ VulkanAppInfo& VulkanAppInfo::setApiVersionTo1Point4() {
   apiVersion = VK_API_VERSION_1_4;
   return *this;
 }
+
 #endif /* AB_VULKAN */

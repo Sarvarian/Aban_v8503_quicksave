@@ -273,13 +273,12 @@ ThreadID getThreadID(Thread*);
 class Sdl {
 public:
 
-  enum Status {
-    INIT_FAILED = false,
-    INIT_SUCCEED = true
-  };
-
   static Sdl def();
-  Status init();
+
+  /** @return Either `E_SYS_CONTINUE` on success,
+   *              or `E_SYS_FATALITY` on failure. */
+  ESysStatus init();
+
   static void quit();
 
   /** Add timer subsystem to init flags. */
@@ -626,6 +625,17 @@ staticAssert(sizeof(SdlWindow) == sizeof(void*), SdlWindow_IS_JUST_A_CONTAINER_F
 */
 
 #if AB_VULKAN
+
+class Volk {
+public:
+  /** Run this once, at engine initialization.
+   *  @return Either `E_SYS_CONTINUE` on success,
+   *              or `E_SYS_FATALITY` on failure. */
+  static ESysStatus init();
+private:
+  Volk();
+};
+
 class VulkanAppInfo : private VkApplicationInfo {
 public:
   static VulkanAppInfo def();
@@ -641,6 +651,7 @@ private:
   VulkanAppInfo();
 };
 staticAssert(sizeof(VulkanAppInfo) == sizeof(VkApplicationInfo), VulkanAppInfor_IS_JUST_A_THIN_WRAPPER_OVER_VkApplicationInfo)
+
 #endif /* AB_VULKAN */
 
 #endif /* AB_ADO_HPP */

@@ -75,8 +75,8 @@ ESysStatus MainDispatcher::preSdlInit(int, char**) { // NOLINT(*-convert-member-
 }
 
 ESysStatus MainDispatcher::initSdl(int, char**) {
-  const Sdl::Status res = Sdl::def().timer().video().events().noParachute().eventThread().init();
-  if (res != Sdl::INIT_SUCCEED) {
+  const ESysStatus res = Sdl::def().timer().video().events().noParachute().eventThread().init();
+  if (res != E_SYS_CONTINUE) {
     All::sdlInitFailed();
     exit_code = EXIT_FAILURE;
     debugBreak;
@@ -142,13 +142,14 @@ ESysStatus MainDispatcher::initEngine(int, char**) {
   }
 #endif
 
+#if AB_VULKAN
   {
-    const VkResult res = volkInitialize();
-    if (res != VK_SUCCESS) {
+    if (Volk::init() != E_SYS_CONTINUE) {
       print("Failed to initialize volk!");
       return E_SYS_FATALITY;
     }
   }
+#endif
 
   {
     u32 version = 0;
