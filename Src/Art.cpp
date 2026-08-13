@@ -40,6 +40,10 @@ public:
     return current;
   }
 
+  Step& stepFuture() {
+    return feet_[foot_ ^ 0x01];
+  }
+
 };
 /* ArtCore is positioned at the first block of the first pool. */
 staticAssert(sizeof(ArtCore) <= sizeof(Block0), ArtCore_SHOULD_FIT_INTO_A_Block0)
@@ -56,16 +60,8 @@ Art* Art::def() {
   }
   return ArtCore::def(pool);
 }
-
-ArtCore& Art::castCore() {
-  return *static_cast<ArtCore*>(this); // NOLINT(*-pro-type-static-cast-downcast)
-}
-
-// ReSharper disable once CppDFAConstantFunctionResult
-Art* Art::undef() {
-  return castCore().undef();
-}
-
-Art::Step& Art::stepForward() {
-  return castCore().stepForward();
-}
+ArtCore& Art::castCore() { return *static_cast<ArtCore*>(this); /* NOLINT(*-pro-type-static-cast-downcast) */ }
+/* ReSharper disable once CppDFAConstantFunctionResult */
+Art* Art::undef() { return castCore().undef(); }
+Art::Step& Art::stepForward() { return castCore().stepForward(); }
+Art::Step& Art::stepFuture() { return castCore().stepFuture(); }

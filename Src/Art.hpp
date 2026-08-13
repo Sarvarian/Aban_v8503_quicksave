@@ -32,6 +32,9 @@ public:
   /** Returns current step, and swap steps. */
   Step& stepForward();
 
+  /** Returns future/next steup. */
+  Step& stepFuture();
+
 protected:
   Art() { /* Empty */ };
 
