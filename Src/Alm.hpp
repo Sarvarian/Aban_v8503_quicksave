@@ -239,10 +239,10 @@ public:
     static BlockAllocator def() {
       return BlockAllocator();
     }
-    IndexBlock pushBlock0() { return pushBlock0(CAPACITY); }
-    IndexBlock pushBlock1() { return pushBlock1(CAPACITY); }
-    IndexBlock pushBlock2() { return pushBlock2(CAPACITY); }
-    IndexBlock pushBlock3() { return pushBlock3(CAPACITY); }
+    IndexBlock pushBlock0() { return static_cast<Pool::BlockAllocator>(*this).pushBlock0(CAPACITY); }
+    IndexBlock pushBlock1() { return static_cast<Pool::BlockAllocator>(*this).pushBlock1(CAPACITY); }
+    IndexBlock pushBlock2() { return static_cast<Pool::BlockAllocator>(*this).pushBlock2(CAPACITY); }
+    IndexBlock pushBlock3() { return static_cast<Pool::BlockAllocator>(*this).pushBlock3(CAPACITY); }
   };
 
   BlockAllocator defBlockAllocator() {
