@@ -3,6 +3,7 @@
 #include "Main.hpp"
 #include "Alm.hpp"
 #include "All.hpp"
+#include "All.hpp"
 
 
 
@@ -21,15 +22,21 @@ Art::Step::Step() { // NOLINT(*-pro-type-member-init)
 
 class ArtCore : public Art, protected Pool4 {
 protected:
-  Alm::IndexBlock volatile_block_in_house_;
-  Step feet_[2];
-  u8 foot_ : 1;
+  /** In-house block to store volatile data. */
+  /** In-house as in the same pool as the ArtCore. */
+  Alm::IndexBlock volatiles;
 
-  ArtCore() : feet_(), foot_(0) {
+  Step feet[2];
+  u8 foot : 1;
+
+  /** Leagued Ledger (aka Journal, Logger) */
+  All ll;
+
+  ArtCore() : feet(), foot(0), ll(All::def()) {
     /* advance route, shutdown route.
      */
-    volatile_block_in_house_ = defBlockAllocator().pushBlock0();
-    assert(volatile_block_in_house_.isValid());
+    volatiles = defBlockAllocator().pushBlock0();
+    assert(volatiles.isValid());
   }
 
 public:
@@ -46,14 +53,14 @@ public:
 
   /** Returns current step, and swap steps. */
   Step& stepForward() {
-    Step& current = feet_[foot_];
-    foot_ = foot_ ^ 0x01;
-    feet_[foot_].clearAllFields();
+    Step& current = feet[foot];
+    foot = foot ^ 0x01;
+    feet[foot].clearAllFields();
     return current;
   }
 
   Step& stepFuture() {
-    return feet_[foot_ ^ 0x01];
+    return feet[foot ^ 0x01];
   }
 
 };
