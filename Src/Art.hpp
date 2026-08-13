@@ -9,7 +9,9 @@
 class Art {
 public:
 
-  struct Step {
+  class Step {
+  protected:
+    friend class ArtCore;
     u8 just_continue : 1;
     u8 calculate_delta_time : 1;
     u8 window_check : 1;
@@ -19,6 +21,9 @@ public:
     u8 _pad02_ : 1;
     u8 _pad01_ : 1;
     u8 _pad00_[mmBufferSize(0) - 1];
+    void clearAllFields();
+    Step();
+  public:
   };
   staticAssert(sizeof(Step) == sizeof(Buffer0), Step_FIT_INTO_ONE_Buffer0)
 

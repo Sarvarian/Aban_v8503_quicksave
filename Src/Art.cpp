@@ -7,6 +7,18 @@
 
 
 
+void Art::Step::clearAllFields() {
+  memset(this, 0, sizeof(Step));
+}
+
+// ReSharper disable once CppPossiblyUninitializedMember
+Art::Step::Step() { // NOLINT(*-pro-type-member-init)
+  clearAllFields();
+}
+
+
+
+
 class ArtCore : public Art, protected Pool4 {
 protected:
   Alm::IndexBlock volatile_block_in_house_;
@@ -36,7 +48,7 @@ public:
   Step& stepForward() {
     Step& current = feet_[foot_];
     foot_ = foot_ ^ 0x01;
-    memset(&feet_[foot_], 0, sizeof(feet_[foot_]));
+    feet_[foot_].clearAllFields();
     return current;
   }
 
