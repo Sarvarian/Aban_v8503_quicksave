@@ -5,6 +5,12 @@
 
 /** Aban Resource Manager */
 class Arm {
+public:
+
+  static Arm def();
+
+private:
+  Arm();
 
 };
 

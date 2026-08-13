@@ -3,7 +3,7 @@
 #include "Main.hpp"
 #include "Alm.hpp"
 #include "All.hpp"
-#include "All.hpp"
+#include "Arm.hpp"
 
 
 
@@ -32,11 +32,17 @@ protected:
   /** Leagued Ledger (aka Journal, Logger) */
   All ll;
 
-  ArtCore() : feet(), foot(0), ll(All::def()) {
-    /* advance route, shutdown route.
-     */
-    volatiles = defBlockAllocator().pushBlock0();
+  /** Resource Manager */
+  Arm rm;
+
+  ArtCore()
+  : volatiles(defBlockAllocator().pushBlock0())
+  , feet(), foot(0)
+  , ll(All::def())
+  , rm(Arm::def())
+  {
     assert(volatiles.isValid());
+    /* advance route, shutdown route. */
   }
 
 public:
