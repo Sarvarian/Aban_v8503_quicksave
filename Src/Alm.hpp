@@ -167,8 +167,8 @@ public:
 class IndexBlock {
 protected:
   IndexMedium index_;
-  IndexBlock() : index_(0) {}
 public:
+  IndexBlock() : index_(0) {}
   explicit IndexBlock(const IndexMedium index) : index_(index) {}
   static IndexBlock def(const IndexMedium index) { return IndexBlock(index); }
   bool isValid() const {
@@ -407,6 +407,7 @@ public:
     u8 second_ : 4;
   public:
     IndexDouble() : first_(INVALID_INDEX), second_(INVALID_INDEX) {}
+    static IndexDouble def() { return IndexDouble(); }
     u8 getFirst() const { return first_; }
     u8 getSecond() const { return second_; }
     void setFirst(const u8 nibble) { first_ = nibble & 0x0F; }

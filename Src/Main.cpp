@@ -48,14 +48,11 @@ ESysStatus MainDispatcher::initEngine(int, char**) {
   SDL_SetEventFilter(SdlEventDispatcher::sdlEventFilter, this);
 #endif
 
-  SdlWindow::debugPrintVideoDriverInformation();
-
 #if AB_VULKAN
   if (Volk::init() != E_SYS_CONTINUE) {
     print("Failed to initialize volk!");
     return E_SYS_FATALITY;
   }
-  Vulkan::debugPrintInstanceInformation();
 #endif
 
   return E_SYS_CONTINUE;
@@ -66,7 +63,12 @@ ESysStatus MainDispatcher::eventSdl(const SDL_Event& event) {
 }
 
 ESysStatus MainDispatcher::stepEngine() {
-  return E_SYS_QUIT;
+  bool did_took_a_step = false;
+  Art::Step& step = art_->stepForward();
+
+  //if (step.)
+
+  return did_took_a_step ? E_SYS_CONTINUE : E_SYS_QUIT;
 }
 
 void MainDispatcher::shutEngine() {

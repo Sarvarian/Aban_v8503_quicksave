@@ -9,8 +9,16 @@
 
 class ArtCore : public Art, protected Pool4 {
 protected:
+  Alm::IndexBlock volatile_block_in_house_;
+  Step feet_[2];
+  bool is_foot_second_ : 1;
 
-  ArtCore() { /* Empty */ }
+  ArtCore() : feet_(), is_foot_second_(false) {
+    /* advance route, shutdown route.
+     */
+    volatile_block_in_house_ = defBlockAllocator().pushBlock0();
+    assert(volatile_block_in_house_.isValid());
+  }
 
 public:
   static Art* def(Pool4* pool) {
@@ -22,6 +30,17 @@ public:
   Art* undef() {
     static_cast<Pool4*>(this)->undef();
     return null;
+  }
+
+  /** Returns foot, and swap feet. */
+  Step& stepForward() {
+    if (is_foot_second_ == false) {
+      memset(&feet_[1], 0, sizeof(feet_[1]));
+      return feet_[0];
+    } else {
+      memset(&feet_[0], 0, sizeof(feet_[0]));
+      return feet_[1];
+    }
   }
 
 };
@@ -41,7 +60,15 @@ Art* Art::def() {
   return ArtCore::def(pool);
 }
 
+ArtCore& Art::castCore() {
+  return *static_cast<ArtCore*>(this); // NOLINT(*-pro-type-static-cast-downcast)
+}
+
 // ReSharper disable once CppDFAConstantFunctionResult
 Art* Art::undef() {
-  return static_cast<ArtCore*>(this)->undef(); // NOLINT(*-pro-type-static-cast-downcast)
+  return castCore().undef();
+}
+
+Art::Step& Art::stepForward() {
+  return castCore().stepForward();
 }
