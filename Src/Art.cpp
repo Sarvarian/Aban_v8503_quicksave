@@ -11,9 +11,9 @@ class ArtCore : public Art, protected Pool4 {
 protected:
   Alm::IndexBlock volatile_block_in_house_;
   Step feet_[2];
-  bool is_foot_second_ : 1;
+  u8 foot_ : 1;
 
-  ArtCore() : feet_(), is_foot_second_(false) {
+  ArtCore() : feet_(), foot_(0) {
     /* advance route, shutdown route.
      */
     volatile_block_in_house_ = defBlockAllocator().pushBlock0();
@@ -32,15 +32,12 @@ public:
     return null;
   }
 
-  /** Returns foot, and swap feet. */
+  /** Returns current step, and swap steps. */
   Step& stepForward() {
-    if (is_foot_second_ == false) {
-      memset(&feet_[1], 0, sizeof(feet_[1]));
-      return feet_[0];
-    } else {
-      memset(&feet_[0], 0, sizeof(feet_[0]));
-      return feet_[1];
-    }
+    Step& current = feet_[foot_];
+    foot_ = foot_ ^ 0x01;
+    memset(&feet_[foot_], 0, sizeof(feet_[foot_]));
+    return current;
   }
 
 };

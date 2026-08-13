@@ -29,7 +29,7 @@ public:
   /** \return Always returns null. */
   Art* undef();
 
-  /** Returns foot, and swap feet. */
+  /** Returns current step, and swap steps. */
   Step& stepForward();
 
 protected:
