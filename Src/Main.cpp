@@ -39,8 +39,8 @@ ESysStatus MainDispatcher::initSdl(int, char**) {
 }
 
 ESysStatus MainDispatcher::initEngine(int, char**) {
-  art_ = Art::def();
-  if (art_ == null) {
+  art = Art::def();
+  if (art == null) {
     return E_SYS_FATALITY;
   }
 
@@ -64,7 +64,7 @@ ESysStatus MainDispatcher::eventSdl(const SDL_Event& event) {
 
 ESysStatus MainDispatcher::stepEngine() {
   bool did_took_a_step = false;
-  Art::Step& step = art_->stepForward();
+  Art::Step& step = art->stepForward();
 
   //if (step.)
 
@@ -72,7 +72,7 @@ ESysStatus MainDispatcher::stepEngine() {
 }
 
 void MainDispatcher::shutEngine() {
-  art_ = art_ ? art_->undef() : null;
+  art = art ? art->undef() : null;
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
@@ -88,7 +88,7 @@ MainDispatcher::MainDispatcher()
   /* target_delta_ms = 0;      */
   target_delta_ms = (MSPS / 10);
   exit_code = EXIT_SUCCESS;
-  art_ = null;
+  art = null;
 }
 
 MainDispatcher MainDispatcher::def() {
