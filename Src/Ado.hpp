@@ -600,6 +600,8 @@ public:
    */
   static const char* getCurrentVideoDriverName();
 
+  static void debugPrintVideoDriverInformation();
+
   /** \returns true on success or false on failure; call SDL_GetError() for more information. */
   bool setTitle(const char* title);
 
@@ -634,6 +636,14 @@ public:
   static ESysStatus init();
 private:
   Volk();
+};
+
+class Vulkan {
+public:
+  static void debugPrintInstanceInformation();
+
+private:
+  Vulkan();
 };
 
 class VulkanAppInfo : private VkApplicationInfo {

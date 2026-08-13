@@ -573,6 +573,24 @@ const char* SdlWindow::getCurrentVideoDriverName() {
 #endif
 }
 
+void SdlWindow::debugPrintVideoDriverInformation() {
+#if AB_DEBUG
+  print("Current video driver: %s\n", getCurrentVideoDriverName());
+#if IS_USING_SDL_2 || IS_USING_SDL_3
+  const int video_count = getVideoDriverCount();
+  if (video_count < 1) {
+    print("[%s:%d] Failed to get video driver count.\n", __FILE__, __LINE__);
+    return;
+  }
+  print("Found %d video drivers.\n", video_count);
+  for (int i = 0; i < video_count; i++) {
+    const char* name = getVideoDriverName(i);
+    print("Video driver %d: %s\n", i, name);
+  }
+#endif
+#endif /* AB_DEBUG */
+}
+
 bool SdlWindow::setTitle(const char* title) {
 #if IS_USING_SDL_1
   SDL_WM_SetCaption(title, null);
@@ -604,6 +622,35 @@ Volk::Volk() {
 }
 ESysStatus Volk::init() {
   return volkInitialize() == VK_SUCCESS ? E_SYS_CONTINUE : E_SYS_FATALITY;
+}
+
+Vulkan::Vulkan() {
+  /* Empty */
+}
+void Vulkan::debugPrintInstanceInformation() {
+#if AB_DEBUG
+  u32 version = 0;
+  VkResult res = vkEnumerateInstanceVersion(&version);
+  if (res == VK_SUCCESS) {
+    print("Vulkan Instance Version Variant: %d\n", VK_API_VERSION_VARIANT(version));
+    print("Vulkan Instance Version Major: %d\n", VK_API_VERSION_MAJOR(version));
+    print("Vulkan Instance Version Minor: %d\n", VK_API_VERSION_MINOR(version));
+    print("Vulkan Instance Version Patch: %d\n", VK_API_VERSION_PATCH(version));
+  } else {
+    print("Failed to get Vulkan instance version. res: %d\n", res);
+  }
+  VkExtensionProperties properties[32] = {};
+  u32 count = sizeof(properties) / sizeof(VkExtensionProperties);
+  res = vkEnumerateInstanceExtensionProperties(null, &count, properties);
+  if (res == VK_SUCCESS) {
+    print("Vulkan Extension Count: %u\n", count);
+    for (u32 i = 0; i < count; i++) {
+      print("Extension %d: %s\n", i, properties[i].extensionName);
+    }
+  } else {
+    print("Failed to get Vulkan extension count. res: %d\n", res);
+  }
+#endif /* AB_DEBUG */
 }
 
 VulkanAppInfo::VulkanAppInfo() : VkApplicationInfo() {
