@@ -623,7 +623,6 @@ public:
     case POOL_2048: return Pool2048::CAPACITY;
     default: return INVALID_REQUEST;
     }
-
   }
 
 };
