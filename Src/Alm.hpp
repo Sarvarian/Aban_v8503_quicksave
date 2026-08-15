@@ -499,6 +499,100 @@ public:
 };
 staticAssert(sizeof(PoolArrayBook) == sizeof(Buffer0), PoolArrayBook_CAN_FIT_INTO_A_Buffer0)
 
+class RequestMemory {
+public:
+  enum RequestType {
+    BUFFER_0,
+    BUFFER_1,
+    BUFFER_2,
+    BUFFER_3,
+    BLOCK_0,
+    BLOCK_1,
+    BLOCK_2,
+    BLOCK_3,
+    POOL_4,
+    POOL_8,
+    POOL_16,
+    POOL_32,
+    POOL_64,
+    POOL_128,
+    POOL_256,
+    POOL_512,
+    POOL_1024,
+    POOL_2048,
+    TYPE_COUNT,
+    INVALID_REQUEST
+};
+
+protected:
+  u8 request_;
+
+public:
+  RequestMemory() : request_(INVALID_REQUEST) {}
+  explicit RequestMemory(const RequestType request) : request_(request) {}
+
+  static RequestMemory defInvalid() { return RequestMemory(INVALID_REQUEST); }
+  static RequestMemory defBuffer0() { return RequestMemory(BUFFER_0); }
+  static RequestMemory defBuffer1() { return RequestMemory(BUFFER_1); }
+  static RequestMemory defBuffer2() { return RequestMemory(BUFFER_2); }
+  static RequestMemory defBuffer3() { return RequestMemory(BUFFER_3); }
+  static RequestMemory defBlock0() { return RequestMemory(BLOCK_0); }
+  static RequestMemory defBlock1() { return RequestMemory(BLOCK_1); }
+  static RequestMemory defBlock2() { return RequestMemory(BLOCK_2); }
+  static RequestMemory defBlock3() { return RequestMemory(BLOCK_3); }
+  static RequestMemory defPool4() { return RequestMemory(POOL_4); }
+  static RequestMemory defPool8() { return RequestMemory(POOL_8); }
+  static RequestMemory defPool16() { return RequestMemory(POOL_16); }
+  static RequestMemory defPool32() { return RequestMemory(POOL_32); }
+  static RequestMemory defPool64() { return RequestMemory(POOL_64); }
+  static RequestMemory defPool128() { return RequestMemory(POOL_128); }
+  static RequestMemory defPool256() { return RequestMemory(POOL_256); }
+  static RequestMemory defPool512() { return RequestMemory(POOL_512); }
+  static RequestMemory defPool1024() { return RequestMemory(POOL_1024); }
+  static RequestMemory defPool2048() { return RequestMemory(POOL_2048); }
+
+  bool isValid() const {
+    return request_ < TYPE_COUNT ? true : false;
+  }
+
+  bool isBuffer() const {
+    switch (request_) {
+    case BUFFER_0: return true; // NOLINT(*-branch-clone)
+    case BUFFER_1: return true; // NOLINT(*-branch-clone)
+    case BUFFER_2: return true; // NOLINT(*-branch-clone)
+    case BUFFER_3: return true; // NOLINT(*-branch-clone)
+    default: return false;
+    }
+  }
+
+  bool isBlock() const {
+    switch (request_) {
+    case BLOCK_0: return true; // NOLINT(*-branch-clone)
+    case BLOCK_1: return true; // NOLINT(*-branch-clone)
+    case BLOCK_2: return true; // NOLINT(*-branch-clone)
+    case BLOCK_3: return true; // NOLINT(*-branch-clone)
+    default: return false;
+    }
+  }
+
+  bool isPool() const {
+    switch (request_) {
+    case POOL_4: return true; // NOLINT(*-branch-clone)
+    case POOL_8: return true; // NOLINT(*-branch-clone)
+    case POOL_16: return true; // NOLINT(*-branch-clone)
+    case POOL_32: return true; // NOLINT(*-branch-clone)
+    case POOL_64: return true; // NOLINT(*-branch-clone)
+    case POOL_128: return true; // NOLINT(*-branch-clone)
+    case POOL_256: return true; // NOLINT(*-branch-clone)
+    case POOL_512: return true; // NOLINT(*-branch-clone)
+    case POOL_1024: return true; // NOLINT(*-branch-clone)
+    case POOL_2048: return true; // NOLINT(*-branch-clone)
+    default: return false;
+    }
+  }
+
+};
+staticAssert(sizeof(RequestMemory) == sizeof(u8), RequestMemory_CAN_FIT_INTO_AN_u8)
 
 } /* namespace Alm */
 
