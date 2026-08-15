@@ -498,6 +498,7 @@ public:
   enum { CAPACITY = ((sizeof(Buffer0) / PTR_SIZE) - 1) /* Calculate Buffer Capacity - Subtract 1 `next` Pointer */ };
   PoolArray* buffer[CAPACITY];
   PoolArrayBook* next;
+  PoolArrayBook() : buffer(), next(null) {}
 };
 staticAssert(sizeof(PoolArrayBook) == sizeof(Buffer0), PoolArrayBook_CAN_FIT_INTO_A_Buffer0)
 
