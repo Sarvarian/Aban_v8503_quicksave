@@ -499,9 +499,9 @@ public:
 };
 staticAssert(sizeof(PoolArrayBook) == sizeof(Buffer0), PoolArrayBook_CAN_FIT_INTO_A_Buffer0)
 
-class RequestMemory {
+class MemoryRequest {
 public:
-  enum RequestType {
+  enum Type {
     BUFFER_0,
     BUFFER_1,
     BUFFER_2,
@@ -528,28 +528,28 @@ protected:
   u8 request_;
 
 public:
-  RequestMemory() : request_(INVALID_REQUEST) {}
-  explicit RequestMemory(const RequestType request) : request_(request) {}
+  MemoryRequest() : request_(INVALID_REQUEST) {}
+  explicit MemoryRequest(const Type request) : request_(request) {}
 
-  static RequestMemory defInvalid() { return RequestMemory(INVALID_REQUEST); }
-  static RequestMemory defBuffer0() { return RequestMemory(BUFFER_0); }
-  static RequestMemory defBuffer1() { return RequestMemory(BUFFER_1); }
-  static RequestMemory defBuffer2() { return RequestMemory(BUFFER_2); }
-  static RequestMemory defBuffer3() { return RequestMemory(BUFFER_3); }
-  static RequestMemory defBlock0() { return RequestMemory(BLOCK_0); }
-  static RequestMemory defBlock1() { return RequestMemory(BLOCK_1); }
-  static RequestMemory defBlock2() { return RequestMemory(BLOCK_2); }
-  static RequestMemory defBlock3() { return RequestMemory(BLOCK_3); }
-  static RequestMemory defPool4() { return RequestMemory(POOL_4); }
-  static RequestMemory defPool8() { return RequestMemory(POOL_8); }
-  static RequestMemory defPool16() { return RequestMemory(POOL_16); }
-  static RequestMemory defPool32() { return RequestMemory(POOL_32); }
-  static RequestMemory defPool64() { return RequestMemory(POOL_64); }
-  static RequestMemory defPool128() { return RequestMemory(POOL_128); }
-  static RequestMemory defPool256() { return RequestMemory(POOL_256); }
-  static RequestMemory defPool512() { return RequestMemory(POOL_512); }
-  static RequestMemory defPool1024() { return RequestMemory(POOL_1024); }
-  static RequestMemory defPool2048() { return RequestMemory(POOL_2048); }
+  static MemoryRequest defInvalid() { return MemoryRequest(INVALID_REQUEST); }
+  static MemoryRequest defBuffer0() { return MemoryRequest(BUFFER_0); }
+  static MemoryRequest defBuffer1() { return MemoryRequest(BUFFER_1); }
+  static MemoryRequest defBuffer2() { return MemoryRequest(BUFFER_2); }
+  static MemoryRequest defBuffer3() { return MemoryRequest(BUFFER_3); }
+  static MemoryRequest defBlock0() { return MemoryRequest(BLOCK_0); }
+  static MemoryRequest defBlock1() { return MemoryRequest(BLOCK_1); }
+  static MemoryRequest defBlock2() { return MemoryRequest(BLOCK_2); }
+  static MemoryRequest defBlock3() { return MemoryRequest(BLOCK_3); }
+  static MemoryRequest defPool4() { return MemoryRequest(POOL_4); }
+  static MemoryRequest defPool8() { return MemoryRequest(POOL_8); }
+  static MemoryRequest defPool16() { return MemoryRequest(POOL_16); }
+  static MemoryRequest defPool32() { return MemoryRequest(POOL_32); }
+  static MemoryRequest defPool64() { return MemoryRequest(POOL_64); }
+  static MemoryRequest defPool128() { return MemoryRequest(POOL_128); }
+  static MemoryRequest defPool256() { return MemoryRequest(POOL_256); }
+  static MemoryRequest defPool512() { return MemoryRequest(POOL_512); }
+  static MemoryRequest defPool1024() { return MemoryRequest(POOL_1024); }
+  static MemoryRequest defPool2048() { return MemoryRequest(POOL_2048); }
 
   bool isValid() const {
     return request_ < TYPE_COUNT ? true : false;
@@ -592,7 +592,7 @@ public:
   }
 
 };
-staticAssert(sizeof(RequestMemory) == sizeof(u8), RequestMemory_CAN_FIT_INTO_AN_u8)
+staticAssert(sizeof(MemoryRequest) == sizeof(u8), MemoryRequest_CAN_FIT_INTO_AN_u8)
 
 } /* namespace Alm */
 
