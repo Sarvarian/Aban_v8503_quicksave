@@ -661,6 +661,70 @@ public:
 };
 staticAssert(sizeof(RequestMemory) == sizeof(u8), RequestMemory_CAN_FIT_INTO_AN_u8)
 
+/*
+  ███████╗████████╗██████╗ ██╗███╗   ██╗ ██████╗
+  ██╔════╝╚══██╔══╝██╔══██╗██║████╗  ██║██╔════╝
+  ███████╗   ██║   ██████╔╝██║██╔██╗ ██║██║  ███╗
+  ╚════██║   ██║   ██╔══██╗██║██║╚██╗██║██║   ██║
+  ███████║   ██║   ██║  ██║██║██║ ╚████║╚██████╔╝
+  ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
+*/
+
+/** Index 0 is reserved as invalid index.
+ *
+ *  Valid indices start from 1.
+ *
+ *  To index into an actual C/C++ array (a buffer)
+ *  decrement the `IndexString` value by one, before indexing.
+ */
+typedef u8 IndexString;
+
+enum { INDEX_STRING_INVALID = 0 /**< This also indicates start of a new bank indices. */ };
+
+/** CAUTION: `string` is NOT null terminated. Consider the `length` field.
+ *
+ *  `string` can be `null`. `length` can be `0`.
+ *  Consult the constructor, create, and provider API.
+ *
+ *  This is a temporary, and internal data structure.
+ *  Not intended for storage or long-term use.
+ */
+class String {
+public:
+  const char* string;
+  IndexString length;
+  String() : string(null), length(0) {}
+  explicit String(const char* location, const u8 string_length) : string(location), length(string_length) {}
+  static String def(const char* location, const u8 string_length) { return String(location, string_length); }
+};
+
+/** A bank is a collection of strings.
+ *
+ *  CAUTION: strings are NOT null terminated.
+ *  Index them in `BankIndices` type below.
+ *  Each index also determine the end of previous string.
+ *
+ *  No stored string can go beyond end of the `Bank` buffer.
+ */
+class Bank {
+public:
+  char buffer[mmBufferSize(0)];
+  Bank() : buffer() {}
+  char* get(const IndexString index) { return &buffer[index - 1]; }
+};
+staticAssert(sizeof(Bank) == sizeof(Buffer0), Bank_IS_A_Buffer0_FOR_A_COLLECTION_OF_STRINGS)
+
+/** Keep indices of strings kept in `Bank` buffers.
+ *
+ *  Each index is start of a new string and end of the previous one.
+ */
+class BankIndices {
+public:
+  IndexString indices[mmBufferSize(0)];
+  BankIndices() : indices() {}
+};
+staticAssert(sizeof(Bank) == sizeof(Buffer0), BankIndices_CAN_FIT_INTO_A_Buffer0)
+
 } /* namespace Alm */
 
 using Alm::Buffer0;
