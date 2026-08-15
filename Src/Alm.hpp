@@ -677,7 +677,7 @@ staticAssert(sizeof(RequestMemory) == sizeof(u8), RequestMemory_CAN_FIT_INTO_AN_
  *  To index into an actual C/C++ array (a buffer)
  *  decrement the `IndexString` value by one, before indexing.
  */
-typedef u8 IndexString;
+typedef u16 IndexString;
 
 enum { INDEX_STRING_INVALID = 0 /**< This also indicates start of a new bank indices. */ };
 
@@ -728,10 +728,10 @@ staticAssert(sizeof(Bank) == sizeof(Buffer0), Bank_IS_A_Buffer0_FOR_A_COLLECTION
  */
 class BankIndices {
 public:
-  IndexString indices[mmBufferSize(0)];
+  IndexString indices[mmBufferSize(0) / sizeof(IndexString)];
   BankIndices() : indices() {}
 };
-staticAssert(sizeof(Bank) == sizeof(Buffer0), BankIndices_CAN_FIT_INTO_A_Buffer0)
+staticAssert(sizeof(BankIndices) == sizeof(Buffer0), BankIndices_CAN_FIT_INTO_A_Buffer0)
 
 } /* namespace Alm */
 
