@@ -551,6 +551,10 @@ public:
   static MemoryRequest defPool1024() { return MemoryRequest(POOL_1024); }
   static MemoryRequest defPool2048() { return MemoryRequest(POOL_2048); }
 
+  u8 getRequestValue() const {
+    return request_;
+  }
+
   bool isValid() const {
     return request_ < TYPE_COUNT ? true : false;
   }
