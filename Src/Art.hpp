@@ -4,6 +4,7 @@
 #define AB_ART_HPP
 
 #include "Main.hpp"
+#include "Alm.hpp"
 
 /** Aban Runtime */
 class Art {

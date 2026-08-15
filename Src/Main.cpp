@@ -22,9 +22,9 @@
 #include "Aid.hpp"
 
 ESysStatus MainDispatcher::preSdlInit(const int argc, char** argv) {
-  art = Art::def();
-  if (art == null) { return E_SYS_FATALITY; }
-  return art->init1(argc, argv);
+  art_ = Art::def();
+  if (art_ == null) { return E_SYS_FATALITY; }
+  return art_->init1(argc, argv);
 }
 
 ESysStatus MainDispatcher::initSdl(const int, char**) {
@@ -40,7 +40,7 @@ ESysStatus MainDispatcher::initSdl(const int, char**) {
 }
 
 ESysStatus MainDispatcher::initEngine(const int argc, char** argv) {
-  if (art->init2(argc, argv) != E_SYS_CONTINUE) {
+  if (art_->init2(argc, argv) != E_SYS_CONTINUE) {
     return E_SYS_FATALITY;
   }
 
@@ -64,7 +64,7 @@ ESysStatus MainDispatcher::eventSdl(const SDL_Event& event) {
 
 ESysStatus MainDispatcher::stepEngine() {
   bool did_took_a_step = false;
-  Art::Step& step = art->stepForward();
+  Art::Step& step = art_->stepForward();
 
   //if (step.)
 
@@ -72,7 +72,7 @@ ESysStatus MainDispatcher::stepEngine() {
 }
 
 void MainDispatcher::shutEngine() {
-  art = art ? art->undef() : null;
+  art_ = art_ ? art_->undef() : null;
 }
 
 // ReSharper disable once CppMemberFunctionMayBeStatic
@@ -88,7 +88,7 @@ MainDispatcher::MainDispatcher()
   /* target_delta_ms = 0;      */
   target_delta_ms = (MSPS / 10);
   exit_code = EXIT_SUCCESS;
-  art = null;
+  art_ = null;
 }
 
 MainDispatcher MainDispatcher::def() {

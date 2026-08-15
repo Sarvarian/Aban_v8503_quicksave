@@ -1211,7 +1211,7 @@ public:
 protected:
   MainDispatcher();
 
-  class Art* art;
+  class Art* art_;
 
 };
 

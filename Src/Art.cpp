@@ -24,24 +24,24 @@ class ArtCore : public Art, protected Pool4 {
 protected:
   /** In-house block to store volatile data. */
   /** In-house as in the same pool as the ArtCore. */
-  Alm::IndexBlock volatiles;
+  Alm::IndexBlock volatiles_;
 
-  Step feet[2];
-  u8 foot : 1;
+  Step feet_[2];
+  u8 foot_ : 1;
 
   /** Leagued Ledger (aka Journal, Logger) */
-  All ll;
+  All all_;
 
   /** Resource Manager */
-  Arm rm;
+  Arm arm_;
 
   ArtCore()
-  : volatiles(defBlockAllocator().pushBlock0())
-  , feet(), foot(0)
-  , ll(All::def())
-  , rm(Arm::def())
+  : volatiles_(defBlockAllocator().pushBlock0())
+  , feet_(), foot_(0)
+  , all_(All::def())
+  , arm_(Arm::def())
   {
-    assert(volatiles.isValid());
+    assert(volatiles_.isValid());
     /* advance route, shutdown route. */
   }
 
@@ -73,14 +73,14 @@ public:
 
   /** Returns current step, and swap steps. */
   Step& stepForward() {
-    Step& current = feet[foot];
-    foot = foot ^ 0x01;
-    feet[foot].clearAllFields();
+    Step& current = feet_[foot_];
+    foot_ = foot_ ^ 0x01;
+    feet_[foot_].clearAllFields();
     return current;
   }
 
   Step& stepFuture() {
-    return feet[foot ^ 0x01];
+    return feet_[foot_ ^ 0x01];
   }
 
 };
