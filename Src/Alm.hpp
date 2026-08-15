@@ -563,6 +563,28 @@ public:
   static RequestMemory defPool1024() { return RequestMemory(REQUEST_POOL_1024); }
   static RequestMemory defPool2048() { return RequestMemory(REQUEST_POOL_2048); }
 
+  /** Only for scale 0-3 inclusively. Any scale larger than 3 will return REQUEST_INVALID type. */
+  static RequestMemory defBuffer(const Scale scale) {
+    switch (scale) {
+    case 0: return defBuffer0();
+    case 1: return defBuffer1();
+    case 2: return defBuffer2();
+    case 3: return defBuffer3();
+    default: return defInvalid();
+    }
+  }
+
+  /** Only for scale 0-3 inclusively. Any scale larger than 3 will return REQUEST_INVALID type. */
+  static RequestMemory defBlock(const Scale scale) {
+    switch (scale) {
+    case 0: return defBlock0();
+    case 1: return defBlock1();
+    case 2: return defBlock2();
+    case 3: return defBlock3();
+    default: return defInvalid();
+    }
+  }
+
   bool isValid() const {
     return ((REQUEST_INVALID < request_) && (request_ < REQUEST_TYPE_COUNT)) ? true : false;
   }
