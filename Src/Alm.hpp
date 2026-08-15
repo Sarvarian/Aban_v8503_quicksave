@@ -501,94 +501,94 @@ public:
 };
 staticAssert(sizeof(PoolArrayBook) == sizeof(Buffer0), PoolArrayBook_CAN_FIT_INTO_A_Buffer0)
 
-class MemoryRequest {
-public:
-  enum Type {
-    BUFFER_0,
-    BUFFER_1,
-    BUFFER_2,
-    BUFFER_3,
-    BLOCK_0,
-    BLOCK_1,
-    BLOCK_2,
-    BLOCK_3,
-    POOL_4,
-    POOL_8,
-    POOL_16,
-    POOL_32,
-    POOL_64,
-    POOL_128,
-    POOL_256,
-    POOL_512,
-    POOL_1024,
-    POOL_2048,
-    TYPE_COUNT,
-    INVALID_REQUEST = U8_MAX
+enum RequestType {
+  REQUEST_INVALID = 0,
+  REQUEST_BUFFER_0,
+  REQUEST_BUFFER_1,
+  REQUEST_BUFFER_2,
+  REQUEST_BUFFER_3,
+  REQUEST_BLOCK_0,
+  REQUEST_BLOCK_1,
+  REQUEST_BLOCK_2,
+  REQUEST_BLOCK_3,
+  REQUEST_POOL_4,
+  REQUEST_POOL_8,
+  REQUEST_POOL_16,
+  REQUEST_POOL_32,
+  REQUEST_POOL_64,
+  REQUEST_POOL_128,
+  REQUEST_POOL_256,
+  REQUEST_POOL_512,
+  REQUEST_POOL_1024,
+  REQUEST_POOL_2048,
+  REQUEST_TYPE_COUNT
 };
+staticAssert(REQUEST_INVALID == 0, SHOULD_BE_ABLE_TO_USE_memset_TO_REST_REQUEST_TYPE_TO_INVALID)
 
+class RequestMemory {
 protected:
   u8 request_;
 
 public:
-  MemoryRequest() : request_(INVALID_REQUEST) {}
-  explicit MemoryRequest(const Type request) : request_(request) {}
+  RequestMemory() : request_(REQUEST_INVALID) {}
+  explicit RequestMemory(const RequestType request) : request_(request) {}
 
-  static MemoryRequest defInvalid() { return MemoryRequest(INVALID_REQUEST); }
-  static MemoryRequest defBuffer0() { return MemoryRequest(BUFFER_0); }
-  static MemoryRequest defBuffer1() { return MemoryRequest(BUFFER_1); }
-  static MemoryRequest defBuffer2() { return MemoryRequest(BUFFER_2); }
-  static MemoryRequest defBuffer3() { return MemoryRequest(BUFFER_3); }
-  static MemoryRequest defBlock0() { return MemoryRequest(BLOCK_0); }
-  static MemoryRequest defBlock1() { return MemoryRequest(BLOCK_1); }
-  static MemoryRequest defBlock2() { return MemoryRequest(BLOCK_2); }
-  static MemoryRequest defBlock3() { return MemoryRequest(BLOCK_3); }
-  static MemoryRequest defPool4() { return MemoryRequest(POOL_4); }
-  static MemoryRequest defPool8() { return MemoryRequest(POOL_8); }
-  static MemoryRequest defPool16() { return MemoryRequest(POOL_16); }
-  static MemoryRequest defPool32() { return MemoryRequest(POOL_32); }
-  static MemoryRequest defPool64() { return MemoryRequest(POOL_64); }
-  static MemoryRequest defPool128() { return MemoryRequest(POOL_128); }
-  static MemoryRequest defPool256() { return MemoryRequest(POOL_256); }
-  static MemoryRequest defPool512() { return MemoryRequest(POOL_512); }
-  static MemoryRequest defPool1024() { return MemoryRequest(POOL_1024); }
-  static MemoryRequest defPool2048() { return MemoryRequest(POOL_2048); }
+  static RequestMemory defInvalid() { return RequestMemory(REQUEST_INVALID); }
+  static RequestMemory defBuffer0() { return RequestMemory(REQUEST_BUFFER_0); }
+  static RequestMemory defBuffer1() { return RequestMemory(REQUEST_BUFFER_1); }
+  static RequestMemory defBuffer2() { return RequestMemory(REQUEST_BUFFER_2); }
+  static RequestMemory defBuffer3() { return RequestMemory(REQUEST_BUFFER_3); }
+  static RequestMemory defBlock0() { return RequestMemory(REQUEST_BLOCK_0); }
+  static RequestMemory defBlock1() { return RequestMemory(REQUEST_BLOCK_1); }
+  static RequestMemory defBlock2() { return RequestMemory(REQUEST_BLOCK_2); }
+  static RequestMemory defBlock3() { return RequestMemory(REQUEST_BLOCK_3); }
+  static RequestMemory defPool4() { return RequestMemory(REQUEST_POOL_4); }
+  static RequestMemory defPool8() { return RequestMemory(REQUEST_POOL_8); }
+  static RequestMemory defPool16() { return RequestMemory(REQUEST_POOL_16); }
+  static RequestMemory defPool32() { return RequestMemory(REQUEST_POOL_32); }
+  static RequestMemory defPool64() { return RequestMemory(REQUEST_POOL_64); }
+  static RequestMemory defPool128() { return RequestMemory(REQUEST_POOL_128); }
+  static RequestMemory defPool256() { return RequestMemory(REQUEST_POOL_256); }
+  static RequestMemory defPool512() { return RequestMemory(REQUEST_POOL_512); }
+  static RequestMemory defPool1024() { return RequestMemory(REQUEST_POOL_1024); }
+  static RequestMemory defPool2048() { return RequestMemory(REQUEST_POOL_2048); }
 
   bool isValid() const {
-    return request_ < TYPE_COUNT ? true : false;
+    return ((REQUEST_INVALID < request_) && (request_ < REQUEST_TYPE_COUNT)) ? true : false;
   }
 
   bool isBuffer() const {
     switch (request_) {
-    case BUFFER_0: return true; // NOLINT(*-branch-clone)
-    case BUFFER_1: return true; // NOLINT(*-branch-clone)
-    case BUFFER_2: return true; // NOLINT(*-branch-clone)
-    case BUFFER_3: return true; // NOLINT(*-branch-clone)
+    case REQUEST_BUFFER_0: return true; // NOLINT(*-branch-clone)
+    case REQUEST_BUFFER_1: return true; // NOLINT(*-branch-clone)
+    case REQUEST_BUFFER_2: return true; // NOLINT(*-branch-clone)
+    case REQUEST_BUFFER_3: return true; // NOLINT(*-branch-clone)
     default: return false;
     }
   }
 
   bool isBlock() const {
     switch (request_) {
-    case BLOCK_0: return true; // NOLINT(*-branch-clone)
-    case BLOCK_1: return true; // NOLINT(*-branch-clone)
-    case BLOCK_2: return true; // NOLINT(*-branch-clone)
-    case BLOCK_3: return true; // NOLINT(*-branch-clone)
+    case REQUEST_BLOCK_0: return true; // NOLINT(*-branch-clone)
+    case REQUEST_BLOCK_1: return true; // NOLINT(*-branch-clone)
+    case REQUEST_BLOCK_2: return true; // NOLINT(*-branch-clone)
+    case REQUEST_BLOCK_3: return true; // NOLINT(*-branch-clone)
     default: return false;
     }
   }
 
   bool isPool() const {
     switch (request_) {
-    case POOL_4: return true; // NOLINT(*-branch-clone)
-    case POOL_8: return true; // NOLINT(*-branch-clone)
-    case POOL_16: return true; // NOLINT(*-branch-clone)
-    case POOL_32: return true; // NOLINT(*-branch-clone)
-    case POOL_64: return true; // NOLINT(*-branch-clone)
-    case POOL_128: return true; // NOLINT(*-branch-clone)
-    case POOL_256: return true; // NOLINT(*-branch-clone)
-    case POOL_512: return true; // NOLINT(*-branch-clone)
-    case POOL_1024: return true; // NOLINT(*-branch-clone)
-    case POOL_2048: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_4: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_8: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_16: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_32: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_64: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_128: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_256: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_512: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_1024: return true; // NOLINT(*-branch-clone)
+    case REQUEST_POOL_2048: return true; // NOLINT(*-branch-clone)
     default: return false;
     }
   }
@@ -596,37 +596,37 @@ public:
   /** For Buffer and Block requests. */
   Scale getScale() const {
     switch (request_) {
-    case BUFFER_0: return 0;
-    case BUFFER_1: return 1;
-    case BUFFER_2: return 2;
-    case BUFFER_3: return 3;
-    case BLOCK_0: return 0;
-    case BLOCK_1: return 1;
-    case BLOCK_2: return 2;
-    case BLOCK_3: return 3;
-    default: return INVALID_REQUEST;
+    case REQUEST_BUFFER_0: return 0;
+    case REQUEST_BUFFER_1: return 1;
+    case REQUEST_BUFFER_2: return 2;
+    case REQUEST_BUFFER_3: return 3;
+    case REQUEST_BLOCK_0: return 0;
+    case REQUEST_BLOCK_1: return 1;
+    case REQUEST_BLOCK_2: return 2;
+    case REQUEST_BLOCK_3: return 3;
+    default: return REQUEST_INVALID;
     }
   }
 
   /** For Pool requests. */
   IndexMedium getCapacity() const {
     switch (request_) {
-    case POOL_4: return Pool4::CAPACITY;
-    case POOL_8: return Pool8::CAPACITY;
-    case POOL_16: return Pool16::CAPACITY;
-    case POOL_32: return Pool32::CAPACITY;
-    case POOL_64: return Pool64::CAPACITY;
-    case POOL_128: return Pool128::CAPACITY;
-    case POOL_256: return Pool256::CAPACITY;
-    case POOL_512: return Pool512::CAPACITY;
-    case POOL_1024: return Pool1024::CAPACITY;
-    case POOL_2048: return Pool2048::CAPACITY;
-    default: return INVALID_REQUEST;
+    case REQUEST_POOL_4: return Pool4::CAPACITY;
+    case REQUEST_POOL_8: return Pool8::CAPACITY;
+    case REQUEST_POOL_16: return Pool16::CAPACITY;
+    case REQUEST_POOL_32: return Pool32::CAPACITY;
+    case REQUEST_POOL_64: return Pool64::CAPACITY;
+    case REQUEST_POOL_128: return Pool128::CAPACITY;
+    case REQUEST_POOL_256: return Pool256::CAPACITY;
+    case REQUEST_POOL_512: return Pool512::CAPACITY;
+    case REQUEST_POOL_1024: return Pool1024::CAPACITY;
+    case REQUEST_POOL_2048: return Pool2048::CAPACITY;
+    default: return REQUEST_INVALID;
     }
   }
 
 };
-staticAssert(sizeof(MemoryRequest) == sizeof(u8), MemoryRequest_CAN_FIT_INTO_AN_u8)
+staticAssert(sizeof(RequestMemory) == sizeof(u8), RequestMemory_CAN_FIT_INTO_AN_u8)
 
 } /* namespace Alm */
 
