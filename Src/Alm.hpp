@@ -710,7 +710,15 @@ class Bank {
 public:
   char buffer[mmBufferSize(0)];
   Bank() : buffer() {}
-  char* get(const IndexString index) { return &buffer[index - 1]; }
+  char* get(const IndexString index) {
+    assert(index < mmBufferSize(0));
+    return &buffer[index - 1];
+  }
+  String get(const IndexString index, const IndexString next) {
+    assert(index < next);
+    assert(next <= mmBufferSize(0));
+    return String::def(get(index), (next - index));
+  }
 };
 staticAssert(sizeof(Bank) == sizeof(Buffer0), Bank_IS_A_Buffer0_FOR_A_COLLECTION_OF_STRINGS)
 
