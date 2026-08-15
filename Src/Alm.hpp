@@ -543,45 +543,45 @@ public:
   RequestMemory() : request_(REQUEST_INVALID) {}
   explicit RequestMemory(const RequestType request) : request_(request) {}
 
-  static RequestMemory defInvalid() { return RequestMemory(REQUEST_INVALID); }
-  static RequestMemory defBuffer0() { return RequestMemory(REQUEST_BUFFER_0); }
-  static RequestMemory defBuffer1() { return RequestMemory(REQUEST_BUFFER_1); }
-  static RequestMemory defBuffer2() { return RequestMemory(REQUEST_BUFFER_2); }
-  static RequestMemory defBuffer3() { return RequestMemory(REQUEST_BUFFER_3); }
-  static RequestMemory defBlock0() { return RequestMemory(REQUEST_BLOCK_0); }
-  static RequestMemory defBlock1() { return RequestMemory(REQUEST_BLOCK_1); }
-  static RequestMemory defBlock2() { return RequestMemory(REQUEST_BLOCK_2); }
-  static RequestMemory defBlock3() { return RequestMemory(REQUEST_BLOCK_3); }
-  static RequestMemory defPool4() { return RequestMemory(REQUEST_POOL_4); }
-  static RequestMemory defPool8() { return RequestMemory(REQUEST_POOL_8); }
-  static RequestMemory defPool16() { return RequestMemory(REQUEST_POOL_16); }
-  static RequestMemory defPool32() { return RequestMemory(REQUEST_POOL_32); }
-  static RequestMemory defPool64() { return RequestMemory(REQUEST_POOL_64); }
-  static RequestMemory defPool128() { return RequestMemory(REQUEST_POOL_128); }
-  static RequestMemory defPool256() { return RequestMemory(REQUEST_POOL_256); }
-  static RequestMemory defPool512() { return RequestMemory(REQUEST_POOL_512); }
-  static RequestMemory defPool1024() { return RequestMemory(REQUEST_POOL_1024); }
-  static RequestMemory defPool2048() { return RequestMemory(REQUEST_POOL_2048); }
+  static RequestMemory invalid() { return RequestMemory(REQUEST_INVALID); }
+  static RequestMemory buffer0() { return RequestMemory(REQUEST_BUFFER_0); }
+  static RequestMemory buffer1() { return RequestMemory(REQUEST_BUFFER_1); }
+  static RequestMemory buffer2() { return RequestMemory(REQUEST_BUFFER_2); }
+  static RequestMemory buffer3() { return RequestMemory(REQUEST_BUFFER_3); }
+  static RequestMemory block0() { return RequestMemory(REQUEST_BLOCK_0); }
+  static RequestMemory block1() { return RequestMemory(REQUEST_BLOCK_1); }
+  static RequestMemory block2() { return RequestMemory(REQUEST_BLOCK_2); }
+  static RequestMemory block3() { return RequestMemory(REQUEST_BLOCK_3); }
+  static RequestMemory pool4() { return RequestMemory(REQUEST_POOL_4); }
+  static RequestMemory pool8() { return RequestMemory(REQUEST_POOL_8); }
+  static RequestMemory pool16() { return RequestMemory(REQUEST_POOL_16); }
+  static RequestMemory pool32() { return RequestMemory(REQUEST_POOL_32); }
+  static RequestMemory pool64() { return RequestMemory(REQUEST_POOL_64); }
+  static RequestMemory pool128() { return RequestMemory(REQUEST_POOL_128); }
+  static RequestMemory pool256() { return RequestMemory(REQUEST_POOL_256); }
+  static RequestMemory pool512() { return RequestMemory(REQUEST_POOL_512); }
+  static RequestMemory pool1024() { return RequestMemory(REQUEST_POOL_1024); }
+  static RequestMemory pool2048() { return RequestMemory(REQUEST_POOL_2048); }
 
   /** Only for scale 0-3 inclusively. Any scale larger than 3 will return REQUEST_INVALID type. */
-  static RequestMemory defBuffer(const Scale scale) {
+  static RequestMemory buffer(const Scale scale) {
     switch (scale) {
-    case 0: return defBuffer0();
-    case 1: return defBuffer1();
-    case 2: return defBuffer2();
-    case 3: return defBuffer3();
-    default: return defInvalid();
+    case 0: return buffer0();
+    case 1: return buffer1();
+    case 2: return buffer2();
+    case 3: return buffer3();
+    default: return invalid();
     }
   }
 
   /** Only for scale 0-3 inclusively. Any scale larger than 3 will return REQUEST_INVALID type. */
-  static RequestMemory defBlock(const Scale scale) {
+  static RequestMemory block(const Scale scale) {
     switch (scale) {
-    case 0: return defBlock0();
-    case 1: return defBlock1();
-    case 2: return defBlock2();
-    case 3: return defBlock3();
-    default: return defInvalid();
+    case 0: return block0();
+    case 1: return block1();
+    case 2: return block2();
+    case 3: return block3();
+    default: return invalid();
     }
   }
 
