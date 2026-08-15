@@ -221,12 +221,14 @@ public:
   };
 };
 
-template<IndexMedium CAPACITY>
+template<IndexMedium CAPACITY_>
 class PoolTemplated : public Pool {
 protected:
   PoolTemplated() {}
   PoolTemplated* getPoolTemplated() { return this; }
 public:
+  enum { CAPACITY = CAPACITY_ };
+
   static PoolTemplated* def() {
     return static_cast<PoolTemplated*>(allocatePool(CAPACITY));
   }
@@ -521,7 +523,7 @@ public:
     POOL_1024,
     POOL_2048,
     TYPE_COUNT,
-    INVALID_REQUEST
+    INVALID_REQUEST = U8_MAX
 };
 
 protected:
@@ -550,10 +552,6 @@ public:
   static MemoryRequest defPool512() { return MemoryRequest(POOL_512); }
   static MemoryRequest defPool1024() { return MemoryRequest(POOL_1024); }
   static MemoryRequest defPool2048() { return MemoryRequest(POOL_2048); }
-
-  u8 getRequestValue() const {
-    return request_;
-  }
 
   bool isValid() const {
     return request_ < TYPE_COUNT ? true : false;
@@ -593,6 +591,39 @@ public:
     case POOL_2048: return true; // NOLINT(*-branch-clone)
     default: return false;
     }
+  }
+
+  /** For Buffer and Block requests. */
+  Scale getScale() const {
+    switch (request_) {
+    case BUFFER_0: return 0;
+    case BUFFER_1: return 1;
+    case BUFFER_2: return 2;
+    case BUFFER_3: return 3;
+    case BLOCK_0: return 0;
+    case BLOCK_1: return 1;
+    case BLOCK_2: return 2;
+    case BLOCK_3: return 3;
+    default: return INVALID_REQUEST;
+    }
+  }
+
+  /** For Pool requests. */
+  IndexMedium getCapacity() const {
+    switch (request_) {
+    case POOL_4: return Pool4::CAPACITY;
+    case POOL_8: return Pool8::CAPACITY;
+    case POOL_16: return Pool16::CAPACITY;
+    case POOL_32: return Pool32::CAPACITY;
+    case POOL_64: return Pool64::CAPACITY;
+    case POOL_128: return Pool128::CAPACITY;
+    case POOL_256: return Pool256::CAPACITY;
+    case POOL_512: return Pool512::CAPACITY;
+    case POOL_1024: return Pool1024::CAPACITY;
+    case POOL_2048: return Pool2048::CAPACITY;
+    default: return INVALID_REQUEST;
+    }
+
   }
 
 };
