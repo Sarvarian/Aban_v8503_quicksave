@@ -96,17 +96,31 @@ class Buffer {};
   ██████╔╝╚██████╔╝██║     ██║     ███████╗██║  ██║
   ╚═════╝  ╚═════╝ ╚═╝     ╚═╝     ╚══════╝╚═╝  ╚═╝
 */
-template<Scale SCALE>
+template<typename ITEM, Scale SCALE>
 class BufferTemplated : public Buffer {
+public:
+  enum {
+    CAPACITY = (mmBufferSize(SCALE) / sizeof(ITEM))
+  };
+
 protected:
-  u8 raw_[mmBufferSize(SCALE)];
-  BufferTemplated() : raw_() {}
+  ITEM raw_[CAPACITY];
+
+public:
+  BufferTemplated() : raw_() {
+    /* Empty */
+  }
+
+  ITEM* get(const usize index) {
+    assert(index <= CAPACITY);
+    return &raw_[index];
+  }
 };
 
-class Buffer0 : public BufferTemplated<0> {};
-class Buffer1 : public BufferTemplated<1> {};
-class Buffer2 : public BufferTemplated<2> {};
-class Buffer3 : public BufferTemplated<3> {};
+class Buffer0 : public BufferTemplated<u8, 0> {};
+class Buffer1 : public BufferTemplated<u8, 1> {};
+class Buffer2 : public BufferTemplated<u8, 2> {};
+class Buffer3 : public BufferTemplated<u8, 3> {};
 staticAssert(sizeof(Buffer0) == mmBufferSize(0), IS_SIZE_OF_CLASS_BUFFER0_CORRECT)
 staticAssert(sizeof(Buffer1) == mmBufferSize(1), IS_SIZE_OF_CLASS_BUFFER1_CORRECT)
 staticAssert(sizeof(Buffer2) == mmBufferSize(2), IS_SIZE_OF_CLASS_BUFFER2_CORRECT)
@@ -152,10 +166,51 @@ staticAssert(sizeof(Block3) == mmBlockSize(3), IS_SIZE_OF_CLASS_BLOCK3_CORRECT)
   ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝ ╚═════╝╚══════╝╚══════╝
 */
 
+/** Index 0 is reserved as invalid index.
+ *
+ *  Valid indices start from 1.
+ *
+ *  To index into an actual C/C++ array (a buffer)
+ *  decrement `index_` by one, before indexing.
+ */
 class IndexItem {
 public:
-  u8 item;
-  IndexItem() : item(0) {}
+  typedef u16 Base;
+
+  enum {
+    INVALID = 0 /**< This also indicates start of a new bank indices. */
+  };
+
+protected:
+  const Base index_;
+
+public:
+  IndexItem() : index_(INVALID) {
+    /* Empty */
+  }
+
+  explicit IndexItem(const Base index) : index_(index) {
+    /* Empty */
+  }
+
+  template<typename ITEM, Scale SCALE>
+  ITEM* get(BufferTemplated<ITEM, SCALE>* array) const {
+    assert(index_ != INVALID);
+    return array->get(index_ - 1);
+  }
+
+  template<typename ITEM, Scale SCALE>
+  ITEM* get(BufferTemplated<ITEM, SCALE>& array) const {
+    return get(&array);
+  }
+
+  bool isValid() const {
+    return index_ != INVALID ? true : false;
+  }
+
+  operator Base() const {
+  return index_;
+  }
 };
 
 class IndexBuffer {
@@ -670,16 +725,7 @@ staticAssert(sizeof(RequestMemory) == sizeof(u8), RequestMemory_CAN_FIT_INTO_AN_
   ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 */
 
-/** Index 0 is reserved as invalid index.
- *
- *  Valid indices start from 1.
- *
- *  To index into an actual C/C++ array (a buffer)
- *  decrement the `IndexString` value by one, before indexing.
- */
-typedef u16 IndexString;
-
-enum { INDEX_STRING_INVALID = 0 /**< This also indicates start of a new bank indices. */ };
+typedef IndexItem IndexString;
 
 /** CAUTION: `string` is NOT null terminated. Consider the `length` field.
  *
@@ -692,7 +738,7 @@ enum { INDEX_STRING_INVALID = 0 /**< This also indicates start of a new bank ind
 class String {
 public:
   const char* string;
-  IndexString length;
+  IndexString::Base length;
   String() : string(null), length(0) {}
   explicit String(const char* location, const u8 string_length) : string(location), length(string_length) {}
   static String def(const char* location, const u8 string_length) { return String(location, string_length); }
@@ -706,17 +752,12 @@ public:
  *
  *  No stored string can go beyond end of the `Bank` buffer.
  */
-class Bank {
+class Bank : BufferTemplated<char, 0> {
 public:
-  char buffer[mmBufferSize(0)];
-  Bank() : buffer() {}
   char* get(const IndexString index) {
-    assert(index < mmBufferSize(0));
-    return &buffer[index - 1];
+    return index.get(this);
   }
   String get(const IndexString index, const IndexString next) {
-    assert(index < next);
-    assert(next <= mmBufferSize(0));
     return String::def(get(index), (next - index));
   }
 };
