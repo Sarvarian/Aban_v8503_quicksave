@@ -66,7 +66,7 @@ void* deallocatePool(void* location, IndexMedium capacity);
 #if AB_CONCUR
 /** [Multithread Safe]
  *  @param used Atomic int, head of pool usage.
- *  @param capacity  Capacity in block units.
+ *  @param capacity Capacity in block units.
  *  @param scale Should be less than or
  *               equal to (`MM_EXPONENT_MAX` - 1).
  *  @return Returns 0 in case of failure. */
