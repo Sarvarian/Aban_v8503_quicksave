@@ -44,8 +44,7 @@ usize totalRawMemory() {
 }
 
 void* allocatePool(const IndexMedium capacity) {
-  const usize size = mmBlockSize(0) * capacity;
-  void* result = allocateRawMemory(size);
+  void* result = allocateRawMemory(mmPoolSize(capacity));
   return result;
 }
 
