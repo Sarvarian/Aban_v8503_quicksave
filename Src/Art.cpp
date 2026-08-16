@@ -1,7 +1,5 @@
 #include "Art.hpp"
 
-#include "Main.hpp"
-#include "Alm.hpp"
 #include "All.hpp"
 #include "Arm.hpp"
 
@@ -24,7 +22,7 @@ class ArtCore : public Art, protected Pool4 {
 protected:
   /** In-house block to store volatile data. */
   /** In-house as in the same pool as the ArtCore. */
-  Alm::IndexBlock volatiles_;
+  Atm::IndexBlock volatiles_;
 
   Step feet_[2];
   u8 foot_ : 1;

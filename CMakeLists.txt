@@ -46,6 +46,8 @@ add_executable(ab
   Src/Art.hpp
   Src/Ass.cpp
   Src/Ass.hpp
+  Src/Atm.cpp
+  Src/Atm.hpp
   Src/Main.hpp
   Src/Main.cpp
 )
