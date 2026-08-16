@@ -287,6 +287,7 @@ public:
   static PoolTemplated* def() {
     return static_cast<PoolTemplated*>(allocatePool(CAPACITY));
   }
+
   PoolTemplated* undef() {
     return static_cast<PoolTemplated*>(deallocatePool(this, CAPACITY));
   }
