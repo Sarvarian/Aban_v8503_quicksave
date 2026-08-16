@@ -38,7 +38,7 @@ usize totalRawMemory() {
     return info.totalram;
   } else {
     print("Failed to get sysinfo");
-    debugBreak;
+    debugBreak
     return 0;
   }
 }
