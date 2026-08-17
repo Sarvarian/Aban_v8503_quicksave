@@ -66,12 +66,6 @@ if (NOT CMAKE_VERSION VERSION_LESS 3.16)
 endif ()
 
 target_compile_options(ab PUBLIC
-  -Wall -Wextra -Wformat -Wshadow -Wundef -Wdeprecated
-  -Wmaybe-uninitialized -Wstrict-overflow=5 -Wdouble-promotion
-  # -Walloc-zero -Walloca -Wuse-after-free=3
-  -pedantic
-  -Wunused -Wno-comment -Wno-variadic-macros
-  -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
   -fno-exceptions -fno-rtti
 )
 
@@ -101,6 +95,13 @@ if(AB_OPTIMIZE)
   set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -flto")
 else()
   target_compile_options(ab PUBLIC
+    -Wall -Wextra -Wformat -Wshadow -Wundef -Wdeprecated
+    -Wmaybe-uninitialized -Wstrict-overflow=5 -Wdouble-promotion
+    # -Walloc-zero -Walloca -Wuse-after-free=3
+    -pedantic
+    -Wunused -Wno-comment -Wno-variadic-macros
+    -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
+    -fanalyzer
     -O0 -ffast-math
   )
 endif()
