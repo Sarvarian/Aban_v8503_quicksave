@@ -15,6 +15,10 @@
 !/sdl2/VERSION
 !/sdl2/SDL2_Files_Should_Exist_Here
 
+/sdl2_vc/*
+!/sdl2_vc/VERSION
+!/sdl2_vc/SDL2_VC_Files_Should_Exist_Here
+
 /sdl3/*
 !/sdl3/VERSION
 !/sdl3/SDL3_Files_Should_Exist_Here
