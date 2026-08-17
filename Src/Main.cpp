@@ -32,7 +32,7 @@ ESysStatus MainDispatcher::initSdl(const int, char**) {
   if (res != E_SYS_CONTINUE) {
     All::sdlInitFailed();
     exit_code = EXIT_FAILURE;
-    debugBreak;
+    debugBreak
     return E_SYS_FATALITY;
   } else {
     return E_SYS_CONTINUE;
@@ -130,13 +130,13 @@ static int shutdown(MainDispatcher& engine) {
 int main(int argc, char** argv) {
   MainDispatcher engine = MainDispatcher::def();
   CHECK(engine.preSdlInit(argc, argv))
-  CHECK(engine.initSdl(argc, argv));
-  CHECK(engine.initEngine(argc, argv));
+  CHECK(engine.initSdl(argc, argv))
+  CHECK(engine.initEngine(argc, argv))
   Timing timing = Timing::def();
   while (true) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
-      CHECK(engine.eventSdl(event));
+      CHECK(engine.eventSdl(event))
     }
     switch (engine.stepEngine()) {
       case E_SYS_CONTINUE: timing.frameEnd(engine.target_delta_ms); break;
