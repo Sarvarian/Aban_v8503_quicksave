@@ -60,17 +60,6 @@ static void deallocateRawMemory(void* location, const usize size) {
 
 #endif
 
-usize totalRawMemory() {
-  struct sysinfo info = {};
-  if (sysinfo(&info) == 0) {
-    return info.totalram;
-  } else {
-    print("Failed to get sysinfo");
-    debugBreak
-    return 0;
-  }
-}
-
 void* allocatePool(const IndexMedium capacity) {
   void* result = allocateRawMemory(mmPoolSize(capacity));
   return result;

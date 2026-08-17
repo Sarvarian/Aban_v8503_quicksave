@@ -48,9 +48,6 @@ staticAssert(
   ██║     ╚██████╔╝╚██████╔╝██║ ╚████║██████╔╝██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
   ╚═╝      ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
 */
-/** Cache and minimize calling this routine.
- *  @return Returns 0 in case of failure to get system memory. */
-usize totalRawMemory();
 
 /** @return Check return for failure. */
 void* allocatePool(IndexMedium capacity);
