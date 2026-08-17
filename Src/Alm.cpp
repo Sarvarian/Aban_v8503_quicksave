@@ -8,6 +8,7 @@
 #endif
 
 namespace Alm {
+
 static void* allocateRawMemory(const usize size) {
   const int prot = PROT_READ | PROT_WRITE;
   const int flags = MAP_ANONYMOUS | MAP_PRIVATE;
