@@ -98,11 +98,8 @@ Art* Art::def() {
   return ArtCore::def(pool);
 }
 ArtCore& Art::castCore() { return *static_cast<ArtCore*>(this); /* NOLINT(*-pro-type-static-cast-downcast) */ }
-/* ReSharper disable once CppDFAConstantFunctionResult */
 Art* Art::undef() { return castCore().undef(); }
-/* ReSharper disable once CppDFAConstantFunctionResult */
 ESysStatus Art::init1(const int argc, char** argv) { return castCore().init1(argc, argv); }
-/* ReSharper disable once CppDFAConstantFunctionResult */
 ESysStatus Art::init2(const int argc, char** argv) { return castCore().init2(argc, argv); }
 Art::Step& Art::stepForward() { return castCore().stepForward(); }
 Art::Step& Art::stepFuture() { return castCore().stepFuture(); }

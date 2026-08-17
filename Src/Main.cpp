@@ -2,17 +2,13 @@
 
 #if IS_USING_SDL_3
   #include <SDL3/SDL.h>
-  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL3/SDL_main.h>
-  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL3/SDL_init.h>
 #elif IS_USING_SDL_2
   #include <SDL2/SDL.h>
-  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL2/SDL_main.h>
 #elif IS_USING_SDL_1
   #include <SDL/SDL.h>
-  /* ReSharper disable once CppUnusedIncludeDirective */
   #include <SDL/SDL_main.h>
 #endif
 
@@ -75,7 +71,6 @@ void MainDispatcher::shutEngine() {
   art_ = art_ ? art_->undef() : null;
 }
 
-// ReSharper disable once CppMemberFunctionMayBeStatic
 void MainDispatcher::shutSdl() { // NOLINT(*-convert-member-functions-to-static)
 #if !AB_SANITIZE
   Sdl::quit();
@@ -144,7 +139,6 @@ int main(int argc, char** argv) {
       default: return shutdown(engine);
     }
   }
-  /* ReSharper disable once CppDFAUnreachableCode */
   return shutdown(engine);
 }
 

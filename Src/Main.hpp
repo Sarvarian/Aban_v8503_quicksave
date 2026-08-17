@@ -10,9 +10,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <csignal>
-// ReSharper disable once CppUnusedIncludeDirective
 #include <cassert>
-// ReSharper disable once CppUnusedIncludeDirective
 #include <cstring>
 
 #if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__)
@@ -674,14 +672,10 @@ typedef size_t usize;
   ╚══════╝╚═════╝ ╚══════╝    ╚══════╝ ╚═════╝  ╚═════╝
 */
 #if IS_USING_SDL_3
-  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL3/SDL_log.h>
-  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL3/SDL_messagebox.h>
 #elif IS_USING_SDL_2
-  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL2/SDL_log.h>
-  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL2/SDL_messagebox.h>
   #define SDL_GetLogOutputFunction  SDL_LogGetOutputFunction
   #define SDL_GetLogPriority        SDL_LogGetPriority
@@ -737,14 +731,11 @@ typedef size_t usize;
 */
 
 #if IS_USING_SDL_3
-  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL3/SDL_timer.h>
 #elif IS_USING_SDL_2
-  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL2/SDL_timer.h>
   #define SDL_GetTicks SDL_GetTicks64
 #elif IS_USING_SDL_1
-  // ReSharper disable once CppUnusedIncludeDirective
   #include <SDL/SDL_timer.h>
 #else
   #error "Failed to detect SDL version."
