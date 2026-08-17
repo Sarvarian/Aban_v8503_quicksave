@@ -33,23 +33,22 @@ public:
   static Art* def();
 
   /** \return Always returns null. */
-  Art* undef();
+  virtual Art* undef() = 0;
 
   /** Pre-SDL Initialization */
-  ESysStatus init1(const int argc, char** argv); // NOLINT(*-avoid-const-params-in-decls)
+  virtual ESysStatus init1(const int argc, char** argv) = 0; // NOLINT(*-avoid-const-params-in-decls)
   /** On-Engine Initialization */
-  ESysStatus init2(const int argc, char** argv); // NOLINT(*-avoid-const-params-in-decls)
+  virtual ESysStatus init2(const int argc, char** argv) = 0; // NOLINT(*-avoid-const-params-in-decls)
 
   /** Returns current step, and swap steps. */
-  Step& stepForward();
+  virtual Step& stepForward() = 0;
 
   /** Returns future/next step. */
-  Step& stepFuture();
+  virtual Step& stepFuture() = 0;
 
 protected:
   Art() { /* Empty */ };
-
-  class ArtCore& castCore();
+  virtual ~Art() { /* Empty */ }
 
 };
 staticAssert(sizeof(Art) <= PTR_SIZE, Art_IS_JUST_AN_OPAQUE_TYPE)
