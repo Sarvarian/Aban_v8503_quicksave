@@ -1,6 +1,6 @@
 #include "Alm.hpp"
 
-#include "Main.hpp"
+#include "All.hpp"
 
 #if IS_OS_LINUX
   #include <sys/sysinfo.h>
@@ -9,13 +9,14 @@
 
 namespace Alm {
 
+#if IS_OS_LINUX
 static void* allocateRawMemory(const usize size) {
   const int prot = PROT_READ | PROT_WRITE;
   const int flags = MAP_ANONYMOUS | MAP_PRIVATE;
   void* result = null;
   result = mmap(null, size, prot, flags, -1, 0);
   if (result == MAP_FAILED) {
-    perror("allocateRawMemory Failed");
+    All::reportSystemError("allocateRawMemory Failed");
     debugBreak
     return null;
   } else {
@@ -26,11 +27,38 @@ static void* allocateRawMemory(const usize size) {
 static void deallocateRawMemory(void* location, const usize size) {
   if (location == null) { return; }
   if (munmap(location, size) != 0) {
-    perror("deallocateRawMemory Failed");
+    All::reportSystemError("deallocateRawMemory Failed");
     debugBreak
   }
-  return null;
 }
+
+#elif IS_OS_WINDOWS
+static void* allocateRawMemory(const usize size) {
+void* result = VirtualAlloc(
+    NULL,                           // lpAddress: NULL lets system choose address
+    size,                           // dwSize: size in bytes
+    MEM_RESERVE | MEM_COMMIT,       // flAllocationType: reserve and commit
+    PAGE_READWRITE                  // flProtect: equivalent to PROT_READ | PROT_WRITE
+  );
+
+  if (result == null) {
+    All::reportSystemError("allocateRawMemory Failed");
+    debugBreak;
+    return NULL;
+  } else {
+    return result;
+  }
+}
+
+static void deallocateRawMemory(void* location, const usize size) {
+  if (location == null) { return; }
+  if (VirtualFree(location, 0, MEM_RELEASE) == 0) {
+    All::reportSystemError("deallocateRawMemory Failed");
+    debugBreak;
+  }
+}
+
+#endif
 
 usize totalRawMemory() {
   struct sysinfo info = {};
