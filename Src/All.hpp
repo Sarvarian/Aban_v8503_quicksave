@@ -6,6 +6,10 @@
 /** Aban Leagued Ledger */
 class All {
 public:
+  /* System Error Begin */
+  static void reportSystemError(const char* custom_message);
+  /* System Error End */
+
   static void sdlInitFailed();
   static void vulkanEnumerateInstanceExtensionPropertiesCountFailed();
   static void firstPoolAllocationForArtFailed();
