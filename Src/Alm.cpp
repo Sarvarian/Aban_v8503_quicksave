@@ -34,7 +34,7 @@ static void deallocateRawMemory(void* location, const usize size) {
 
 #elif IS_OS_WINDOWS
 static void* allocateRawMemory(const usize size) {
-void* result = VirtualAlloc(
+  void* result = VirtualAlloc(
     NULL,                           // lpAddress: NULL lets system choose address
     size,                           // dwSize: size in bytes
     MEM_RESERVE | MEM_COMMIT,       // flAllocationType: reserve and commit
