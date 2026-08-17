@@ -27,12 +27,7 @@ staticAssert(
 #define mmBufferExponent(EXPONENT) mul2BL(MM_BUFFER_UNIT_EXPONENT, (EXPONENT))
 #define mmBlockExponent(EXPONENT) mul2BL(MM_BLOCK_UNIT_EXPONENT, (EXPONENT))
 #define MM_BLOCK_CAPACITY_MAX_EXPONENT U16_WIDTH
-#define MM_POOL_CAPACITY_MIN tttUSize(div2BL(BINLOG_4194304, MM_BLOCK_UNIT_EXPONENT))
-staticAssert(MM_POOL_CAPACITY_MIN > 0, mmPoolShouldBeBiggerThanBuffers)
-#define MM_POOL_CAPACITY_MAX tttUSize(MM_BLOCK_CAPACITY_MAX_EXPONENT)
-#define MM_POOL_CAPACITY_DEFAULT tttUSize(div2BL(BINLOG_33554432, MM_BLOCK_UNIT_EXPONENT))
 #define mmBlockExponentCheck(VALUE) ((VALUE) > (MM_BLOCK_CAPACITY_MAX_EXPONENT - 1) || (VALUE) < 0)
-#define mmPoolCapacityCheck(CAPACITY) ((CAPACITY) > MM_POOL_CAPACITY_MAX || (CAPACITY) < MM_POOL_CAPACITY_MIN)
 #define mmBlockUnitCount(EXPONENT) tttUSize(EXPONENT)
 #define mmBufferSize(EXPONENT) tttUSize(mmBufferExponent(EXPONENT))
 #define mmBlockSize(EXPONENT) tttUSize(mmBlockExponent(EXPONENT))
