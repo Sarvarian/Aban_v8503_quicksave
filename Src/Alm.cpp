@@ -40,7 +40,6 @@ static void* allocateRawMemory(const usize size) {
     MEM_RESERVE | MEM_COMMIT,       // flAllocationType: reserve and commit
     PAGE_READWRITE                  // flProtect: equivalent to PROT_READ | PROT_WRITE
   );
-
   if (result == null) {
     All::reportSystemError("allocateRawMemory Failed");
     debugBreak;
