@@ -1,5 +1,7 @@
 #include "Art.hpp"
 
+#include <new>
+
 #include "All.hpp"
 #include "Arm.hpp"
 
@@ -44,8 +46,7 @@ protected:
 
 public:
   static Art* def(Pool4* pool) {
-    ArtCore* self = static_cast<ArtCore*>(pool); // NOLINT(*-pro-type-static-cast-downcast)
-    (*self) = ArtCore();
+    ArtCore* self = new (pool) ArtCore();
     return self;
   }
 
