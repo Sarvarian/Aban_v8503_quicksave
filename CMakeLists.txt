@@ -5,16 +5,16 @@ project(Aban)
 enable_language(C)
 enable_language(CXX)
 
-include(Set_Options.cmake)
+include(cmake_option_set.cmake)
 
 find_package(PkgConfig REQUIRED)
 
-include(Found_SDL.cmake)
+include(cmake_found_sdl.cmake)
 message(STATUS "Detected SDL version: ${AB_SDL}")
 
 add_subdirectory(Lib/glad)
 
-include(Found_Vulkan.cmake)
+include(cmake_found_vulkan.cmake)
 
 # Set Fixed C Standard
 set(CMAKE_C_STANDARD 90)
@@ -52,7 +52,7 @@ add_executable(ab
   Src/Main.cpp
 )
 
-include(Link_SDL.cmake)
+include(cmake_link_sdl.cmake)
 
 target_link_libraries(ab PRIVATE glad)
 

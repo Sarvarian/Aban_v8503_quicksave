@@ -37,4 +37,4 @@ option(AB_SDL_STATIC  "Link to SDL-static:" OFF)
 option(AB_CONCUR  "Enable concurrency and threading modules." ON)
 
 # Include Vulkan Backend
-set(AB_VULKAN CACHE BOOL OFF) # This will be autodetected on Found_Vulkan.cmake
+set(AB_VULKAN CACHE BOOL OFF) # This will be autodetected on cmake_found_vulkan.cmake
