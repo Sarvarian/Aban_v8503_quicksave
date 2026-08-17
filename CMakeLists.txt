@@ -97,13 +97,22 @@ else()
   target_compile_options(ab PUBLIC
     -Wall -Wextra -Wformat -Wshadow -Wundef -Wdeprecated
     -Wmaybe-uninitialized -Wstrict-overflow=5 -Wdouble-promotion
-    # -Walloc-zero -Walloca -Wuse-after-free=3
     -pedantic
     -Wunused -Wno-comment -Wno-variadic-macros
     -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
-    -fanalyzer
     -O0 -ffast-math
   )
+  if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10.0)
+    target_compile_options(ab PUBLIC
+      -Walloc-zero -Walloca
+      -fanalyzer
+    )
+  endif ()
+  if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 12.0)
+    target_compile_options(ab PUBLIC
+      -Wuse-after-free=3
+    )
+  endif ()
 endif()
 
 if (AB_OPTIMIZE)
