@@ -6,8 +6,11 @@
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
     <excludeRoots>
+      <file path="$PROJECT_DIR$/.vs" />
       <file path="$PROJECT_DIR$/BuildEnv/CentOS" />
       <file path="$PROJECT_DIR$/BuildEnv/Ubuntu" />
+      <file path="$PROJECT_DIR$/build-vc14-Debug" />
+      <file path="$PROJECT_DIR$/build-vc14-Release" />
     </excludeRoots>
   </component>
 </project>
