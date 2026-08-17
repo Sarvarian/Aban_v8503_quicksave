@@ -22,7 +22,6 @@ static void* allocateRawMemory(const usize size) {
   }
 }
 
-// ReSharper disable once CppDFAConstantFunctionResult
 static void* deallocateRawMemory(void* location, const usize size) {
   if (location == null) { return null; }
   if (munmap(location, size) != 0) {

@@ -1,4 +1,3 @@
-/* ReSharper disable CppMemberFunctionMayBeStatic */
 #include "Aid.hpp"
 
 #if IS_USING_SDL_3
@@ -1045,12 +1044,10 @@ bool SdlEventDispatcher::sdlEventFilter(const SDL_Event& event) { // NOLINT(*-co
 #endif
 
 #if IS_USING_SDL_2
-// ReSharper disable once CppParameterMayBeConstPtrOrRef
 int SdlEventDispatcher::sdlEventFilter(void* self, SDL_Event* event) {
   return static_cast<SdlEventDispatcher*>(self)->sdlEventFilter(*event) ? 1 : 0;
 }
 #elif IS_USING_SDL_3
-// ReSharper disable once CppParameterMayBeConstPtrOrRef
 bool SdlEventDispatcher::sdlEventFilter(void* self, SDL_Event* event) {
   return static_cast<SdlEventDispatcher*>(self)->sdlEventFilter(*event);
 }

@@ -121,7 +121,6 @@ static int shutdown(MainDispatcher& engine) {
 #define CHECK(ROUTINE_CALL) \
   if ((ROUTINE_CALL) != E_SYS_CONTINUE) { return shutdown(engine); }
 
-/* ReSharper disable once CppParameterMayBeConst */
 int main(int argc, char** argv) {
   MainDispatcher engine = MainDispatcher::def();
   CHECK(engine.preSdlInit(argc, argv))

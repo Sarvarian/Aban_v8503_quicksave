@@ -10,7 +10,6 @@ void Art::Step::clearAllFields() {
   memset(this, 0, sizeof(Step));
 }
 
-// ReSharper disable once CppPossiblyUninitializedMember
 Art::Step::Step() { // NOLINT(*-pro-type-member-init)
   clearAllFields();
 }
@@ -56,14 +55,12 @@ public:
   }
 
   /** Pre-SDL Initialization */
-  // ReSharper disable once CppMemberFunctionMayBeStatic
   ESysStatus init1(const int argc, char** argv) { // NOLINT(*-convert-member-functions-to-static)
     /* Do something here! */
     return E_SYS_CONTINUE;
   }
 
   /** On-Engine Initialization */
-  // ReSharper disable once CppMemberFunctionMayBeStatic
   ESysStatus init2(const int argc, char** argv) { // NOLINT(*-convert-member-functions-to-static)
     /* Do something here! */
     return E_SYS_CONTINUE;

@@ -20,7 +20,7 @@ u32 Apl::isVulkanInstanceExtensionsAvailable() {
   const VkResult res = vkEnumerateInstanceExtensionProperties(null, &count, null);
   if (res != VK_SUCCESS) {
     All::vulkanEnumerateInstanceExtensionPropertiesCountFailed();
-    debugBreak;
+    debugBreak
     return 0;
   }
 #endif

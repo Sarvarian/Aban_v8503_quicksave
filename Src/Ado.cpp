@@ -377,7 +377,6 @@ Sdl Sdl::def() {
   return Sdl();
 }
 
-// ReSharper disable once CppMemberFunctionMayBeConst
 ESysStatus Sdl::init() { // NOLINT(*-make-member-function-const)
 #if !AB_SANITIZE
   atexit(SDL_Quit);
@@ -532,7 +531,6 @@ SdlWindow::Handle* SdlWindow::create() {
   return handle_;
 }
 
-// ReSharper disable once CppDFAConstantFunctionResult
 SdlWindow::Handle* SdlWindow::destroy() {
 #if IS_USING_SDL_1
   handle_ = null;
