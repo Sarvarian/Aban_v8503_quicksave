@@ -33,7 +33,7 @@ public:
   static Art* def();
 
   /** \return Always returns null. */
-  virtual Art* undef() = 0;
+  Art* undef();
 
   /** Pre-SDL Initialization */
   virtual ESysStatus init1(const int argc, char** argv) = 0; // NOLINT(*-avoid-const-params-in-decls)

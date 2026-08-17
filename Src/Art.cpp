@@ -34,6 +34,7 @@ protected:
   /** Resource Manager */
   Arm arm_;
 
+public:
   ArtCore()
   : volatiles_(defBlockAllocator().pushBlock0())
   , feet_(), foot_(0)
@@ -44,17 +45,25 @@ protected:
     /* advance route, shutdown route. */
   }
 
-public:
-  static Art* def(Pool4* pool) {
-    ArtCore* self = new (pool) ArtCore();
-    return self;
+  ~ArtCore() {
+    /* Cleanup here. */
   }
 
-  Art* undef() {
-    static_cast<Pool4*>(this)->undef();
-    return null;
+  void* operator new(usize) throw() {
+    /* Art is positioned at the first block of the first pool. */
+    Pool4* pool = Pool4::def();
+    if (pool == null) {
+      All::firstPoolAllocationForArtFailed();
+      return null;
+    }
+    return pool;
   }
 
+  void operator delete(void* self) {
+    static_cast<Pool4*>(self)->undef();
+  }
+
+protected:
   /** Pre-SDL Initialization */
   ESysStatus init1(const int argc, char** argv) { // NOLINT(*-convert-member-functions-to-static)
     /* Do something here! */
@@ -83,15 +92,11 @@ public:
 /* ArtCore is positioned at the first block of the first pool. */
 staticAssert(sizeof(ArtCore) <= sizeof(Block0), ArtCore_SHOULD_FIT_INTO_A_Block0)
 
-
-
-
 Art* Art::def() {
-  /* Art is positioned at the first block of the first pool. */
-  Pool4* pool = Pool4::def();
-  if (pool == null) {
-    All::firstPoolAllocationForArtFailed();
-    return null;
-  }
-  return ArtCore::def(pool);
+  return new ArtCore();
+}
+
+Art* Art::undef() {
+  delete this;
+  return null;
 }
