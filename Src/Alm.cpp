@@ -23,8 +23,8 @@ static void* allocateRawMemory(const usize size) {
   }
 }
 
-static void* deallocateRawMemory(void* location, const usize size) {
-  if (location == null) { return null; }
+static void deallocateRawMemory(void* location, const usize size) {
+  if (location == null) { return; }
   if (munmap(location, size) != 0) {
     perror("deallocateRawMemory Failed");
     debugBreak
