@@ -156,16 +156,6 @@ public:
   Block3* toBlock3(Pool* location) const { return reinterpret_cast<Block3*>(reinterpret_cast<usize>(location) + (mmBlockSize(0) * index_)); }
 };
 
-class Index1 : public IndexItem, public IndexBuffer { /* Empty */ };
-
-class Index2 : public Index1, public IndexBlock { /* Empty */ };
-
-class Index3 : public Index2 {
-public:
-  IndexLittle pool;
-  Index3() : pool(0) {}
-};
-
 /*
   ██████╗  ██████╗  ██████╗ ██╗
   ██╔══██╗██╔═══██╗██╔═══██╗██║
