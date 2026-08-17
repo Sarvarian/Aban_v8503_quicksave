@@ -375,7 +375,7 @@
 #if defined(AB_VERSION_MAJOR)
   /* Empty */
 #else
-  #define AB_VERSION_DATE 0
+  #define AB_VERSION_MAJOR 0
 #endif
 
 #if defined(AB_VERSION_MINOR)
