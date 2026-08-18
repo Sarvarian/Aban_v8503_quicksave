@@ -702,7 +702,21 @@ typedef size_t usize;
     E_SYS_CONTINUE, /**<< Continue to the next procedure. */
     E_SYS_QUIT, /**<< Exit normally. */
     E_SYS_FATALITY, /**<< Exit with error. */
-    E_SYS_REPEAT /**<< Repeat the same procedure. */
+    E_SYS_REPEAT, /**<< Repeat the same procedure. */
+
+    /** Repeat the same procedure after allocating the required memory.
+     *  If memory is tight and on budget, repeat and continue the same procedure
+     *    without the memory allocation. */
+    E_SYS_MEM_REQ_SPARE,
+
+    /** Repeat the same procedure after allocating the required memory.
+     *  Repeat and continue the same procedure even if memory wasn't available. */
+    E_SYS_MEM_REQ_OPTIONAL,
+
+    /** Repeat the same procedure after allocating the required memory.
+     *  Run shutdown route if required memory is not available. */
+    E_SYS_MEM_REQ_CRITICAL
+
   } ESysStatus;
 #endif
 

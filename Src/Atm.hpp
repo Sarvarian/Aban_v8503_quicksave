@@ -686,6 +686,11 @@ public:
 };
 staticAssert(sizeof(BankIndices) == sizeof(Buffer0), BankIndices_CAN_FIT_INTO_A_Buffer0)
 
+/*  - Bank Reference Count
+ *  - Node Array
+ *  - Node Reference Count
+ */
+
 } /* namespace Atm */
 
 using Atm::Buffer0;
