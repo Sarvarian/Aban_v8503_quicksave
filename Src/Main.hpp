@@ -696,6 +696,9 @@ typedef size_t usize;
     E_SYS_QUIT = SDL_APP_SUCCESS,
     E_SYS_FATALITY = SDL_APP_FAILURE,
     E_SYS_REPEAT
+    E_SYS_MEM_REQ_SPARE,
+    E_SYS_MEM_REQ_OPTIONAL,
+    E_SYS_MEM_REQ_CRITICAL
   } ESysStatus;
 #else
   typedef enum ESysStatus {
